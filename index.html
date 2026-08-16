@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Sổ Tay Học Tiếng Trung</title>
+<style>
+:root{
+  --cream:#faf3e7;
+  --cream-2:#f3e9d7;
+  --ink:#2e2a26;
+  --ink-soft:#5c5449;
+  --teal:#0f6b66;
+  --teal-dark:#0a4f4b;
+  --coral:#e8703a;
+  --coral-dark:#c85a28;
+  --card-bg:#ffffff;
+  --border:#e6dcc8;
+  --shadow:0 2px 8px rgba(46,42,38,0.08);
+  --shadow-lg:0 10px 26px rgba(46,42,38,0.14);
+  --radius:18px;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:"Segoe UI","PingFang SC","Microsoft YaHei",-apple-system,BlinkMacSystemFont,sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  min-height:100vh;
+}
+.hanzi-font{font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC","Heiti SC",sans-serif;}
+a{text-decoration:none;color:inherit;}
+
+.wrap{
+  max-width:960px;
+  margin:0 auto;
+  padding:48px 24px 64px;
+}
+
+.top-header{
+  text-align:center;
+  margin-bottom:40px;
+}
+.top-emoji{font-size:2.6rem;margin-bottom:8px;}
+.top-title{
+  font-family:"Songti SC","STSong","Noto Serif SC","SimSun",Georgia,serif;
+  font-size:2.4rem;
+  font-weight:700;
+  letter-spacing:0.02em;
+  color:var(--teal-dark);
+}
+.top-sub{font-size:1.05rem;color:var(--ink-soft);margin-top:10px;}
+
+.card-list{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:22px;
+}
+@media (max-width:700px){ .card-list{grid-template-columns:1fr;} }
+
+.course-card{
+  background:var(--card-bg);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:28px 24px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  border-top:6px solid var(--card-color, var(--teal));
+  transition:transform .15s ease, box-shadow .15s ease;
+  position:relative;
+}
+.course-card.linkable{cursor:pointer;}
+.course-card.linkable:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
+.course-card.linkable:focus-visible{outline:3px solid #ffd166;outline-offset:3px;}
+.course-card.disabled{opacity:0.72;}
+
+.course-emoji{font-size:2.8rem;}
+.course-zh{font-size:1.5rem;font-weight:800;}
+.course-vi{font-size:1.05rem;color:var(--ink-soft);font-weight:600;}
+.course-desc{font-size:0.92rem;color:var(--ink-soft);line-height:1.5;margin-top:2px;}
+
+.course-meta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:auto;
+  padding-top:14px;
+}
+.course-count{
+  font-size:0.82rem;
+  font-weight:700;
+  color:var(--teal-dark);
+  background:var(--cream-2);
+  padding:6px 12px;
+  border-radius:999px;
+}
+.course-cta{
+  font-size:0.9rem;
+  font-weight:700;
+  color:var(--coral-dark);
+}
+.badge-soon{
+  font-size:0.75rem;
+  font-weight:700;
+  background:#e6dcc8;
+  color:var(--ink-soft);
+  padding:6px 12px;
+  border-radius:999px;
+}
+
+.footer-note{
+  text-align:center;
+  margin-top:44px;
+  font-size:0.85rem;
+  color:var(--ink-soft);
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top-header">
+    <div class="top-emoji">📖</div>
+    <h1 class="top-title">Sổ Tay Học Tiếng Trung</h1>
+    <p class="top-sub">Chọn một bài học bên dưới để bắt đầu</p>
+  </header>
+
+  <div class="card-list">
+    <a class="course-card linkable" href="hoc-tu-vung-tieng-trung.html" style="--card-color:#0f6b66" aria-label="Vào bài học Từ vựng tiếng Trung">
+      <div class="course-emoji">🎨</div>
+      <div class="course-zh hanzi-font">词汇学习</div>
+      <div class="course-vi">Từ vựng tiếng Trung</div>
+      <div class="course-desc">7 chủ đề thông dụng: màu sắc, động vật, chỉ đường, trái cây, quốc gia, đồ uống, rau củ — kèm hình minh họa, phát âm và câu ví dụ thực tế.</div>
+      <div class="course-meta">
+        <span class="course-count">140 từ · 7 chủ đề</span>
+        <span class="course-cta">Học ngay →</span>
+      </div>
+    </a>
+
+    <a class="course-card linkable" href="50-bo-thu.html" style="--card-color:#b3272c" aria-label="Vào bài học 50 bộ thủ">
+      <div class="course-emoji">🈴</div>
+      <div class="course-zh hanzi-font">偏旁部首</div>
+      <div class="course-vi">50 bộ thủ</div>
+      <div class="course-desc">Bảng 50 bộ thủ thường gặp trong chữ Hán — nền tảng giúp nhớ mặt chữ và tra từ điển nhanh hơn.</div>
+      <div class="course-meta">
+        <span class="course-count">50 bộ thủ</span>
+        <span class="course-cta">Học ngay →</span>
+      </div>
+    </a>
+  </div>
+
+  <p class="footer-note">加油！学习中文 💪</p>
+</div>
+</body>
+</html>

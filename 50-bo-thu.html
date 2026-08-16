@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>50 Bộ Thủ Tiếng Hán Cơ Bản</title>
+<style>
+:root{
+  --cream:#f7f0dd;
+  --cream-dark:#efe4c8;
+  --paper:#fbf6e9;
+  --jade:#1f7a6c;
+  --jade-dark:#155b50;
+  --jade-light:#e3f2ee;
+  --red:#b3272c;
+  --red-dark:#8f1f23;
+  --ink:#221f1a;
+  --ink-soft:#4a443c;
+  --gold:#c9a24b;
+  --shadow:0 6px 18px rgba(34,31,26,0.12);
+  --radius:14px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:"Noto Sans","PingFang SC","Microsoft YaHei","Segoe UI",Helvetica,Arial,sans-serif;
+  color:var(--ink);
+  background-color:var(--cream);
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(201,162,75,0.08), transparent 40%),
+    radial-gradient(circle at 85% 8%, rgba(179,39,44,0.06), transparent 35%),
+    radial-gradient(circle at 92% 80%, rgba(31,122,108,0.07), transparent 40%),
+    repeating-linear-gradient(0deg, rgba(74,68,60,0.015) 0px, rgba(74,68,60,0.015) 1px, transparent 1px, transparent 3px);
+  min-height:100vh;
+}
+.hanzi{font-family:"Songti SC","STSong","SimSun","NSimSun","Noto Serif SC",serif;}
+h1,h2,h3{font-family:"Songti SC","STSong","Noto Serif SC",Georgia,serif;color:var(--ink);}
+a{color:var(--jade);}
+button{font-family:inherit;cursor:pointer;}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px;}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;
+  padding:64px 20px 56px;
+  text-align:center;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0) 60%),
+    var(--cream-dark);
+  border-bottom:3px solid var(--gold);
+  overflow:hidden;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  top:-60px;left:-60px;width:220px;height:220px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(31,122,108,0.18), transparent 70%);
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  bottom:-80px;right:-60px;width:260px;height:260px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(179,39,44,0.14), transparent 70%);
+}
+.hero-seal{
+  position:absolute;
+  top:24px; right:6%;
+  width:64px;height:64px;
+  background:var(--red);
+  color:#fff;
+  border-radius:6px;
+  transform:rotate(-8deg);
+  display:flex;align-items:center;justify-content:center;
+  font-family:"Songti SC","STSong",serif;
+  font-size:22px;
+  box-shadow:var(--shadow);
+  letter-spacing:0;
+  border:2px solid rgba(255,255,255,0.4);
+}
+.hero-inner{position:relative;z-index:1;max-width:760px;margin:0 auto;}
+.hero h1{font-size:2.4rem;margin:0 0 14px;line-height:1.25;}
+.hero h1 .accent{color:var(--red);}
+.hero p{font-size:1.08rem;color:var(--ink-soft);line-height:1.7;margin:0 auto 28px;max-width:620px;}
+.btn-primary{
+  display:inline-block;
+  background:var(--jade);
+  color:#fff;
+  border:none;
+  padding:15px 34px;
+  border-radius:999px;
+  font-size:1.05rem;
+  font-weight:600;
+  box-shadow:var(--shadow);
+  transition:transform .15s ease, background .15s ease;
+  min-height:48px;
+}
+.btn-primary:hover{background:var(--jade-dark);transform:translateY(-2px);}
+.btn-primary:active{transform:translateY(0);}
+
+/* ---------- STATS ---------- */
+.stats-bar{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:16px;
+  max-width:900px;margin:-30px auto 0;padding:0 20px 10px;position:relative;z-index:2;
+}
+.stat-card{
+  background:var(--paper);
+  border:1px solid var(--cream-dark);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:16px 26px;
+  text-align:center;
+  min-width:140px;
+  flex:1 1 140px;
+}
+.stat-card .num{font-size:1.7rem;font-weight:700;color:var(--jade);font-family:"Songti SC",serif;}
+.stat-card .label{font-size:0.86rem;color:var(--ink-soft);margin-top:4px;}
+
+/* ---------- CONTROLS ---------- */
+.controls{max-width:1180px;margin:36px auto 8px;padding:0 20px;}
+.search-box{
+  position:relative;
+  max-width:520px;
+  margin:0 auto 20px;
+}
+.search-box input{
+  width:100%;
+  padding:14px 18px 14px 44px;
+  border-radius:999px;
+  border:1.5px solid var(--cream-dark);
+  background:var(--paper);
+  font-size:1rem;
+  color:var(--ink);
+  box-shadow:inset 0 1px 3px rgba(34,31,26,0.06);
+  min-height:48px;
+}
+.search-box input:focus{outline:2px solid var(--jade);border-color:var(--jade);}
+.search-box .icon{
+  position:absolute;left:16px;top:50%;transform:translateY(-50%);
+  font-size:1.1rem;opacity:0.6;pointer-events:none;
+}
+.theme-filter{
+  display:flex;gap:10px;overflow-x:auto;padding:6px 4px 14px;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+}
+.theme-filter::-webkit-scrollbar{height:6px;}
+.theme-filter::-webkit-scrollbar-thumb{background:var(--cream-dark);border-radius:4px;}
+.pill{
+  flex:0 0 auto;
+  white-space:nowrap;
+  padding:10px 18px;
+  border-radius:999px;
+  border:1.5px solid var(--cream-dark);
+  background:var(--paper);
+  color:var(--ink-soft);
+  font-size:0.92rem;
+  font-weight:600;
+  min-height:44px;
+  transition:all .15s ease;
+}
+.pill.active{
+  background:var(--jade);
+  border-color:var(--jade);
+  color:#fff;
+}
+.result-count{text-align:center;color:var(--ink-soft);font-size:0.9rem;margin-bottom:6px;}
+
+/* ---------- GRID ---------- */
+.grid{
+  max-width:1180px;margin:0 auto;padding:10px 20px 60px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+}
+@media (max-width:991px){ .grid{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:599px){ .grid{grid-template-columns:1fr;gap:16px;padding:6px 14px 50px;} }
+
+.card{
+  background:var(--paper);
+  border:1px solid var(--cream-dark);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:20px;
+  cursor:pointer;
+  transition:transform .15s ease, box-shadow .15s ease;
+  position:relative;
+  display:flex;flex-direction:column;gap:12px;
+}
+.card:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(34,31,26,0.16);}
+.card-top{display:flex;align-items:center;gap:14px;}
+.card-icon{font-size:1.6rem;}
+.card-char{
+  font-size:2.6rem;line-height:1;color:var(--ink);
+}
+.card-info{flex:1;min-width:0;}
+.card-pinyin{color:var(--jade);font-weight:700;font-size:1.15rem;}
+.card-meaning{color:var(--ink-soft);font-size:0.98rem;margin-top:2px;}
+.card-meta{display:flex;gap:8px;flex-wrap:wrap;font-size:0.78rem;color:var(--ink-soft);}
+.tag{
+  background:var(--jade-light);color:var(--jade-dark);
+  padding:3px 9px;border-radius:999px;font-weight:600;
+}
+.memorize-btn{
+  position:absolute;top:16px;right:16px;
+  min-width:40px;min-height:40px;
+  border-radius:50%;
+  border:1.5px solid var(--cream-dark);
+  background:#fff;
+  font-size:1.1rem;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s ease;
+}
+.memorize-btn.done{
+  background:var(--jade);border-color:var(--jade);color:#fff;
+}
+.examples{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px 10px;
+  padding-top:10px;
+  border-top:1px dashed var(--cream-dark);
+}
+@media (max-width:420px){ .examples{grid-template-columns:1fr;} }
+.example-item{
+  background:var(--cream);
+  border-radius:8px;
+  padding:7px 9px;
+  font-size:0.82rem;
+  line-height:1.35;
+}
+.example-item .ex-char{font-size:1.15rem;margin-right:5px;}
+.example-item .ex-pinyin{color:var(--jade-dark);font-weight:600;}
+.example-item .ex-meaning{color:var(--ink-soft);display:block;}
+
+.empty-state{
+  grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ink-soft);
+}
+
+/* ---------- MODAL ---------- */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(34,31,26,0.55);
+  display:none;align-items:center;justify-content:center;
+  padding:20px;z-index:100;
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:var(--paper);
+  border-radius:18px;
+  max-width:560px;width:100%;
+  max-height:90vh;overflow-y:auto;
+  padding:30px 26px;
+  position:relative;
+  box-shadow:0 20px 50px rgba(0,0,0,0.35);
+  border-top:5px solid var(--red);
+}
+.modal-close{
+  position:absolute;top:14px;right:14px;
+  min-width:40px;min-height:40px;border-radius:50%;
+  border:none;background:var(--cream);font-size:1.2rem;color:var(--ink-soft);
+}
+.modal-head{display:flex;align-items:center;gap:16px;margin-bottom:6px;}
+.modal-char{font-size:3.6rem;line-height:1;}
+.modal-pinyin{color:var(--jade);font-weight:700;font-size:1.4rem;}
+.modal-meaning{color:var(--ink-soft);font-size:1.05rem;margin-top:2px;}
+.modal-meta{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0;}
+.modal-section{margin:18px 0;}
+.modal-section h4{margin:0 0 8px;font-size:0.95rem;color:var(--red);text-transform:uppercase;letter-spacing:0.03em;}
+.tip-box{
+  background:var(--jade-light);border-left:4px solid var(--jade);
+  padding:12px 14px;border-radius:8px;color:var(--ink);font-size:0.95rem;line-height:1.6;
+}
+.modal-examples{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media (max-width:480px){.modal-examples{grid-template-columns:1fr;}}
+.modal-example{background:var(--cream);border-radius:10px;padding:10px 12px;}
+.modal-example .ex-char{font-size:1.5rem;}
+.modal-example .ex-pinyin{color:var(--jade-dark);font-weight:700;display:block;margin-top:2px;}
+.modal-example .ex-meaning{color:var(--ink-soft);font-size:0.92rem;}
+.modal-memorize{
+  width:100%;margin-top:10px;padding:14px;border-radius:12px;border:1.5px solid var(--jade);
+  background:#fff;color:var(--jade);font-weight:700;font-size:1rem;min-height:48px;
+}
+.modal-memorize.done{background:var(--jade);color:#fff;}
+
+/* ---------- QUIZ ---------- */
+.quiz-section{
+  max-width:720px;margin:20px auto 80px;padding:0 20px;
+}
+.quiz-card{
+  background:var(--paper);border:1px solid var(--cream-dark);border-radius:18px;
+  box-shadow:var(--shadow);padding:30px 26px;text-align:center;
+}
+.quiz-card h2{margin-top:0;}
+.quiz-progress{color:var(--ink-soft);font-size:0.9rem;margin-bottom:10px;}
+.quiz-question{font-size:1.15rem;margin:14px 0 22px;line-height:1.6;}
+.quiz-options{display:grid;gap:12px;}
+.quiz-option{
+  padding:14px 18px;border-radius:12px;border:1.5px solid var(--cream-dark);
+  background:#fff;font-size:1.05rem;text-align:left;min-height:50px;
+  transition:all .15s ease;
+}
+.quiz-option:hover:not(:disabled){border-color:var(--jade);}
+.quiz-option.correct{background:var(--jade-light);border-color:var(--jade);color:var(--jade-dark);font-weight:700;}
+.quiz-option.wrong{background:#fbe4e2;border-color:var(--red);color:var(--red-dark);font-weight:700;}
+.quiz-option:disabled{cursor:default;}
+.quiz-explain{
+  margin-top:18px;padding:14px 16px;border-radius:10px;background:var(--cream);
+  text-align:left;font-size:0.95rem;line-height:1.6;color:var(--ink);
+}
+.quiz-next{
+  margin-top:18px;background:var(--red);color:#fff;border:none;padding:13px 30px;
+  border-radius:999px;font-weight:700;font-size:1rem;min-height:48px;
+}
+.quiz-result{font-size:1.4rem;font-weight:700;color:var(--jade);margin:10px 0;}
+
+footer{text-align:center;padding:24px 20px 40px;color:var(--ink-soft);font-size:0.85rem;}
+
+@media (max-width:599px){
+  .hero h1{font-size:1.9rem;}
+  .hero p{font-size:1rem;}
+  .hero-seal{width:52px;height:52px;font-size:18px;top:16px;right:16px;}
+  .modal{padding:22px 18px;}
+  .modal-char{font-size:2.8rem;}
+  .card-char{font-size:2.2rem;}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-seal hanzi">印</div>
+  <div class="hero-inner">
+    <h1>Ôn Tập <span class="accent">50 Bộ Thủ</span> Tiếng Hán Cơ Bản</h1>
+    <p>Nắm vững 50 bộ thủ nền tảng — chìa khoá để ghi nhớ hàng nghìn chữ Hán một cách có hệ thống. Mỗi bộ thủ đi kèm mẹo liên tưởng, 5 từ ví dụ thực tế và bài kiểm tra nhanh giúp bạn ôn luyện hiệu quả.</p>
+    <button class="btn-primary" id="startExploreBtn">Bắt đầu khám phá</button>
+  </div>
+</header>
+
+<div class="stats-bar">
+  <div class="stat-card"><div class="num">50</div><div class="label">Bộ thủ</div></div>
+  <div class="stat-card"><div class="num">6</div><div class="label">Chủ đề</div></div>
+  <div class="stat-card"><div class="num">250</div><div class="label">Từ ví dụ</div></div>
+  <div class="stat-card"><div class="num" id="memorizedCount">0</div><div class="label">Đã ghi nhớ</div></div>
+</div>
+
+<div class="controls" id="exploreSection">
+  <div class="search-box">
+    <span class="icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Tìm theo bộ thủ, pinyin, nghĩa hoặc từ ví dụ...">
+  </div>
+  <div class="theme-filter" id="themeFilter"></div>
+  <div class="result-count" id="resultCount"></div>
+</div>
+
+<main class="grid" id="grid"></main>
+
+<section class="quiz-section">
+  <div class="quiz-card" id="quizCard">
+    <h2>📝 Bài Kiểm Tra Nhanh</h2>
+    <p style="color:var(--ink-soft);">10 câu hỏi ngẫu nhiên về bộ thủ và từ ví dụ. Trả lời và xem giải thích ngay lập tức.</p>
+    <button class="btn-primary" id="startQuizBtn">Bắt đầu kiểm tra</button>
+  </div>
+</section>
+
+<footer>Tài liệu ôn tập 50 bộ thủ tiếng Hán cơ bản — dành cho người Việt học chữ Hán.</footer>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<script>
+const DATA = [{"id": "ri", "char": "日", "pinyin": "rì", "meaning": "Mặt trời, ngày", "strokes": 4, "variants": "Không có biến thể chuẩn; khi ghép chữ có thể viết hẹp lại (như trong 时, 晚)", "icon": "☀️", "tip": "Hình vuông có một vạch ngang ở giữa – tưởng tượng đó là mặt trời được đóng khung, mỗi ngày mặt trời lại xuất hiện.", "theme": "thien-nhien", "examples": [{"char": "时", "pinyin": "shí", "meaning": "thời gian, giờ"}, {"char": "明", "pinyin": "míng", "meaning": "sáng, rõ ràng"}, {"char": "星", "pinyin": "xīng", "meaning": "ngôi sao"}, {"char": "春", "pinyin": "chūn", "meaning": "mùa xuân"}, {"char": "是", "pinyin": "shì", "meaning": "là, thị"}]}, {"id": "yue", "char": "月", "pinyin": "yuè", "meaning": "Mặt trăng, tháng", "strokes": 4, "variants": "Khi đứng làm bộ thủ bên trái, hình dạng gần giống bộ Nhục 肉 (thịt, thân thể) như trong 服, 望", "icon": "🌙", "tip": "Hình lưỡi liềm cong cong như trăng khuyết treo trên bầu trời đêm.", "theme": "thien-nhien", "examples": [{"char": "有", "pinyin": "yǒu", "meaning": "có"}, {"char": "朋", "pinyin": "péng", "meaning": "bạn bè"}, {"char": "期", "pinyin": "qī", "meaning": "kỳ hạn"}, {"char": "望", "pinyin": "wàng", "meaning": "hy vọng, trông mong"}, {"char": "服", "pinyin": "fú", "meaning": "quần áo, phục vụ"}]}, {"id": "shan", "char": "山", "pinyin": "shān", "meaning": "Núi", "strokes": 3, "variants": "Không có biến thể phổ biến, luôn giữ nguyên hình dáng", "icon": "⛰️", "tip": "Ba đỉnh nhọn nhô lên liền nhau – vẽ lại đúng hình dáng một dãy núi ba chóp.", "theme": "thien-nhien", "examples": [{"char": "岁", "pinyin": "suì", "meaning": "tuổi"}, {"char": "岛", "pinyin": "dǎo", "meaning": "hòn đảo"}, {"char": "岸", "pinyin": "àn", "meaning": "bờ (sông, biển)"}, {"char": "峰", "pinyin": "fēng", "meaning": "đỉnh núi"}, {"char": "岭", "pinyin": "lǐng", "meaning": "dãy núi, đỉnh núi"}]}, {"id": "shui", "char": "水", "pinyin": "shuǐ", "meaning": "Nước", "strokes": 4, "variants": "Biến thể 氵(3 chấm thủy) khi đứng bên trái chữ, ví dụ: 河, 海, 洗", "icon": "💧", "tip": "Nét vẽ ngoằn ngoèo như dòng nước đang chảy; khi rút gọn thành 3 chấm bên trái, hãy nghĩ đó là 3 giọt nước bắn ra.", "theme": "thien-nhien", "examples": [{"char": "河", "pinyin": "hé", "meaning": "dòng sông"}, {"char": "海", "pinyin": "hǎi", "meaning": "biển"}, {"char": "汉", "pinyin": "hàn", "meaning": "(dân tộc/tiếng) Hán"}, {"char": "洗", "pinyin": "xǐ", "meaning": "rửa"}, {"char": "游", "pinyin": "yóu", "meaning": "bơi, du lịch"}]}, {"id": "huo", "char": "火", "pinyin": "huǒ", "meaning": "Lửa", "strokes": 4, "variants": "Biến thể 灬(4 chấm hỏa) khi nằm dưới chữ, ví dụ: 热, 煮, 烈", "icon": "🔥", "tip": "Hình ngọn lửa đang cháy bùng lên với các tia tách ra hai bên; 4 chấm bên dưới tượng trưng cho tàn lửa bắn xuống.", "theme": "thien-nhien", "examples": [{"char": "灯", "pinyin": "dēng", "meaning": "cái đèn"}, {"char": "烧", "pinyin": "shāo", "meaning": "đốt, nấu"}, {"char": "热", "pinyin": "rè", "meaning": "nóng"}, {"char": "煮", "pinyin": "zhǔ", "meaning": "nấu, luộc"}, {"char": "炒", "pinyin": "chǎo", "meaning": "xào"}]}, {"id": "yu2", "char": "雨", "pinyin": "yǔ", "meaning": "Mưa", "strokes": 8, "variants": "Khi làm phần đầu chữ (雨字头) thường viết thu hẹp lại, ví dụ trong 雪, 雷, 露", "icon": "🌧️", "tip": "Mái nhà (冖) với những giọt mưa rơi xuống bên dưới – hình ảnh trời đang đổ mưa qua mái hiên.", "theme": "thien-nhien", "examples": [{"char": "雪", "pinyin": "xuě", "meaning": "tuyết"}, {"char": "雷", "pinyin": "léi", "meaning": "sấm"}, {"char": "露", "pinyin": "lù", "meaning": "sương, lộ ra"}, {"char": "霜", "pinyin": "shuāng", "meaning": "sương giá"}, {"char": "需", "pinyin": "xū", "meaning": "cần, nhu cầu"}]}, {"id": "tu3", "char": "土", "pinyin": "tǔ", "meaning": "Đất", "strokes": 3, "variants": "Không có biến thể phổ biến", "icon": "🟫", "tip": "Chữ thập trên một vạch ngang – như một mầm cây vừa nhú lên khỏi mặt đất.", "theme": "thien-nhien", "examples": [{"char": "地", "pinyin": "dì", "meaning": "đất, nơi chốn"}, {"char": "场", "pinyin": "chǎng", "meaning": "sân, bãi"}, {"char": "城", "pinyin": "chéng", "meaning": "thành phố"}, {"char": "坐", "pinyin": "zuò", "meaning": "ngồi"}, {"char": "块", "pinyin": "kuài", "meaning": "cục, miếng (lượng từ)"}]}, {"id": "shi2", "char": "石", "pinyin": "shí", "meaning": "Đá", "strokes": 5, "variants": "Không có biến thể phổ biến", "icon": "🪨", "tip": "Hình một tảng đá nằm dưới vách núi (厂) – nét vuông bên dưới tượng trưng cho khối đá.", "theme": "thien-nhien", "examples": [{"char": "破", "pinyin": "pò", "meaning": "vỡ, rách"}, {"char": "硬", "pinyin": "yìng", "meaning": "cứng"}, {"char": "码", "pinyin": "mǎ", "meaning": "mã số"}, {"char": "研", "pinyin": "yán", "meaning": "nghiên cứu"}, {"char": "磁", "pinyin": "cí", "meaning": "từ tính"}]}, {"id": "tian2", "char": "田", "pinyin": "tián", "meaning": "Ruộng", "strokes": 5, "variants": "Không có biến thể phổ biến", "icon": "🌾", "tip": "Hình ô vuông chia thành 4 ô nhỏ như những thửa ruộng được chia luống thẳng hàng.", "theme": "thien-nhien", "examples": [{"char": "界", "pinyin": "jiè", "meaning": "ranh giới"}, {"char": "男", "pinyin": "nán", "meaning": "nam giới"}, {"char": "留", "pinyin": "liú", "meaning": "ở lại, lưu lại"}, {"char": "甲", "pinyin": "jiǎ", "meaning": "giáp, thứ nhất"}, {"char": "畜", "pinyin": "chù", "meaning": "gia súc"}]}, {"id": "ren2", "char": "人", "pinyin": "rén", "meaning": "Người", "strokes": 2, "variants": "Biến thể 亻(nhân đứng) khi ở bên trái chữ, ví dụ: 你, 他, 做", "icon": "🧍", "tip": "Hai nét như hai chân đang bước đi – dáng người nhìn nghiêng.", "theme": "con-nguoi", "examples": [{"char": "你", "pinyin": "nǐ", "meaning": "bạn, anh/chị"}, {"char": "他", "pinyin": "tā", "meaning": "anh ấy"}, {"char": "们", "pinyin": "men", "meaning": "(hậu tố số nhiều)"}, {"char": "做", "pinyin": "zuò", "meaning": "làm"}, {"char": "休", "pinyin": "xiū", "meaning": "nghỉ ngơi"}]}, {"id": "kou3", "char": "口", "pinyin": "kǒu", "meaning": "Miệng", "strokes": 3, "variants": "Không có biến thể phổ biến", "icon": "👄", "tip": "Một khung hình vuông nhỏ như cái miệng đang há ra.", "theme": "con-nguoi", "examples": [{"char": "吃", "pinyin": "chī", "meaning": "ăn"}, {"char": "喝", "pinyin": "hē", "meaning": "uống"}, {"char": "叫", "pinyin": "jiào", "meaning": "gọi, kêu"}, {"char": "唱", "pinyin": "chàng", "meaning": "hát"}, {"char": "员", "pinyin": "yuán", "meaning": "nhân viên, thành viên"}]}, {"id": "shou3", "char": "手", "pinyin": "shǒu", "meaning": "Tay", "strokes": 4, "variants": "Biến thể 扌(thủ bên trái, 3 nét) khi đứng trái chữ, ví dụ: 打, 拿, 找", "icon": "✋", "tip": "Năm nét tỏa ra như bàn tay xòe với các ngón tay.", "theme": "con-nguoi", "examples": [{"char": "打", "pinyin": "dǎ", "meaning": "đánh, chơi"}, {"char": "拿", "pinyin": "ná", "meaning": "cầm, lấy"}, {"char": "拍", "pinyin": "pāi", "meaning": "vỗ, chụp (ảnh)"}, {"char": "提", "pinyin": "tí", "meaning": "nâng, đề cập"}, {"char": "找", "pinyin": "zhǎo", "meaning": "tìm"}]}, {"id": "mu4", "char": "目", "pinyin": "mù", "meaning": "Mắt", "strokes": 5, "variants": "Không có biến thể phổ biến", "icon": "👁️", "tip": "Hình chữ nhật đứng có hai vạch ngang bên trong – như con mắt đang mở với con ngươi ở giữa.", "theme": "con-nguoi", "examples": [{"char": "看", "pinyin": "kàn", "meaning": "xem, nhìn"}, {"char": "睡", "pinyin": "shuì", "meaning": "ngủ"}, {"char": "眼", "pinyin": "yǎn", "meaning": "mắt"}, {"char": "相", "pinyin": "xiāng", "meaning": "lẫn nhau"}, {"char": "眉", "pinyin": "méi", "meaning": "lông mày"}]}, {"id": "xin1", "char": "心", "pinyin": "xīn", "meaning": "Tim, lòng", "strokes": 4, "variants": "Biến thể 忄(3 chấm đứng) khi ở bên trái chữ, ví dụ: 情, 快, 忙", "icon": "❤️", "tip": "Hình trái tim cách điệu với nét móc ở giữa và hai chấm hai bên như nhịp đập.", "theme": "con-nguoi", "examples": [{"char": "想", "pinyin": "xiǎng", "meaning": "nghĩ, muốn"}, {"char": "情", "pinyin": "qíng", "meaning": "tình cảm"}, {"char": "快", "pinyin": "kuài", "meaning": "nhanh, vui"}, {"char": "忙", "pinyin": "máng", "meaning": "bận rộn"}, {"char": "念", "pinyin": "niàn", "meaning": "nhớ, niệm"}]}, {"id": "er3", "char": "耳", "pinyin": "ěr", "meaning": "Tai", "strokes": 6, "variants": "Không có biến thể phổ biến, luôn giữ nguyên hình dạng", "icon": "👂", "tip": "Hình chiếc tai với vành tai cong cong ở trên và dái tai kéo dài xuống dưới.", "theme": "con-nguoi", "examples": [{"char": "聪", "pinyin": "cōng", "meaning": "thông minh"}, {"char": "聊", "pinyin": "liáo", "meaning": "tán gẫu, trò chuyện"}, {"char": "聚", "pinyin": "jù", "meaning": "tụ họp"}, {"char": "职", "pinyin": "zhí", "meaning": "chức vụ"}, {"char": "耻", "pinyin": "chǐ", "meaning": "xấu hổ, nhục nhã"}]}, {"id": "zu2", "char": "足", "pinyin": "zú", "meaning": "Chân", "strokes": 7, "variants": "Biến thể ⻊(túc bên trái, viết hẹp) khi đứng trái chữ, ví dụ: 跑, 跳, 路", "icon": "🦶", "tip": "Phần trên như đầu gối, phần dưới như bàn chân – toàn bộ trông giống một chiếc chân đang bước.", "theme": "con-nguoi", "examples": [{"char": "跑", "pinyin": "pǎo", "meaning": "chạy"}, {"char": "跳", "pinyin": "tiào", "meaning": "nhảy"}, {"char": "路", "pinyin": "lù", "meaning": "con đường"}, {"char": "踢", "pinyin": "tī", "meaning": "đá"}, {"char": "距", "pinyin": "jù", "meaning": "khoảng cách"}]}, {"id": "da4", "char": "大", "pinyin": "dà", "meaning": "To, lớn", "strokes": 3, "variants": "Không có biến thể phổ biến", "icon": "🙆", "tip": "Hình một người dang rộng hai tay hai chân – to lớn hết cỡ.", "theme": "con-nguoi", "examples": [{"char": "天", "pinyin": "tiān", "meaning": "trời"}, {"char": "太", "pinyin": "tài", "meaning": "quá, thái"}, {"char": "夫", "pinyin": "fū", "meaning": "người chồng"}, {"char": "奇", "pinyin": "qí", "meaning": "kỳ lạ"}, {"char": "夹", "pinyin": "jiā", "meaning": "kẹp"}]}, {"id": "nu3", "char": "女", "pinyin": "nǚ", "meaning": "Nữ, con gái", "strokes": 3, "variants": "Không có biến thể phổ biến", "icon": "👩", "tip": "Hình dáng người con gái đang quỳ, dáng vẻ mềm mại, uyển chuyển.", "theme": "con-nguoi", "examples": [{"char": "好", "pinyin": "hǎo", "meaning": "tốt"}, {"char": "妈", "pinyin": "mā", "meaning": "mẹ"}, {"char": "姐", "pinyin": "jiě", "meaning": "chị gái"}, {"char": "妹", "pinyin": "mèi", "meaning": "em gái"}, {"char": "姓", "pinyin": "xìng", "meaning": "họ (tên)"}]}, {"id": "men2", "char": "门", "pinyin": "mén", "meaning": "Cửa, cổng", "strokes": 3, "variants": "Dạng giản thể 门 (3 nét); dạng phồn thể 門 (8 nét)", "icon": "🚪", "tip": "Hai cánh cửa mở ra hai bên, ở giữa là khoảng trống để bước qua.", "theme": "doi-song", "examples": [{"char": "问", "pinyin": "wèn", "meaning": "hỏi"}, {"char": "间", "pinyin": "jiān", "meaning": "gian, khoảng"}, {"char": "闭", "pinyin": "bì", "meaning": "đóng"}, {"char": "闻", "pinyin": "wén", "meaning": "nghe, ngửi"}, {"char": "闹", "pinyin": "nào", "meaning": "ồn ào, náo nhiệt"}]}, {"id": "yi1", "char": "衣", "pinyin": "yī", "meaning": "Áo, quần áo", "strokes": 6, "variants": "Biến thể 衤(y phục bên trái, 5 nét) khi đứng trái chữ, ví dụ: 裤, 被, 衬", "icon": "👕", "tip": "Hình chiếc áo có cổ, hai vạt áo xòe ra hai bên như đang treo trên móc.", "theme": "doi-song", "examples": [{"char": "裤", "pinyin": "kù", "meaning": "cái quần"}, {"char": "裙", "pinyin": "qún", "meaning": "cái váy"}, {"char": "被", "pinyin": "bèi", "meaning": "cái chăn, bị (động)"}, {"char": "衬", "pinyin": "chèn", "meaning": "lót, áo sơ mi"}, {"char": "补", "pinyin": "bǔ", "meaning": "vá, bổ sung"}]}, {"id": "shi2b", "char": "食", "pinyin": "shí", "meaning": "Ăn, thức ăn", "strokes": 9, "variants": "Biến thể giản thể 饣khi đứng trái chữ, ví dụ: 饭, 饿, 饮", "icon": "🍚", "tip": "Hình một cái nắp đậy trên bát cơm đầy – tượng trưng cho bữa ăn no đủ.", "theme": "doi-song", "examples": [{"char": "饭", "pinyin": "fàn", "meaning": "cơm"}, {"char": "饿", "pinyin": "è", "meaning": "đói"}, {"char": "饮", "pinyin": "yǐn", "meaning": "uống"}, {"char": "饱", "pinyin": "bǎo", "meaning": "no"}, {"char": "馆", "pinyin": "guǎn", "meaning": "quán, nhà (ăn/trọ)"}]}, {"id": "dao1", "char": "刀", "pinyin": "dāo", "meaning": "Con dao", "strokes": 2, "variants": "Biến thể 刂(lập đao, bên phải chữ) ví dụ: 刻, 别, 到", "icon": "🔪", "tip": "Một nét cong sắc bén như lưỡi dao, phía trên là chuôi cầm.", "theme": "doi-song", "examples": [{"char": "分", "pinyin": "fēn", "meaning": "chia, phút"}, {"char": "切", "pinyin": "qiè", "meaning": "cắt"}, {"char": "刻", "pinyin": "kè", "meaning": "khắc, khắc giờ"}, {"char": "别", "pinyin": "bié", "meaning": "khác, đừng"}, {"char": "到", "pinyin": "dào", "meaning": "đến"}]}, {"id": "che1", "char": "车", "pinyin": "chē", "meaning": "Xe", "strokes": 4, "variants": "Dạng giản thể 车 (4 nét); dạng phồn thể 車 (7 nét)", "icon": "🚗", "tip": "Nhìn từ trên xuống một chiếc xe với trục bánh ở giữa và thùng xe hai đầu.", "theme": "doi-song", "examples": [{"char": "轻", "pinyin": "qīng", "meaning": "nhẹ"}, {"char": "软", "pinyin": "ruǎn", "meaning": "mềm"}, {"char": "转", "pinyin": "zhuǎn", "meaning": "quay, chuyển"}, {"char": "输", "pinyin": "shū", "meaning": "thua, vận chuyển"}, {"char": "较", "pinyin": "jiào", "meaning": "so sánh"}]}, {"id": "zhou1", "char": "舟", "pinyin": "zhōu", "meaning": "Thuyền", "strokes": 6, "variants": "Không có biến thể phổ biến, viết hẹp lại khi ở bên trái chữ", "icon": "⛵", "tip": "Hình chiếc thuyền nhỏ có mạn cong, đáy thuyền và khoang chở người.", "theme": "doi-song", "examples": [{"char": "船", "pinyin": "chuán", "meaning": "chiếc thuyền"}, {"char": "航", "pinyin": "háng", "meaning": "hàng hải"}, {"char": "艘", "pinyin": "sōu", "meaning": "(lượng từ) chiếc thuyền"}, {"char": "舰", "pinyin": "jiàn", "meaning": "chiến hạm"}, {"char": "般", "pinyin": "bān", "meaning": "loại, giống như"}]}, {"id": "min3", "char": "皿", "pinyin": "mǐn", "meaning": "Bát đĩa, đồ đựng", "strokes": 5, "variants": "Không có biến thể phổ biến, luôn nằm ở đáy chữ", "icon": "🍽️", "tip": "Hình cái đĩa/bát có chân đế – vật dùng để đựng đồ ăn.", "theme": "doi-song", "examples": [{"char": "盘", "pinyin": "pán", "meaning": "cái đĩa"}, {"char": "盒", "pinyin": "hé", "meaning": "cái hộp"}, {"char": "盛", "pinyin": "shèng", "meaning": "đựng đầy, thịnh"}, {"char": "益", "pinyin": "yì", "meaning": "lợi ích"}, {"char": "盆", "pinyin": "pén", "meaning": "cái chậu"}]}, {"id": "li4", "char": "力", "pinyin": "lì", "meaning": "Sức lực", "strokes": 2, "variants": "Không có biến thể phổ biến", "icon": "💪", "tip": "Hình một cánh tay gập lại đang gồng cơ bắp.", "theme": "doi-song", "examples": [{"char": "加", "pinyin": "jiā", "meaning": "thêm"}, {"char": "助", "pinyin": "zhù", "meaning": "giúp đỡ"}, {"char": "动", "pinyin": "dòng", "meaning": "cử động"}, {"char": "努", "pinyin": "nǔ", "meaning": "nỗ lực"}, {"char": "办", "pinyin": "bàn", "meaning": "làm, xử lý"}]}, {"id": "mu4b", "char": "木", "pinyin": "mù", "meaning": "Cây, gỗ", "strokes": 4, "variants": "Không có biến thể phổ biến", "icon": "🌳", "tip": "Một thân cây thẳng đứng với cành lá tỏa ra hai bên và rễ cắm xuống đất.", "theme": "cay-co-dong-vat", "examples": [{"char": "林", "pinyin": "lín", "meaning": "rừng"}, {"char": "树", "pinyin": "shù", "meaning": "cái cây"}, {"char": "校", "pinyin": "xiào", "meaning": "trường học"}, {"char": "板", "pinyin": "bǎn", "meaning": "tấm ván, bảng"}, {"char": "桌", "pinyin": "zhuō", "meaning": "cái bàn"}]}, {"id": "cao3", "char": "艹", "pinyin": "cǎo", "meaning": "Cỏ (thảo đầu)", "strokes": 3, "variants": "Là biến thể của chữ 草, luôn nằm ở đầu chữ (thảo đầu)", "icon": "🌿", "tip": "Hai ngọn cỏ non mọc song song, luôn đội trên đầu các chữ liên quan đến thực vật.", "theme": "cay-co-dong-vat", "examples": [{"char": "花", "pinyin": "huā", "meaning": "hoa"}, {"char": "茶", "pinyin": "chá", "meaning": "trà"}, {"char": "草", "pinyin": "cǎo", "meaning": "cỏ"}, {"char": "苹", "pinyin": "píng", "meaning": "táo (苹果)"}, {"char": "药", "pinyin": "yào", "meaning": "thuốc"}]}, {"id": "zhu2", "char": "竹", "pinyin": "zhú", "meaning": "Tre, trúc", "strokes": 6, "variants": "Biến thể ⺮(viết hẹp) khi ở đầu chữ, ví dụ: 笔, 答, 算", "icon": "🎋", "tip": "Hai thân tre song song với các đốt tre – hình ảnh khóm trúc.", "theme": "cay-co-dong-vat", "examples": [{"char": "笔", "pinyin": "bǐ", "meaning": "cây bút"}, {"char": "答", "pinyin": "dá", "meaning": "trả lời"}, {"char": "第", "pinyin": "dì", "meaning": "thứ (số thứ tự)"}, {"char": "算", "pinyin": "suàn", "meaning": "tính toán"}, {"char": "简", "pinyin": "jiǎn", "meaning": "đơn giản"}]}, {"id": "quan3", "char": "犬", "pinyin": "quǎn", "meaning": "Chó", "strokes": 4, "variants": "Biến thể 犭(khuyển, bên trái chữ) ví dụ: 猫, 狗, 猪", "icon": "🐕", "tip": "Hình con chó với cái đuôi vểnh lên phía sau – nét chấm nhỏ là cái đuôi.", "theme": "cay-co-dong-vat", "examples": [{"char": "猫", "pinyin": "māo", "meaning": "con mèo"}, {"char": "狗", "pinyin": "gǒu", "meaning": "con chó"}, {"char": "猪", "pinyin": "zhū", "meaning": "con lợn"}, {"char": "猜", "pinyin": "cāi", "meaning": "đoán"}, {"char": "独", "pinyin": "dú", "meaning": "cô độc, một mình"}]}, {"id": "niu2", "char": "牛", "pinyin": "niú", "meaning": "Trâu, bò", "strokes": 4, "variants": "Biến thể 牜(bên trái chữ) ví dụ: 特, 物, 牧", "icon": "🐂", "tip": "Hình đầu con trâu với hai sừng cong lên trên và thân bên dưới.", "theme": "cay-co-dong-vat", "examples": [{"char": "特", "pinyin": "tè", "meaning": "đặc biệt"}, {"char": "物", "pinyin": "wù", "meaning": "đồ vật"}, {"char": "牧", "pinyin": "mù", "meaning": "chăn thả"}, {"char": "犁", "pinyin": "lí", "meaning": "cái cày"}, {"char": "牲", "pinyin": "shēng", "meaning": "gia súc"}]}, {"id": "ma3", "char": "马", "pinyin": "mǎ", "meaning": "Ngựa", "strokes": 3, "variants": "Dạng giản thể 马 (3 nét); dạng phồn thể 馬 (10 nét)", "icon": "🐎", "tip": "Nét cong dài như bờm ngựa tung bay khi phi nước đại.", "theme": "cay-co-dong-vat", "examples": [{"char": "骑", "pinyin": "qí", "meaning": "cưỡi"}, {"char": "骂", "pinyin": "mà", "meaning": "mắng chửi"}, {"char": "驾", "pinyin": "jià", "meaning": "lái (xe/ngựa)"}, {"char": "驶", "pinyin": "shǐ", "meaning": "chạy (xe)"}, {"char": "验", "pinyin": "yàn", "meaning": "kiểm tra"}]}, {"id": "yu2b", "char": "鱼", "pinyin": "yú", "meaning": "Cá", "strokes": 8, "variants": "Dạng giản thể 鱼 (8 nét); dạng phồn thể 魚 (11 nét)", "icon": "🐟", "tip": "Đầu cá phía trên, thân mình ở giữa và bốn chấm bên dưới là chiếc đuôi vẫy.", "theme": "cay-co-dong-vat", "examples": [{"char": "鲜", "pinyin": "xiān", "meaning": "tươi"}, {"char": "鲤", "pinyin": "lǐ", "meaning": "cá chép"}, {"char": "鲨", "pinyin": "shā", "meaning": "cá mập"}, {"char": "鳄", "pinyin": "è", "meaning": "cá sấu"}, {"char": "鳞", "pinyin": "lín", "meaning": "vảy cá"}]}, {"id": "niao3", "char": "鸟", "pinyin": "niǎo", "meaning": "Chim", "strokes": 5, "variants": "Dạng giản thể 鸟 (5 nét); dạng phồn thể 鳥 (11 nét)", "icon": "🐦", "tip": "Hình chú chim nhỏ với đầu, mỏ, thân và một chấm là con mắt tròn.", "theme": "cay-co-dong-vat", "examples": [{"char": "鸡", "pinyin": "jī", "meaning": "con gà"}, {"char": "鸭", "pinyin": "yā", "meaning": "con vịt"}, {"char": "鹅", "pinyin": "é", "meaning": "con ngỗng"}, {"char": "鸦", "pinyin": "yā", "meaning": "con quạ"}, {"char": "鸣", "pinyin": "míng", "meaning": "kêu (chim hót)"}]}, {"id": "yan2", "char": "言", "pinyin": "yán", "meaning": "Lời nói", "strokes": 7, "variants": "Biến thể giản thể 讠khi ở bên trái chữ, ví dụ: 说, 话, 请", "icon": "💬", "tip": "Hình cái miệng đang mở với các nét ngang tượng trưng cho lời nói phát ra.", "theme": "xa-hoi-hoc-tap", "examples": [{"char": "说", "pinyin": "shuō", "meaning": "nói"}, {"char": "话", "pinyin": "huà", "meaning": "lời nói, chuyện"}, {"char": "请", "pinyin": "qǐng", "meaning": "mời, xin"}, {"char": "认", "pinyin": "rèn", "meaning": "nhận biết"}, {"char": "谢", "pinyin": "xiè", "meaning": "cảm ơn"}]}, {"id": "pu1", "char": "攵", "pinyin": "pū", "meaning": "Gõ nhẹ, giáo dục", "strokes": 4, "variants": "Dạng đầy đủ là 攴, luôn viết ở bên phải chữ, ví dụ: 教, 收, 数", "icon": "📚", "tip": "Hình một bàn tay cầm que nhỏ gõ nhẹ – gợi liên tưởng đến việc thầy cô dạy dỗ, uốn nắn học trò.", "theme": "xa-hoi-hoc-tap", "examples": [{"char": "教", "pinyin": "jiào", "meaning": "dạy"}, {"char": "收", "pinyin": "shōu", "meaning": "thu"}, {"char": "放", "pinyin": "fàng", "meaning": "thả, để"}, {"char": "数", "pinyin": "shù", "meaning": "số, số học"}, {"char": "故", "pinyin": "gù", "meaning": "cố ý, cho nên"}]}, {"id": "wang2", "char": "王", "pinyin": "wáng", "meaning": "Vua, ngọc", "strokes": 4, "variants": "Là biến thể của bộ Ngọc 玉 khi đứng bên trái chữ, ví dụ: 玩, 现, 球", "icon": "👑", "tip": "Ba vạch ngang được một vạch dọc xuyên qua – như cây trượng nối trời, đất và người của bậc vua chúa.", "theme": "xa-hoi-hoc-tap", "examples": [{"char": "玩", "pinyin": "wán", "meaning": "chơi"}, {"char": "现", "pinyin": "xiàn", "meaning": "hiện tại"}, {"char": "班", "pinyin": "bān", "meaning": "lớp học"}, {"char": "理", "pinyin": "lǐ", "meaning": "lý lẽ, đạo lý"}, {"char": "球", "pinyin": "qiú", "meaning": "quả bóng"}]}, {"id": "jin1", "char": "金", "pinyin": "jīn", "meaning": "Kim loại, vàng", "strokes": 8, "variants": "Biến thể giản thể 钅khi ở bên trái chữ, ví dụ: 银, 钱, 铁", "icon": "🪙", "tip": "Mái nhà che trên, bên dưới là hai thỏi kim loại quý được cất giữ cẩn thận.", "theme": "xa-hoi-hoc-tap", "examples": [{"char": "银", "pinyin": "yín", "meaning": "bạc"}, {"char": "钱", "pinyin": "qián", "meaning": "tiền"}, {"char": "铁", "pinyin": "tiě", "meaning": "sắt"}, {"char": "钟", "pinyin": "zhōng", "meaning": "đồng hồ, chuông"}, {"char": "针", "pinyin": "zhēn", "meaning": "cây kim"}]}, {"id": "bei4", "char": "贝", "pinyin": "bèi", "meaning": "Vỏ sò (báu vật)", "strokes": 4, "variants": "Dạng giản thể 贝 (4 nét); dạng phồn thể 貝 (7 nét)", "icon": "🐚", "tip": "Hình con sò có hai đường vân ở giữa – thời cổ đại vỏ sò được dùng làm tiền tệ.", "theme": "xa-hoi-hoc-tap", "examples": [{"char": "财", "pinyin": "cái", "meaning": "tài sản"}, {"char": "购", "pinyin": "gòu", "meaning": "mua sắm"}, {"char": "贵", "pinyin": "guì", "meaning": "đắt, quý"}, {"char": "贫", "pinyin": "pín", "meaning": "nghèo"}, {"char": "账", "pinyin": "zhàng", "meaning": "sổ sách, tài khoản"}]}, {"id": "gong1", "char": "工", "pinyin": "gōng", "meaning": "Công việc", "strokes": 3, "variants": "Không có biến thể phổ biến", "icon": "🔨", "tip": "Hình cây thước thợ với hai đầu ngang và một trục dọc – dụng cụ lao động.", "theme": "xa-hoi-hoc-tap", "examples": [{"char": "左", "pinyin": "zuǒ", "meaning": "bên trái"}, {"char": "差", "pinyin": "chà", "meaning": "chênh lệch, kém"}, {"char": "巧", "pinyin": "qiǎo", "meaning": "khéo léo"}, {"char": "功", "pinyin": "gōng", "meaning": "công lao"}, {"char": "攻", "pinyin": "gōng", "meaning": "tấn công"}]}, {"id": "bai2", "char": "白", "pinyin": "bái", "meaning": "Trắng", "strokes": 5, "variants": "Không có biến thể phổ biến", "icon": "⚪", "tip": "Hình mặt trời (日) vừa mọc, còn le lói một tia sáng trắng phía trên.", "theme": "xa-hoi-hoc-tap", "examples": [{"char": "百", "pinyin": "bǎi", "meaning": "một trăm"}, {"char": "的", "pinyin": "de", "meaning": "trợ từ 'của'"}, {"char": "皇", "pinyin": "huáng", "meaning": "hoàng đế"}, {"char": "皆", "pinyin": "jiē", "meaning": "đều, tất cả"}, {"char": "皂", "pinyin": "zào", "meaning": "xà phòng"}]}, {"id": "li4b", "char": "立", "pinyin": "lì", "meaning": "Đứng", "strokes": 5, "variants": "Không có biến thể phổ biến", "icon": "🧍‍♂️", "tip": "Hình người đứng thẳng hai chân dang rộng trên mặt đất, tư thế vững vàng.", "theme": "xa-hoi-hoc-tap", "examples": [{"char": "站", "pinyin": "zhàn", "meaning": "đứng, trạm"}, {"char": "章", "pinyin": "zhāng", "meaning": "chương, con dấu"}, {"char": "童", "pinyin": "tóng", "meaning": "trẻ em"}, {"char": "竖", "pinyin": "shù", "meaning": "dựng đứng"}, {"char": "端", "pinyin": "duān", "meaning": "đầu mối, ngay ngắn"}]}, {"id": "yi1b", "char": "一", "pinyin": "yī", "meaning": "Số một", "strokes": 1, "variants": "Không có biến thể", "icon": "1️⃣", "tip": "Chỉ một nét ngang duy nhất – đơn giản như con số 1, khởi đầu của mọi thứ.", "theme": "so-va-y-niem", "examples": [{"char": "上", "pinyin": "shàng", "meaning": "trên"}, {"char": "下", "pinyin": "xià", "meaning": "dưới"}, {"char": "不", "pinyin": "bù", "meaning": "không"}, {"char": "七", "pinyin": "qī", "meaning": "bảy"}, {"char": "世", "pinyin": "shì", "meaning": "đời, thế giới"}]}, {"id": "er4", "char": "二", "pinyin": "èr", "meaning": "Số hai", "strokes": 2, "variants": "Không có biến thể", "icon": "2️⃣", "tip": "Hai nét ngang song song chồng lên nhau – đúng hình số 2.", "theme": "so-va-y-niem", "examples": [{"char": "五", "pinyin": "wǔ", "meaning": "năm"}, {"char": "井", "pinyin": "jǐng", "meaning": "cái giếng"}, {"char": "亚", "pinyin": "yà", "meaning": "châu Á"}, {"char": "些", "pinyin": "xiē", "meaning": "một vài"}, {"char": "于", "pinyin": "yú", "meaning": "ở, tại"}]}, {"id": "shi2c", "char": "十", "pinyin": "shí", "meaning": "Số mười", "strokes": 2, "variants": "Không có biến thể", "icon": "🔟", "tip": "Một nét ngang và một nét dọc giao nhau ở giữa – như dấu cộng, biểu thị số mười tròn trịa.", "theme": "so-va-y-niem", "examples": [{"char": "千", "pinyin": "qiān", "meaning": "một nghìn"}, {"char": "午", "pinyin": "wǔ", "meaning": "buổi trưa"}, {"char": "半", "pinyin": "bàn", "meaning": "một nửa"}, {"char": "协", "pinyin": "xié", "meaning": "hiệp lực, phối hợp"}, {"char": "卉", "pinyin": "huì", "meaning": "hoa cỏ"}]}, {"id": "ba1", "char": "八", "pinyin": "bā", "meaning": "Số tám", "strokes": 2, "variants": "Không có biến thể", "icon": "8️⃣", "tip": "Hai nét tách ra hai bên như đang chia đôi – hình ảnh của sự phân chia, tách rời.", "theme": "so-va-y-niem", "examples": [{"char": "六", "pinyin": "liù", "meaning": "sáu"}, {"char": "公", "pinyin": "gōng", "meaning": "công cộng"}, {"char": "兴", "pinyin": "xìng", "meaning": "hứng thú"}, {"char": "共", "pinyin": "gòng", "meaning": "cùng nhau"}, {"char": "兵", "pinyin": "bīng", "meaning": "binh lính"}]}, {"id": "xiao3", "char": "小", "pinyin": "xiǎo", "meaning": "Nhỏ", "strokes": 3, "variants": "Biến thể ⺌ khi nằm ở đầu chữ, ví dụ: 尝, 尚", "icon": "🤏", "tip": "Một nét móc ở giữa và hai chấm nhỏ hai bên – như một vật bé xíu co lại.", "theme": "so-va-y-niem", "examples": [{"char": "少", "pinyin": "shǎo", "meaning": "ít"}, {"char": "尘", "pinyin": "chén", "meaning": "bụi"}, {"char": "尚", "pinyin": "shàng", "meaning": "còn, thượng"}, {"char": "尖", "pinyin": "jiān", "meaning": "nhọn"}, {"char": "尝", "pinyin": "cháng", "meaning": "nếm thử"}]}, {"id": "gong1b", "char": "弓", "pinyin": "gōng", "meaning": "Cây cung", "strokes": 3, "variants": "Không có biến thể phổ biến", "icon": "🏹", "tip": "Hình cây cung uốn cong đang được giương lên, sẵn sàng bắn tên.", "theme": "so-va-y-niem", "examples": [{"char": "张", "pinyin": "zhāng", "meaning": "(lượng từ) tờ, cái"}, {"char": "强", "pinyin": "qiáng", "meaning": "mạnh"}, {"char": "弯", "pinyin": "wān", "meaning": "cong"}, {"char": "弟", "pinyin": "dì", "meaning": "em trai"}, {"char": "弹", "pinyin": "tán", "meaning": "gảy, bắn"}]}, {"id": "cun4", "char": "寸", "pinyin": "cùn", "meaning": "Tấc (đơn vị đo)", "strokes": 3, "variants": "Không có biến thể phổ biến", "icon": "📏", "tip": "Một nét gần giống chữ 寺 rút gọn với một chấm nhỏ – tượng trưng khoảng cách đo bằng gang tay, ý niệm về chuẩn mực.", "theme": "so-va-y-niem", "examples": [{"char": "对", "pinyin": "duì", "meaning": "đúng, đối"}, {"char": "寺", "pinyin": "sì", "meaning": "ngôi chùa"}, {"char": "封", "pinyin": "fēng", "meaning": "phong bì, niêm phong"}, {"char": "尊", "pinyin": "zūn", "meaning": "tôn kính"}, {"char": "导", "pinyin": "dǎo", "meaning": "dẫn dắt"}]}, {"id": "fang1", "char": "方", "pinyin": "fāng", "meaning": "Phương hướng, vuông", "strokes": 4, "variants": "Không có biến thể phổ biến", "icon": "🧭", "tip": "Hình chiếc la bàn cách điệu chỉ bốn phương – biểu thị hướng đi và hình vuông vức.", "theme": "so-va-y-niem", "examples": [{"char": "旁", "pinyin": "páng", "meaning": "bên cạnh"}, {"char": "旅", "pinyin": "lǚ", "meaning": "du lịch"}, {"char": "施", "pinyin": "shī", "meaning": "thi hành"}, {"char": "族", "pinyin": "zú", "meaning": "dân tộc"}, {"char": "旗", "pinyin": "qí", "meaning": "lá cờ"}]}];
+
+const THEMES = [
+  {id:"thien-nhien", label:"Thiên nhiên", icon:"🌿"},
+  {id:"con-nguoi", label:"Con người", icon:"🧍"},
+  {id:"doi-song", label:"Đời sống", icon:"🏠"},
+  {id:"cay-co-dong-vat", label:"Cây cỏ & động vật", icon:"🐾"},
+  {id:"xa-hoi-hoc-tap", label:"Xã hội & học tập", icon:"🏛️"},
+  {id:"so-va-y-niem", label:"Số & ý niệm", icon:"🔢"}
+];
+
+const STORAGE_KEY = "boThu50_memorized_v1";
+function loadMemorized(){
+  try{ return new Set(JSON.parse(localStorage.getItem(STORAGE_KEY)) || []); }
+  catch(e){ return new Set(); }
+}
+function saveMemorized(set){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(set)));
+}
+let memorized = loadMemorized();
+let activeTheme = "all";
+let searchTerm = "";
+
+function updateMemorizedCount(){
+  document.getElementById("memorizedCount").textContent = memorized.size;
+}
+
+function normalize(s){
+  return (s || "").toString().toLowerCase();
+}
+
+function stripDiacritics(s){
+  return normalize(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d");
+}
+
+function matchesSearch(r, term){
+  if(!term) return true;
+  const t = normalize(term);
+  const tPlain = stripDiacritics(term);
+  const check = (val) => {
+    const v = normalize(val);
+    if(v.includes(t)) return true;
+    if(tPlain && stripDiacritics(val).includes(tPlain)) return true;
+    return false;
+  };
+  if(check(r.char)) return true;
+  if(check(r.pinyin)) return true;
+  if(check(r.meaning)) return true;
+  for(const ex of r.examples){
+    if(check(ex.char) || check(ex.pinyin) || check(ex.meaning)) return true;
+  }
+  return false;
+}
+
+function renderThemeFilter(){
+  const el = document.getElementById("themeFilter");
+  const all = [{id:"all", label:"Tất cả", icon:"📖"}, ...THEMES];
+  el.innerHTML = all.map(t => `<button class="pill ${activeTheme===t.id?'active':''}" data-theme="${t.id}">${t.icon} ${t.label}</button>`).join("");
+  el.querySelectorAll(".pill").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      activeTheme = btn.getAttribute("data-theme");
+      renderThemeFilter();
+      renderGrid();
+    });
+  });
+}
+
+function exampleHtml(ex, big){
+  return `<div class="${big?'modal-example':'example-item'}">
+    <span class="hanzi ex-char">${ex.char}</span>
+    <span class="ex-pinyin">${ex.pinyin}</span>
+    <span class="ex-meaning">${ex.meaning}</span>
+  </div>`;
+}
+
+function cardHtml(r){
+  const isDone = memorized.has(r.id);
+  return `<article class="card" data-id="${r.id}">
+    <button class="memorize-btn ${isDone?'done':''}" data-action="toggle" data-id="${r.id}" title="Đánh dấu đã ghi nhớ">${isDone?'✓':'☆'}</button>
+    <div class="card-top">
+      <div class="card-icon">${r.icon}</div>
+      <div class="hanzi card-char">${r.char}</div>
+      <div class="card-info">
+        <div class="card-pinyin">${r.pinyin}</div>
+        <div class="card-meaning">${r.meaning}</div>
+      </div>
+    </div>
+    <div class="card-meta">
+      <span class="tag">${r.strokes} nét</span>
+      <span class="tag">${THEMES.find(t=>t.id===r.theme).icon} ${THEMES.find(t=>t.id===r.theme).label}</span>
+    </div>
+    <div class="examples">
+      ${r.examples.map(ex=>exampleHtml(ex,false)).join("")}
+    </div>
+  </article>`;
+}
+
+function renderGrid(){
+  const grid = document.getElementById("grid");
+  let list = DATA.filter(r => (activeTheme==="all" || r.theme===activeTheme) && matchesSearch(r, searchTerm));
+  document.getElementById("resultCount").textContent = `Hiển thị ${list.length} / 50 bộ thủ`;
+  if(list.length===0){
+    grid.innerHTML = `<div class="empty-state">Không tìm thấy bộ thủ phù hợp. Hãy thử từ khoá khác.</div>`;
+    return;
+  }
+  grid.innerHTML = list.map(cardHtml).join("");
+  grid.querySelectorAll(".memorize-btn").forEach(btn=>{
+    btn.addEventListener("click", (e)=>{
+      e.stopPropagation();
+      const id = btn.getAttribute("data-id");
+      if(memorized.has(id)) memorized.delete(id); else memorized.add(id);
+      saveMemorized(memorized);
+      updateMemorizedCount();
+      renderGrid();
+    });
+  });
+  grid.querySelectorAll(".card").forEach(card=>{
+    card.addEventListener("click", ()=>{
+      openModal(card.getAttribute("data-id"));
+    });
+  });
+}
+
+function openModal(id){
+  const r = DATA.find(x=>x.id===id);
+  if(!r) return;
+  const isDone = memorized.has(r.id);
+  const theme = THEMES.find(t=>t.id===r.theme);
+  const modal = document.getElementById("modalContent");
+  modal.innerHTML = `
+    <button class="modal-close" id="modalCloseBtn">✕</button>
+    <div class="modal-head">
+      <div class="hanzi modal-char">${r.char}</div>
+      <div>
+        <div class="modal-pinyin">${r.pinyin}</div>
+        <div class="modal-meaning">${r.meaning}</div>
+      </div>
+    </div>
+    <div class="modal-meta">
+      <span class="tag">${r.strokes} nét</span>
+      <span class="tag">${theme.icon} ${theme.label}</span>
+    </div>
+    <div class="modal-section">
+      <h4>Biến thể</h4>
+      <div class="tip-box" style="background:var(--cream);border-left-color:var(--gold);">${r.variants}</div>
+    </div>
+    <div class="modal-section">
+      <h4>Mẹo liên tưởng</h4>
+      <div class="tip-box">${r.tip}</div>
+    </div>
+    <div class="modal-section">
+      <h4>5 từ ví dụ</h4>
+      <div class="modal-examples">${r.examples.map(ex=>exampleHtml(ex,true)).join("")}</div>
+    </div>
+    <button class="modal-memorize ${isDone?'done':''}" id="modalMemorizeBtn">${isDone?'✓ Đã ghi nhớ':'☆ Đánh dấu đã ghi nhớ'}</button>
+  `;
+  document.getElementById("modalCloseBtn").addEventListener("click", closeModal);
+  document.getElementById("modalMemorizeBtn").addEventListener("click", ()=>{
+    if(memorized.has(r.id)) memorized.delete(r.id); else memorized.add(r.id);
+    saveMemorized(memorized);
+    updateMemorizedCount();
+    openModal(id);
+    renderGrid();
+  });
+  document.getElementById("modalOverlay").classList.add("open");
+}
+
+function closeModal(){
+  document.getElementById("modalOverlay").classList.remove("open");
+}
+document.getElementById("modalOverlay").addEventListener("click", (e)=>{
+  if(e.target.id === "modalOverlay") closeModal();
+});
+document.addEventListener("keydown", (e)=>{
+  if(e.key === "Escape") closeModal();
+});
+
+document.getElementById("searchInput").addEventListener("input", (e)=>{
+  searchTerm = e.target.value;
+  renderGrid();
+});
+
+document.getElementById("startExploreBtn").addEventListener("click", ()=>{
+  document.getElementById("exploreSection").scrollIntoView({behavior:"smooth", block:"start"});
+});
+
+/* ---------------- QUIZ ---------------- */
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+function pickDistractors(pool, excludeVal, key, count){
+  const candidates = shuffle(pool.filter(x => x[key] !== excludeVal));
+  const seen = new Set();
+  const out = [];
+  for(const c of candidates){
+    if(!seen.has(c[key])){ seen.add(c[key]); out.push(c[key]); }
+    if(out.length>=count) break;
+  }
+  return out;
+}
+
+let quizState = null;
+
+function buildQuiz(){
+  const radicals = shuffle(DATA).slice(0,10);
+  const questions = radicals.map(r=>{
+    const type = Math.floor(Math.random()*4);
+    let q;
+    if(type===0){
+      const correct = r.char;
+      const opts = shuffle([correct, ...pickDistractors(DATA, r.char, "char", 3)]);
+      q = {
+        question: `Bộ thủ nào có nghĩa là "${r.meaning}"?`,
+        options: opts, correct,
+        explain: `Đáp án đúng là ${r.char} (${r.pinyin}) — nghĩa là "${r.meaning}".`
+      };
+    } else if(type===1){
+      const correct = r.meaning;
+      const opts = shuffle([correct, ...pickDistractors(DATA, r.meaning, "meaning", 3)]);
+      q = {
+        question: `Bộ thủ "${r.char}" (${r.pinyin}) có nghĩa là gì?`,
+        options: opts, correct,
+        explain: `${r.char} (${r.pinyin}) nghĩa là "${r.meaning}".`
+      };
+    } else if(type===2){
+      const ex = r.examples[Math.floor(Math.random()*r.examples.length)];
+      const correct = r.char;
+      const opts = shuffle([correct, ...pickDistractors(DATA, r.char, "char", 3)]);
+      q = {
+        question: `Chữ "${ex.char}" (${ex.pinyin} - ${ex.meaning}) chứa bộ thủ nào?`,
+        options: opts, correct,
+        explain: `"${ex.char}" chứa bộ thủ ${r.char} (${r.pinyin}) — nghĩa là "${r.meaning}".`
+      };
+    } else {
+      const correct = r.char;
+      const opts = shuffle([correct, ...pickDistractors(DATA, r.char, "char", 3)]);
+      q = {
+        question: `Bộ thủ có pinyin "${r.pinyin}" là chữ nào?`,
+        options: opts, correct,
+        explain: `Bộ thủ có pinyin "${r.pinyin}" là ${r.char} — nghĩa là "${r.meaning}".`
+      };
+    }
+    return q;
+  });
+  return { questions, index:0, score:0, answered:false };
+}
+
+function renderQuiz(){
+  const card = document.getElementById("quizCard");
+  if(!quizState){
+    card.innerHTML = `
+      <h2>📝 Bài Kiểm Tra Nhanh</h2>
+      <p style="color:var(--ink-soft);">10 câu hỏi ngẫu nhiên về bộ thủ và từ ví dụ. Trả lời và xem giải thích ngay lập tức.</p>
+      <button class="btn-primary" id="startQuizBtn">Bắt đầu kiểm tra</button>
+    `;
+    document.getElementById("startQuizBtn").addEventListener("click", ()=>{
+      quizState = buildQuiz();
+      renderQuiz();
+    });
+    return;
+  }
+  if(quizState.index >= quizState.questions.length){
+    const pct = Math.round((quizState.score/quizState.questions.length)*100);
+    let msg = "Cần ôn luyện thêm nhé!";
+    if(pct>=90) msg = "Xuất sắc! Bạn đã nắm rất vững! 🎉";
+    else if(pct>=70) msg = "Khá tốt! Tiếp tục cố gắng nhé! 👍";
+    else if(pct>=50) msg = "Tạm ổn, hãy ôn lại các bộ thủ đã sai.";
+    card.innerHTML = `
+      <h2>Kết quả</h2>
+      <div class="quiz-result">${quizState.score} / ${quizState.questions.length} câu đúng (${pct}%)</div>
+      <p style="color:var(--ink-soft);">${msg}</p>
+      <button class="btn-primary" id="retryQuizBtn">Làm lại bài kiểm tra</button>
+    `;
+    document.getElementById("retryQuizBtn").addEventListener("click", ()=>{
+      quizState = buildQuiz();
+      renderQuiz();
+    });
+    return;
+  }
+  const q = quizState.questions[quizState.index];
+  card.innerHTML = `
+    <div class="quiz-progress">Câu ${quizState.index+1} / ${quizState.questions.length} — Điểm: ${quizState.score}</div>
+    <div class="quiz-question hanzi">${q.question}</div>
+    <div class="quiz-options" id="quizOptions">
+      ${q.options.map((opt,i)=>`<button class="quiz-option hanzi" data-opt="${i}">${opt}</button>`).join("")}
+    </div>
+    <div id="quizFeedback"></div>
+  `;
+  card.querySelectorAll(".quiz-option").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      if(quizState.answered) return;
+      quizState.answered = true;
+      const chosen = btn.textContent;
+      const isCorrect = chosen === q.correct;
+      if(isCorrect) quizState.score++;
+      card.querySelectorAll(".quiz-option").forEach(b=>{
+        b.disabled = true;
+        if(b.textContent === q.correct) b.classList.add("correct");
+        else if(b===btn) b.classList.add("wrong");
+      });
+      document.getElementById("quizFeedback").innerHTML = `
+        <div class="quiz-explain">${isCorrect ? "✅ Chính xác! " : "❌ Chưa đúng. "}${q.explain}</div>
+        <button class="quiz-next" id="nextQBtn">${quizState.index+1 < quizState.questions.length ? "Câu tiếp theo →" : "Xem kết quả →"}</button>
+      `;
+      document.getElementById("nextQBtn").addEventListener("click", ()=>{
+        quizState.index++;
+        quizState.answered = false;
+        renderQuiz();
+      });
+    });
+  });
+}
+
+/* ---------------- INIT ---------------- */
+renderThemeFilter();
+renderGrid();
+renderQuiz();
+updateMemorizedCount();
+</script>
+</body>
+</html>
