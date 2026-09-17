@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
+<title>Cửa Miệng Gen Z</title>
+<style>
+  html,body{margin:0;padding:0;}
+  :root{padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);}
+  [hidden]{display:none!important;}
+  img{max-width:100%;}
+  :root{
+    --ground:#F2F1F7;
+    --surface:#FFFFFF;
+    --surface-2:#E9E7F2;
+    --ink:#17151F;
+    --ink-dim:#5B5872;
+    --line:#DAD7E6;
+    --bubble:#17151F;
+    --bubble-text:#F6F4FB;
+    --accent:#FF3D71;
+    --accent-ink:#FFFFFF;
+    --gold:#FFC53D;
+
+    --c-cuoi:#E8A500;
+    --c-dinh:#FF3D71;
+    --c-me:#FF6B4A;
+    --c-soc:#7B5CFA;
+    --c-canloi:#3E7BE0;
+    --c-hieu:#1F9D63;
+
+    --ok:#1F9D63;
+    --bad:#E0473E;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#131220;
+      --surface:#1D1B2C;
+      --surface-2:#262437;
+      --ink:#F1EFF7;
+      --ink-dim:#A6A2BF;
+      --line:#332F49;
+      --bubble:#F1EFF7;
+      --bubble-text:#131220;
+      --c-cuoi:#F2C14E;
+      --c-dinh:#FF6690;
+      --c-me:#FF8B6B;
+      --c-soc:#9C82FF;
+      --c-canloi:#6FA3FF;
+      --c-hieu:#3FC189;
+      --ok:#3FC189;
+      --bad:#FF6B63;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#131220;
+    --surface:#1D1B2C;
+    --surface-2:#262437;
+    --ink:#F1EFF7;
+    --ink-dim:#A6A2BF;
+    --line:#332F49;
+    --bubble:#F1EFF7;
+    --bubble-text:#131220;
+    --c-cuoi:#F2C14E;
+    --c-dinh:#FF6690;
+    --c-me:#FF8B6B;
+    --c-soc:#9C82FF;
+    --c-canloi:#6FA3FF;
+    --c-hieu:#3FC189;
+    --ok:#3FC189;
+    --bad:#FF6B63;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--ground);
+    color:var(--ink);
+    font-family:"Be Vietnam Pro","Inter",system-ui,sans-serif;
+    padding:0 16px;
+    min-height:100%;
+    display:flex;
+    flex-direction:column;
+  }
+  .hanzi{font-family:"Noto Sans SC","Be Vietnam Pro",sans-serif;}
+
+  h1,h2,h3{text-wrap:balance; margin:0;}
+
+  header.top{
+    position:sticky;
+    top:env(safe-area-inset-top,0px);
+    z-index:20;
+    background:var(--ground);
+    padding-top:18px;
+    padding-bottom:10px;
+  }
+  .app-title{
+    font-weight:800;
+    font-size:22px;
+    letter-spacing:-0.02em;
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+  }
+  .app-title .accent-dot{color:var(--accent);}
+  .subtitle{
+    font-size:13px;
+    color:var(--ink-dim);
+    margin-top:2px;
+    font-weight:500;
+  }
+
+  nav.tabs{
+    display:flex;
+    gap:6px;
+    margin-top:14px;
+    background:var(--surface-2);
+    padding:4px;
+    border-radius:14px;
+  }
+  nav.tabs button{
+    flex:1;
+    border:none;
+    background:transparent;
+    color:var(--ink-dim);
+    font-family:inherit;
+    font-weight:700;
+    font-size:13px;
+    padding:9px 6px;
+    border-radius:11px;
+    cursor:pointer;
+  }
+  nav.tabs button.active{
+    background:var(--surface);
+    color:var(--ink);
+    box-shadow:0 1px 3px rgba(0,0,0,0.12);
+  }
+
+  main{flex:1; padding-bottom:28px;}
+  section[data-tab]{display:flex; flex-direction:column; gap:14px;}
+  section[data-tab][hidden]{display:none;}
+
+  /* ---- chips ---- */
+  .chip-row{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding:4px 2px 6px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .chip-row::-webkit-scrollbar{display:none;}
+  .chip{
+    flex:0 0 auto;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:13px;
+    font-weight:700;
+    padding:8px 13px;
+    border-radius:999px;
+    border:1.5px solid var(--line);
+    background:var(--surface);
+    color:var(--ink-dim);
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .chip .dot{width:8px;height:8px;border-radius:50%;background:var(--cat-color,var(--ink-dim));}
+  .chip.active{border-color:var(--cat-color,var(--accent)); color:var(--ink); background:color-mix(in srgb, var(--cat-color,var(--accent)) 14%, var(--surface));}
+
+  /* ---- flashcard ---- */
+  .deck-meta{display:flex; align-items:center; justify-content:space-between; font-size:13px; color:var(--ink-dim); font-weight:600;}
+  .progress-track{height:6px; background:var(--surface-2); border-radius:999px; overflow:hidden;}
+  .progress-fill{height:100%; background:var(--accent); border-radius:999px; transition:width .25s ease;}
+
+  .card-stage{
+    perspective:1200px;
+    height:min(56vh,420px);
+    min-height:280px;
+  }
+  .card{
+    position:relative;
+    width:100%;
+    height:100%;
+    cursor:pointer;
+    transform-style:preserve-3d;
+    transition:transform .45s cubic-bezier(.2,.8,.2,1);
+  }
+  .card.flipped{transform:rotateY(180deg);}
+  .card-face{
+    position:absolute; inset:0;
+    border-radius:26px;
+    backface-visibility:hidden;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:28px 22px;
+    gap:14px;
+    box-shadow:0 10px 30px rgba(20,15,40,0.16);
+  }
+  .card-face.front{
+    background:var(--bubble);
+    color:var(--bubble-text);
+  }
+  .card-face.back{
+    background:var(--surface);
+    color:var(--ink);
+    transform:rotateY(180deg);
+    border:1.5px solid var(--line);
+  }
+  .card-tag{
+    position:absolute;
+    top:16px; left:16px;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    padding:5px 10px;
+    border-radius:999px;
+    background:var(--cat-color);
+    color:#fff;
+  }
+  .card-hanzi{font-size:clamp(34px,10vw,52px); font-weight:900; line-height:1.05;}
+  .card-pinyin{font-size:15px; font-weight:600; opacity:.75;}
+  .card-face.front .card-hint{font-size:12px; opacity:.55; font-weight:600;}
+  .card-meaning{font-size:19px; font-weight:800; line-height:1.3;}
+  .card-note{font-size:13px; color:var(--ink-dim); line-height:1.5;}
+  .card-example{
+    font-size:13px;
+    background:var(--surface-2);
+    border-radius:12px;
+    padding:10px 12px;
+    line-height:1.5;
+    text-align:left;
+  }
+  .card-example b{color:var(--accent);}
+
+  .deck-controls{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+  }
+  .round-btn{
+    width:52px; height:52px;
+    border-radius:50%;
+    border:1.5px solid var(--line);
+    background:var(--surface);
+    font-size:20px;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    color:var(--ink);
+  }
+  .round-btn.primary{
+    width:auto;
+    border-radius:999px;
+    padding:0 22px;
+    background:var(--accent);
+    color:var(--accent-ink);
+    border:none;
+    font-weight:800;
+    font-size:14px;
+    gap:6px;
+  }
+  .round-btn.known{
+    width:auto;
+    border-radius:999px;
+    padding:0 18px;
+    border-color:var(--ok);
+    color:var(--ok);
+    font-weight:800;
+    font-size:13px;
+    white-space:nowrap;
+  }
+  .round-btn.known.on{background:var(--ok); color:#fff;}
+
+  /* ---- quiz ---- */
+  .quiz-head{display:flex; justify-content:space-between; align-items:center;}
+  .score-pill{
+    font-weight:800; font-size:13px;
+    background:var(--surface-2);
+    padding:6px 12px;
+    border-radius:999px;
+  }
+  .quiz-card{
+    background:var(--surface);
+    border:1.5px solid var(--line);
+    border-radius:20px;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .quiz-kicker{font-size:11px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; color:var(--accent);}
+  .quiz-prompt{font-size:20px; font-weight:800; line-height:1.35;}
+  .quiz-prompt .hanzi{font-size:26px;}
+  .options{display:flex; flex-direction:column; gap:9px;}
+  .opt{
+    text-align:left;
+    border:1.5px solid var(--line);
+    background:var(--surface);
+    color:var(--ink);
+    border-radius:13px;
+    padding:12px 14px;
+    font-family:inherit;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+  }
+  .opt .opt-hanzi{font-weight:800;}
+  .opt.correct{border-color:var(--ok); background:color-mix(in srgb, var(--ok) 16%, var(--surface)); color:var(--ok);}
+  .opt.wrong{border-color:var(--bad); background:color-mix(in srgb, var(--bad) 16%, var(--surface)); color:var(--bad);}
+  .opt:disabled{cursor:default;}
+  .quiz-next{align-self:flex-end;}
+  .quiz-result{
+    background:var(--surface);
+    border:1.5px solid var(--line);
+    border-radius:20px;
+    padding:26px 20px;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    align-items:center;
+  }
+  .quiz-result .big{font-size:44px; font-weight:900;}
+  .review-list{display:flex; flex-direction:column; gap:8px; text-align:left; width:100%;}
+  .review-item{
+    display:flex; justify-content:space-between; gap:10px;
+    font-size:13px;
+    background:var(--surface-2);
+    border-radius:10px;
+    padding:9px 11px;
+  }
+
+  /* ---- list ---- */
+  input[type="search"]{
+    width:100%;
+    border:1.5px solid var(--line);
+    background:var(--surface);
+    color:var(--ink);
+    border-radius:13px;
+    padding:11px 14px;
+    font-family:inherit;
+    font-size:15px;
+  }
+  .group-title{
+    display:flex; align-items:center; gap:8px;
+    font-weight:800; font-size:14px;
+    margin:10px 0 2px;
+  }
+  .group-title .dot{width:9px;height:9px;border-radius:50%;background:var(--cat-color);}
+  .list-item{
+    display:flex; justify-content:space-between; align-items:center;
+    gap:10px;
+    background:var(--surface);
+    border:1.5px solid var(--line);
+    border-radius:13px;
+    padding:11px 13px;
+  }
+  .list-item .l-hanzi{font-weight:800; font-size:16px;}
+  .list-item .l-pinyin{font-size:12px; color:var(--ink-dim); font-weight:600;}
+  .list-item .l-meaning{font-size:13px; text-align:right; font-weight:600; max-width:46%;}
+
+  .empty{color:var(--ink-dim); font-size:14px; text-align:center; padding:30px 10px;}
+
+  footer.note{
+    font-size:11.5px;
+    color:var(--ink-dim);
+    text-align:center;
+    padding:6px 8px 4px;
+  }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@700;900&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap">
+</head>
+<body>
+
+<header class="top">
+  <div class="app-title"><span class="accent-dot">哈</span>Cửa Miệng Gen Z</div>
+  <div class="subtitle">29 cụm "cửa miệng" giới trẻ Trung Quốc · thẻ ôn + kiểm tra</div>
+  <nav class="tabs">
+    <button data-tab-btn="cards" class="active">🗂 Ôn thẻ</button>
+    <button data-tab-btn="quiz">🎯 Kiểm tra</button>
+    <button data-tab-btn="list">📋 Danh sách</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ============ FLASHCARDS ============ -->
+  <section data-tab="cards">
+    <div class="chip-row" id="catChips"></div>
+
+    <div class="deck-meta">
+      <span id="deckPos">1 / 29</span>
+      <span id="deckKnown">0 đã thuộc</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="deckProgress" style="width:0%"></div></div>
+
+    <div class="card-stage">
+      <div class="card" id="card">
+        <div class="card-face front">
+          <div class="card-tag" id="frontTag">nhóm</div>
+          <div class="card-hanzi hanzi" id="frontHanzi">哈哈哈</div>
+          <div class="card-pinyin" id="frontPinyin">hāhāhā</div>
+          <div class="card-hint">chạm để xem nghĩa</div>
+        </div>
+        <div class="card-face back">
+          <div class="card-tag" id="backTag">nhóm</div>
+          <div class="card-meaning" id="backMeaning">Hahaha</div>
+          <div class="card-note" id="backNote"></div>
+          <div class="card-example" id="backExample" hidden></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="deck-controls">
+      <button class="round-btn" id="prevBtn" aria-label="Thẻ trước">←</button>
+      <button class="round-btn known" id="knownBtn">✓ Đã thuộc</button>
+      <button class="round-btn" id="nextBtn" aria-label="Thẻ sau">→</button>
+    </div>
+    <footer class="note">Thẻ chỉ hiện trong nhóm đang chọn ở trên · tiến độ lưu trên máy này</footer>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section data-tab="quiz" hidden>
+    <div class="quiz-head">
+      <span class="score-pill" id="quizCounter">Câu 1 / 12</span>
+      <span class="score-pill" id="quizScore">Điểm: 0</span>
+    </div>
+
+    <div id="quizPlay">
+      <div class="quiz-card">
+        <div class="quiz-kicker" id="quizKicker">Đoán nghĩa</div>
+        <div class="quiz-prompt" id="quizPrompt">…</div>
+        <div class="options" id="quizOptions"></div>
+      </div>
+    </div>
+
+    <div id="quizDone" hidden>
+      <div class="quiz-result">
+        <div class="quiz-kicker">Kết quả</div>
+        <div class="big" id="quizFinalScore">0/12</div>
+        <div id="quizFinalNote" style="color:var(--ink-dim); font-size:13px;"></div>
+        <div class="review-list" id="quizReview"></div>
+        <button class="round-btn primary" id="quizRetry" style="margin-top:6px;">🔄 Làm lại 12 câu mới</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LIST ============ -->
+  <section data-tab="list" hidden>
+    <input type="search" id="searchBox" placeholder="Tìm theo chữ Hán, pinyin hoặc nghĩa…">
+    <div id="listBody"></div>
+  </section>
+
+</main>
+
+<script>
+(function(){
+"use strict";
+
+var CATS = [
+  {id:"cuoi",  label:"😂 Buồn cười",          color:"var(--c-cuoi)"},
+  {id:"dinh",  label:"🔥 Khen đỉnh",           color:"var(--c-dinh)"},
+  {id:"me",    label:"😍 Mê, không cưỡng nổi", color:"var(--c-me)"},
+  {id:"soc",   label:"😲 Sốc, nghi ngờ",       color:"var(--c-soc)"},
+  {id:"canloi",label:"😩 Cạn lời, sụp đổ",     color:"var(--c-canloi)"},
+  {id:"hieu",  label:"👌 Hiểu, đồng ý, chốt",  color:"var(--c-hieu)"}
+];
+var CAT_MAP = {}; CATS.forEach(function(c){CAT_MAP[c.id]=c;});
+
+var WORDS = [
+  {id:1, cat:"cuoi", hanzi:"哈哈哈", pinyin:"hāhāhā", meaning:"Hahaha"},
+  {id:2, cat:"cuoi", hanzi:"笑死我了", pinyin:"xiào sǐ wǒ le", meaning:"Cười chết mất",
+    example:{cn:"他把盐当成糖放进咖啡里了。", vi:"Ảnh cho nhầm muối vào cà phê tưởng đường.", reply:"笑死我了！"}},
+  {id:30, cat:"cuoi", hanzi:"笑不活了", pinyin:"xiào bù huó le", meaning:"Cười không sống nổi luôn",
+    example:{cn:"刷到一个搞笑视频，笑到肚子疼。", vi:"Lướt trúng clip hài, cười đau cả bụng.", reply:"笑不活了！"}},
+
+  {id:3, cat:"dinh", hanzi:"绝了", pinyin:"jué le", meaning:"Đỉnh thật sự / Quá đỉnh",
+    note:"Hán Việt: 绝 = \"tuyệt\" — tột cùng, không gì hơn được."},
+  {id:4, cat:"dinh", hanzi:"太绝了", pinyin:"tài jué le", meaning:"Đỉnh quá trời"},
+  {id:21, cat:"dinh", hanzi:"绝绝子", pinyin:"juéjuézi", meaning:"Đỉnh của chóp"},
+  {id:22, cat:"dinh", hanzi:"yyds / YYDS", pinyin:"yǒngyuǎn de shén", meaning:"Đỉnh nhất / Mãi đỉnh — \"Mãi là thần\"",
+    note:"yyds là viết tắt pinyin của 永远的神 (yǒngyuǎn de shén, \"vị thần vĩnh cửu\")."},
+  {id:13, cat:"dinh", hanzi:"有点东西", pinyin:"yǒu diǎn dōngxi", meaning:"Có gì đó nha / Có trình đấy",
+    example:{cn:"朋友翻唱了一首歌，唱得特别好。", vi:"Bạn cover một bài hát, hát cực hay.", reply:"有点东西啊！"}},
+
+  {id:24, cat:"me", hanzi:"狠狠爱了", pinyin:"hěn hěn ài le", meaning:"Mê quá trời luôn"},
+  {id:25, cat:"me", hanzi:"上头了", pinyin:"shàngtóu le", meaning:"Cuốn quá / Mê quá rồi",
+    note:"Hán Việt: 上头 \"thượng đầu\" — như rượu bốc lên đầu, tức là bị cuốn không dứt ra được."},
+  {id:26, cat:"me", hanzi:"真香", pinyin:"zhēn xiāng", meaning:"Ban đầu chê nhưng giờ lại mê",
+    note:"Hán Việt: 真香 \"chân hương\" — gốc từ meme thề không ăn, ăn xong lại khen \"ngon thật\".",
+    example:{cn:"你不是说再也不喝奶茶了吗？", vi:"Chẳng phải bạn nói không uống trà sữa nữa à?", reply:"……真香。"}},
+  {id:27, cat:"me", hanzi:"我可以", pinyin:"wǒ kěyǐ", meaning:"Tôi cân được! / Tôi thích!"},
+  {id:28, cat:"me", hanzi:"这谁顶得住啊", pinyin:"zhè shéi dǐng de zhù a", meaning:"Ai mà chịu nổi chứ?"},
+
+  {id:7, cat:"soc", hanzi:"真的假的？", pinyin:"zhēn de jiǎ de", meaning:"Thật hay giả vậy?",
+    example:{cn:"老板说下个月加薪50%！", vi:"Sếp nói tháng sau tăng lương 50%!", reply:"真的假的？"}},
+  {id:8, cat:"soc", hanzi:"不会吧？", pinyin:"bú huì ba", meaning:"Không thể nào?"},
+  {id:11, cat:"soc", hanzi:"你认真的吗？", pinyin:"nǐ rènzhēn de ma", meaning:"Bạn nghiêm túc đó hả?",
+    note:"Bản gốc hay thiếu chữ \"de\" trong pinyin — phiên đúng là nǐ rènzhēn de ma."},
+  {id:20, cat:"soc", hanzi:"好家伙", pinyin:"hǎo jiāhuo", meaning:"Ôi trời / Ghê vậy",
+    example:{cn:"同事说他中了500万彩票！", vi:"Đồng nghiệp bảo vừa trúng số 5 tỷ.", reply:"好家伙！"}},
+  {id:12, cat:"soc", hanzi:"太离谱了", pinyin:"tài lípǔ le", meaning:"Vô lý quá / Quá khó tin",
+    note:"Hán Việt: 离谱 \"ly phổ\" — lệch khỏi \"phổ\" (khuôn mẫu chuẩn), tức là vô lý."},
+  {id:29, cat:"soc", hanzi:"别太离谱", pinyin:"bié tài lípǔ", meaning:"Đừng có quá đáng vậy chứ"},
+
+  {id:5, cat:"canloi", hanzi:"无语了", pinyin:"wú yǔ le", meaning:"Cạn lời luôn",
+    note:"Hán Việt: 无语 \"vô ngữ\" — không còn lời để nói."},
+  {id:6, cat:"canloi", hanzi:"我服了", pinyin:"wǒ fú le", meaning:"Tôi chịu luôn / Bó tay",
+    note:"Hán Việt: 服 \"phục\" — chịu thua, phải phục."},
+  {id:19, cat:"canloi", hanzi:"我真的会谢", pinyin:"wǒ zhēn de huì xiè", meaning:"Tôi thật sự cạn lời luôn",
+    note:"Thực chất là lời \"cảm ơn\" mỉa mai — kiểu \"cảm ơn nha!\" khi gặp chuyện bực mình."},
+  {id:17, cat:"canloi", hanzi:"我裂开了", pinyin:"wǒ lièkāi le", meaning:"Tôi sụp đổ luôn rồi",
+    note:"Hán Việt: 裂开 \"liệt khai\" — nứt toác ra.",
+    example:{cn:"做了一下午的文件，电脑死机全没了。", vi:"Làm file cả buổi chiều, máy sập mất hết.", reply:"我裂开了……"}},
+  {id:18, cat:"canloi", hanzi:"破防了", pinyin:"pòfáng le", meaning:"Bị chạm đến cảm xúc rồi",
+    note:"Hán Việt: 破防 \"phá phòng\" — gốc từ game (phá vỡ phòng thủ), sau thành \"phòng tuyến cảm xúc bị vỡ\"."},
+
+  {id:9, cat:"hieu", hanzi:"我懂了", pinyin:"wǒ dǒng le", meaning:"Tôi hiểu rồi"},
+  {id:10, cat:"hieu", hanzi:"懂的都懂", pinyin:"dǒng de dōu dǒng", meaning:"Ai hiểu thì sẽ hiểu"},
+  {id:15, cat:"hieu", hanzi:"必须的", pinyin:"bìxū de", meaning:"Chắc chắn rồi / Nhất định rồi",
+    example:{cn:"约你去看演唱会，你马上就答应了。", vi:"Rủ đi xem concert, bạn đồng ý ngay.", reply:"必须的！"}},
+  {id:16, cat:"hieu", hanzi:"没毛病", pinyin:"méi máobìng", meaning:"Không có gì để chê"},
+  {id:14, cat:"hieu", hanzi:"安排上了", pinyin:"ānpái shàng le", meaning:"Chốt kèo / Sắp xếp luôn",
+    note:"Hán Việt: 安排 \"an bài\" — sắp xếp, bố trí."}
+];
+
+var byId = {}; WORDS.forEach(function(w){byId[w.id]=w;});
+
+/* ---------- storage ---------- */
+var STORE_KEY = "cuamieng_genz_v1";
+function loadStore(){
+  try{
+    var raw = localStorage.getItem(STORE_KEY);
+    return raw ? JSON.parse(raw) : {known:{}};
+  }catch(e){ return {known:{}}; }
+}
+function saveStore(s){
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(s)); }catch(e){}
+}
+var store = loadStore();
+
+/* ---------- tabs ---------- */
+var tabBtns = document.querySelectorAll("[data-tab-btn]");
+var tabSecs = document.querySelectorAll("[data-tab]");
+tabBtns.forEach(function(btn){
+  btn.addEventListener("click", function(){
+    var name = btn.getAttribute("data-tab-btn");
+    tabBtns.forEach(function(b){ b.classList.toggle("active", b===btn); });
+    tabSecs.forEach(function(s){ s.hidden = s.getAttribute("data-tab") !== name; });
+  });
+});
+
+/* ================= FLASHCARDS ================= */
+var activeCat = "all";
+var deck = [];
+var deckIndex = 0;
+var isFlipped = false;
+
+var catChips = document.getElementById("catChips");
+function renderChips(){
+  var html = '<div class="chip active" data-cat="all" style="--cat-color:var(--accent)"><span class="dot"></span>Tất cả (29)</div>';
+  CATS.forEach(function(c){
+    var count = WORDS.filter(function(w){return w.cat===c.id;}).length;
+    html += '<div class="chip" data-cat="'+c.id+'" style="--cat-color:'+c.color+'"><span class="dot"></span>'+c.label+' ('+count+')</div>';
+  });
+  catChips.innerHTML = html;
+  catChips.querySelectorAll(".chip").forEach(function(chip){
+    chip.addEventListener("click", function(){
+      activeCat = chip.getAttribute("data-cat");
+      catChips.querySelectorAll(".chip").forEach(function(c){c.classList.toggle("active", c===chip);});
+      buildDeck();
+    });
+  });
+}
+
+function buildDeck(){
+  deck = activeCat==="all" ? WORDS.slice() : WORDS.filter(function(w){return w.cat===activeCat;});
+  deckIndex = 0;
+  isFlipped = false;
+  renderCard();
+}
+
+var cardEl = document.getElementById("card");
+var frontTag = document.getElementById("frontTag");
+var frontHanzi = document.getElementById("frontHanzi");
+var frontPinyin = document.getElementById("frontPinyin");
+var backTag = document.getElementById("backTag");
+var backMeaning = document.getElementById("backMeaning");
+var backNote = document.getElementById("backNote");
+var backExample = document.getElementById("backExample");
+var deckPos = document.getElementById("deckPos");
+var deckKnown = document.getElementById("deckKnown");
+var deckProgress = document.getElementById("deckProgress");
+var knownBtn = document.getElementById("knownBtn");
+
+function renderCard(){
+  if(!deck.length){
+    frontHanzi.textContent = "—";
+    frontPinyin.textContent = "Không có thẻ nào";
+    return;
+  }
+  var w = deck[deckIndex];
+  var cat = CAT_MAP[w.cat];
+  cardEl.classList.remove("flipped");
+  isFlipped = false;
+
+  frontTag.textContent = cat.label;
+  frontTag.style.background = cat.color;
+  frontHanzi.textContent = w.hanzi;
+  frontPinyin.textContent = w.pinyin;
+
+  backTag.textContent = cat.label;
+  backTag.style.background = cat.color;
+  backMeaning.textContent = w.meaning;
+  backNote.textContent = w.note || "";
+  backNote.hidden = !w.note;
+
+  if(w.example){
+    backExample.hidden = false;
+    backExample.innerHTML = w.example.cn + "<br><span style='color:var(--ink-dim)'>"+w.example.vi+"</span><br>→ <b>"+w.example.reply+"</b>";
+  } else {
+    backExample.hidden = true;
+    backExample.innerHTML = "";
+  }
+
+  deckPos.textContent = (deckIndex+1)+" / "+deck.length;
+  var knownCount = deck.filter(function(x){return store.known[x.id];}).length;
+  deckKnown.textContent = knownCount+" đã thuộc";
+  deckProgress.style.width = (deck.length? (knownCount/deck.length*100):0)+"%";
+  knownBtn.classList.toggle("on", !!store.known[w.id]);
+}
+
+cardEl.addEventListener("click", function(){
+  if(!deck.length) return;
+  isFlipped = !isFlipped;
+  cardEl.classList.toggle("flipped", isFlipped);
+});
+
+document.getElementById("nextBtn").addEventListener("click", function(){
+  if(!deck.length) return;
+  deckIndex = (deckIndex+1) % deck.length;
+  renderCard();
+});
+document.getElementById("prevBtn").addEventListener("click", function(){
+  if(!deck.length) return;
+  deckIndex = (deckIndex-1+deck.length) % deck.length;
+  renderCard();
+});
+knownBtn.addEventListener("click", function(){
+  if(!deck.length) return;
+  var w = deck[deckIndex];
+  store.known[w.id] = !store.known[w.id];
+  saveStore(store);
+  renderCard();
+});
+
+/* ================= QUIZ ================= */
+var SITUATIONS = [
+  {cn:"他把盐当成糖放进咖啡里了。", vi:"Ảnh cho nhầm muối vào cà phê tưởng đường.", correct:2, alt:[30]},
+  {cn:"老板说下个月加薪50%！", vi:"Sếp nói tháng sau tăng lương 50%!", correct:7, alt:[8]},
+  {cn:"你不是说再也不喝奶茶了吗？", vi:"Chẳng phải bạn nói không uống trà sữa nữa à?", correct:26},
+  {cn:"同事说他中了500万彩票。", vi:"Đồng nghiệp bảo vừa trúng số 5 tỷ.", correct:7, alt:[8,20]},
+  {cn:"朋友翻唱了一首歌，唱得特别好。", vi:"Bạn hát cover một bài, hát xuất sắc.", correct:3, alt:[22,13]},
+  {cn:"以前超讨厌榴莲，现在每周都买。", vi:"Hồi trước chê sầu riêng, giờ tuần nào cũng mua.", correct:26},
+  {cn:"看搞笑视频，笑到喘不过气。", vi:"Xem clip hài, cười không thở nổi.", correct:30, alt:[2]},
+  {cn:"做了一下午的文件，电脑死机全没了。", vi:"Làm file cả buổi chiều, máy sập mất hết.", correct:17, alt:[5]},
+  {cn:"约你去看演唱会，你马上就答应了。", vi:"Rủ bạn đi xem concert, bạn đồng ý ngay.", correct:15, alt:[14]},
+  {cn:"他每次说话都前后矛盾，让人受不了。", vi:"Anh ta nói chuyện lúc nào cũng tiền hậu bất nhất, nghe muốn điên.", correct:12},
+  {cn:"考试考砸了，你只能自嘲一句。", vi:"Thi trượt te tua, chỉ biết tự trào một câu.", correct:5, alt:[6]},
+  {cn:"看到一个特别感人的故事，眼眶湿了。", vi:"Xem một câu chuyện quá cảm động, mắt cay cay.", correct:18}
+];
+
+var quizPool = [];
+var quizIndex = 0;
+var quizScore = 0;
+var quizAnswers = [];
+var QUIZ_LEN = 12;
+
+function shuffle(arr){
+  var a = arr.slice();
+  for(var i=a.length-1;i>0;i--){
+    var j = Math.floor(Math.random()*(i+1));
+    var t=a[i]; a[i]=a[j]; a[j]=t;
+  }
+  return a;
+}
+
+function makeMeaningQuestion(word){
+  var wrong = shuffle(WORDS.filter(function(w){return w.id!==word.id;})).slice(0,3);
+  var options = shuffle([word].concat(wrong));
+  return {
+    kicker:"Đoán nghĩa",
+    promptHtml:'<span class="hanzi">'+word.hanzi+'</span><br><span style="font-weight:600;font-size:14px;color:var(--ink-dim)">'+word.pinyin+'</span>',
+    options: options.map(function(o){return {label:o.meaning, correct:o.id===word.id};}),
+    correctIndex: options.findIndex(function(o){return o.id===word.id;}),
+    review: word.hanzi+" — "+word.meaning
+  };
+}
+
+function makeSituationQuestion(sit){
+  var correctWord = byId[sit.correct];
+  var excludeIds = [sit.correct].concat(sit.alt||[]);
+  var wrong = shuffle(WORDS.filter(function(w){return excludeIds.indexOf(w.id)===-1;})).slice(0,3);
+  var options = shuffle([correctWord].concat(wrong));
+  return {
+    kicker:"Phản ứng thế nào?",
+    promptHtml:sit.cn+'<br><span style="font-weight:600;font-size:14px;color:var(--ink-dim)">'+sit.vi+'</span>',
+    options: options.map(function(o){return {label:o.hanzi+" — "+o.meaning, correct:o.id===sit.correct};}),
+    correctIndex: options.findIndex(function(o){return o.id===sit.correct;}),
+    review: sit.vi+" → "+correctWord.hanzi
+  };
+}
+
+function buildQuizPool(){
+  var meaningQs = shuffle(WORDS).slice(0,7).map(makeMeaningQuestion);
+  var sitQs = shuffle(SITUATIONS).slice(0,5).map(makeSituationQuestion);
+  quizPool = shuffle(meaningQs.concat(sitQs));
+  quizIndex = 0;
+  quizScore = 0;
+  quizAnswers = [];
+}
+
+var quizPlay = document.getElementById("quizPlay");
+var quizDone = document.getElementById("quizDone");
+var quizCounter = document.getElementById("quizCounter");
+var quizScoreEl = document.getElementById("quizScore");
+var quizKicker = document.getElementById("quizKicker");
+var quizPrompt = document.getElementById("quizPrompt");
+var quizOptions = document.getElementById("quizOptions");
+
+function renderQuiz(){
+  quizPlay.hidden = false;
+  quizDone.hidden = true;
+  var q = quizPool[quizIndex];
+  quizCounter.textContent = "Câu "+(quizIndex+1)+" / "+quizPool.length;
+  quizScoreEl.textContent = "Điểm: "+quizScore;
+  quizKicker.textContent = q.kicker;
+  quizPrompt.innerHTML = q.promptHtml;
+  quizOptions.innerHTML = "";
+  q.options.forEach(function(opt, i){
+    var btn = document.createElement("button");
+    btn.className = "opt";
+    btn.textContent = opt.label;
+    btn.addEventListener("click", function(){ answerQuiz(i); });
+    quizOptions.appendChild(btn);
+  });
+}
+
+function answerQuiz(choiceIndex){
+  var q = quizPool[quizIndex];
+  var btns = quizOptions.querySelectorAll(".opt");
+  var wasCorrect = q.options[choiceIndex].correct;
+  btns.forEach(function(b, i){
+    b.disabled = true;
+    if(q.options[i].correct) b.classList.add("correct");
+    else if(i===choiceIndex) b.classList.add("wrong");
+  });
+  if(wasCorrect) quizScore++;
+  quizAnswers.push({review:q.review, correct:wasCorrect});
+  quizScoreEl.textContent = "Điểm: "+quizScore;
+
+  var nextBtn = document.createElement("button");
+  nextBtn.className = "round-btn primary quiz-next";
+  nextBtn.style.marginTop = "4px";
+  nextBtn.textContent = (quizIndex+1 < quizPool.length) ? "Câu tiếp →" : "Xem kết quả →";
+  nextBtn.addEventListener("click", function(){
+    quizIndex++;
+    if(quizIndex < quizPool.length) renderQuiz();
+    else finishQuiz();
+  });
+  quizOptions.appendChild(nextBtn);
+}
+
+function finishQuiz(){
+  quizPlay.hidden = true;
+  quizDone.hidden = false;
+  document.getElementById("quizFinalScore").textContent = quizScore+"/"+quizPool.length;
+  var pct = Math.round(quizScore/quizPool.length*100);
+  var note = pct>=90 ? "Đỉnh của chóp — 绝绝子!" :
+             pct>=70 ? "Có trình đấy, 有点东西!" :
+             pct>=40 ? "Ổn, luyện thêm chút nữa." :
+             "无语了… ôn lại nhóm thẻ nhé!";
+  document.getElementById("quizFinalNote").textContent = note;
+  var reviewEl = document.getElementById("quizReview");
+  reviewEl.innerHTML = "";
+  quizAnswers.forEach(function(a){
+    var row = document.createElement("div");
+    row.className = "review-item";
+    row.innerHTML = "<span>"+a.review+"</span><span>"+(a.correct?"✅":"❌")+"</span>";
+    reviewEl.appendChild(row);
+  });
+}
+
+document.getElementById("quizRetry").addEventListener("click", function(){
+  buildQuizPool();
+  renderQuiz();
+});
+
+/* ================= LIST ================= */
+var listBody = document.getElementById("listBody");
+var searchBox = document.getElementById("searchBox");
+
+function renderList(){
+  var q = (searchBox.value || "").trim().toLowerCase();
+  var html = "";
+  var any = false;
+  CATS.forEach(function(cat){
+    var items = WORDS.filter(function(w){
+      if(w.cat !== cat.id) return false;
+      if(!q) return true;
+      return (w.hanzi+w.pinyin+w.meaning).toLowerCase().indexOf(q) !== -1;
+    });
+    if(!items.length) return;
+    any = true;
+    html += '<div class="group-title" style="--cat-color:'+cat.color+'"><span class="dot"></span>'+cat.label+'</div>';
+    items.forEach(function(w){
+      html += '<div class="list-item">'
+        + '<div><div class="l-hanzi hanzi">'+w.hanzi+'</div><div class="l-pinyin">'+w.pinyin+'</div></div>'
+        + '<div class="l-meaning">'+w.meaning+'</div>'
+        + '</div>';
+    });
+  });
+  if(!any) html = '<div class="empty">Không tìm thấy cụm nào khớp "'+q+'"</div>';
+  listBody.innerHTML = html;
+}
+searchBox.addEventListener("input", renderList);
+
+/* ---------- init ---------- */
+renderChips();
+buildDeck();
+buildQuizPool();
+renderQuiz();
+renderList();
+
+})();
+</script>
+</body>
+</html>
