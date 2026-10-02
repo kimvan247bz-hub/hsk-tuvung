@@ -5,154 +5,191 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Góc ôn tập tiếng Trung</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@400;500;700&family=Zilla+Slab:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+  /* Bố cục: phần đầu xanh rêu, thẻ "câu hôm nay" nổi đè lên mép dưới, lưới 2x2 thẻ cùng một khuôn, mỗi thẻ chỉ khác màu nhấn và chữ Hán chìm */
   :root{
-    --cream:#F4EDE0;
-    --paper:#FBF7EE;
-    --ink:#2A2420;
-    --deep:#2F4438;
-    --deep-2:#233A2E;
-    --tomato:#C1452E;
-    --tomato-dark:#9C3521;
-    --soy:#7C9473;
-    --soy-dark:#5C7455;
-    --lemon:#E7B23B;
-    --line: rgba(42,36,32,0.14);
-    --shadow: 0 10px 30px rgba(35,58,46,0.18);
+    --cream:#F4EDE0; --paper:#FFFBF3; --ink:#2A2420; --muted:#6B625A;
+    --deep:#2F4438; --deep-2:#1F3328; --lemon:#E7B23B; --line:rgba(42,36,32,.13);
+    --c1:#C1452E; --c2:#2F7A5C; --c3:#1C6E7D; --c4:#A8376A;
+    --hanzi:'Noto Serif SC','Songti SC',serif;
+    --body:'Be Vietnam Pro',system-ui,-apple-system,'Segoe UI',sans-serif;
   }
-  *{box-sizing:border-box;}
-  body{
-    margin:0;
-    background:
-      radial-gradient(1200px 500px at 10% -10%, rgba(124,148,115,0.15), transparent 60%),
-      radial-gradient(900px 500px at 100% 0%, rgba(193,69,46,0.10), transparent 55%),
-      var(--cream);
-    color:var(--ink);
-    font-family:'Noto Sans SC', sans-serif;
-    line-height:1.6;
-    min-height:100vh;
-  }
-  .pinyin{font-family:'Zilla Slab', serif; font-style:italic;}
-  header.hero{
-    background: linear-gradient(180deg, var(--deep) 0%, var(--deep-2) 100%);
-    color: var(--paper);
-    padding: 50px 20px 60px;
-    border-bottom: 6px solid var(--tomato);
-    text-align:center;
-  }
-  .eyebrow{ text-transform:uppercase; letter-spacing:.18em; font-size:12px; color:var(--lemon); font-weight:700;}
-  h1{
-    font-family:'Noto Serif SC', serif; font-weight:900;
-    font-size: clamp(28px, 5vw, 44px); margin:8px 0 10px;
-  }
-  header p{color:rgba(251,247,238,0.75); max-width:560px; margin:0 auto; font-size:15px;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6}
+  .zh{font-family:var(--hanzi)}
+  h1,h2,h3,p{margin:0}
 
-  main{max-width:820px; margin:-30px auto 0; padding: 0 20px 80px; position:relative; z-index:5;}
+  .hero{background:linear-gradient(180deg,var(--deep),var(--deep-2));color:var(--paper);padding:44px 20px 96px;text-align:center}
+  .eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:12px;color:var(--lemon);font-weight:700}
+  h1{font-size:clamp(28px,5vw,44px);font-weight:800;letter-spacing:-.01em;margin:8px 0 10px;text-wrap:balance}
+  .hero p{color:rgba(255,251,243,.78);max-width:520px;margin:0 auto;font-size:15px}
+  .today{display:inline-flex;flex-wrap:wrap;justify-content:center;gap:8px 14px;align-items:center;margin-top:20px;background:rgba(255,251,243,.1);border:1px solid rgba(255,251,243,.22);border-radius:999px;padding:8px 18px;font-size:14px;font-weight:600}
+  .today b{color:var(--lemon);font-size:17px}
+  .dots{display:inline-flex;gap:5px}
+  .dots i{width:10px;height:10px;border-radius:50%;border:2px solid var(--lemon);display:block}
+  .dots i.on{background:var(--lemon)}
 
-  .lesson-list{ display:flex; flex-direction:column; gap:14px; margin-top:10px;}
-  .lesson-card{
-    background:var(--paper); border:1px solid var(--line); border-radius:16px;
-    box-shadow: var(--shadow); padding:20px 22px;
-    display:flex; align-items:center; gap:16px;
-    text-decoration:none; color:inherit;
-    transition: transform .15s ease, box-shadow .15s ease;
-  }
-  .lesson-card.active:hover{ transform: translateY(-3px); box-shadow: 0 14px 34px rgba(35,58,46,0.24); }
-  .lesson-card.pocket{
-    background:linear-gradient(135deg,#E4F2ED 0%,#F3E8D8 100%);
-    border-color:rgba(23,108,90,.32);
-    box-shadow:0 10px 30px rgba(23,108,90,.18);
-  }
-  .lesson-card.pocket:hover{box-shadow:0 14px 34px rgba(23,108,90,.28);}
-  .lesson-card.pocket .lesson-num{background:#176C5A;box-shadow:0 5px 0 #0E4A3D;}
-  .lesson-card.pocket .lesson-info h3,.lesson-card.pocket .arrow{color:#176C5A;}
-  .lesson-card.radicals{background:linear-gradient(135deg,#F5E9D7 0%,#E6EFE8 100%);border-color:rgba(193,69,46,.28)}
-  .lesson-card.radicals .lesson-num{background:#C1452E;box-shadow:0 5px 0 #9C3521}
-  .lesson-card.radicals .lesson-info h3,.lesson-card.radicals .arrow{color:#9C3521}
-  .lesson-card.linkers{background:linear-gradient(135deg,#E3EEF0 0%,#F1EADB 100%);border-color:rgba(15,107,107,.3)}
-  .lesson-card.linkers .lesson-num{background:#0F6B6B;box-shadow:0 5px 0 #0A4A4A}
-  .lesson-card.linkers .lesson-info h3,.lesson-card.linkers .arrow{color:#0F6B6B}
-  .lesson-card.slang{background:linear-gradient(135deg,#FBE4EA 0%,#F3E8D8 100%);border-color:rgba(200,45,90,.28)}
-  .lesson-card.slang .lesson-num{background:#C82D5A;box-shadow:0 5px 0 #96203F}
-  .lesson-card.slang .lesson-info h3,.lesson-card.slang .arrow{color:#96203F}
-  .lesson-num{
-    width:52px; height:52px; border-radius:50%; flex-shrink:0;
-    background: var(--tomato); color:#fff;
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Noto Serif SC', serif; font-weight:900; font-size:18px;
-    box-shadow: 0 5px 0 var(--tomato-dark);
-  }
-  .lesson-card.locked .lesson-num{ background: rgba(42,36,32,0.2); box-shadow:none; color:rgba(42,36,32,0.5);}
-  .lesson-info h3{ margin:0 0 4px; font-family:'Noto Serif SC',serif; font-size:18px; color:var(--deep-2);}
-  .lesson-info p{ margin:0; font-size:13.5px; color:rgba(42,36,32,0.6);}
-  .lesson-card.locked{ opacity:.55; cursor:default; }
-  .lesson-card.locked .lesson-info p{ font-style:italic; }
-  .arrow{ margin-left:auto; font-size:20px; color:var(--deep); flex-shrink:0;}
+  main{max-width:940px;margin:-64px auto 0;padding:0 20px 56px;display:flex;flex-direction:column;gap:30px}
 
-  .note{
-    margin-top:34px; background: rgba(124,148,115,0.15); border:1px dashed var(--soy-dark);
-    border-radius:14px; padding:16px 20px; font-size:13.5px; color:var(--deep-2);
-  }
-  .note b{color:var(--tomato-dark);}
-  footer{ text-align:center; color:rgba(42,36,32,0.45); font-size:12.5px; padding: 10px 20px 40px;}
+  .quote{background:var(--paper);border:1px solid var(--line);border-radius:20px;box-shadow:0 14px 34px rgba(31,51,40,.2);padding:22px 24px;display:flex;gap:20px;align-items:center}
+  .quote .stamp{flex:none;width:58px;height:58px;border-radius:12px;background:var(--c1);color:#fff;font-family:var(--hanzi);font-weight:900;font-size:17px;line-height:1.15;display:flex;align-items:center;justify-content:center;text-align:center;transform:rotate(-4deg)}
+  .quote .txt{min-width:0}
+  .quote .label{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c1)}
+  .quote .q{font-family:var(--hanzi);font-weight:900;font-size:clamp(22px,3.6vw,30px);line-height:1.3;color:var(--deep-2)}
+  .quote .py{font-size:14px;color:var(--muted)}
+  .quote .vi{font-size:15px;font-weight:600}
+
+  .sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+  h2{font-size:20px;font-weight:800;color:var(--deep-2)}
+  .sec-head span{font-size:14px;color:var(--muted)}
+
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+  .card{--c:var(--c1);position:relative;overflow:hidden;background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:22px;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:12px;box-shadow:0 6px 18px rgba(31,51,40,.09);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+  .card:hover,.card:focus-visible{transform:translateY(-4px);box-shadow:0 16px 34px rgba(31,51,40,.18);border-color:var(--c);outline:none}
+  .card:focus-visible{box-shadow:0 0 0 3px var(--c)}
+  .card .ghost{position:absolute;right:-14px;bottom:-46px;font-family:var(--hanzi);font-weight:900;font-size:190px;line-height:1;color:var(--c);opacity:.08;pointer-events:none;transition:transform .25s ease,opacity .25s ease}
+  .card:hover .ghost{transform:scale(1.08) rotate(-4deg);opacity:.13}
+  .card .top{display:flex;align-items:center;gap:14px}
+  .seal{flex:none;width:56px;height:56px;border-radius:16px;background:var(--c);color:#fff;font-family:var(--hanzi);font-weight:900;font-size:26px;display:flex;align-items:center;justify-content:center}
+  .step{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c)}
+  .card h3{font-size:19px;font-weight:800;line-height:1.25;color:var(--ink)}
+  .card .cn{font-family:var(--hanzi);font-weight:700;font-size:15px;color:var(--c)}
+  .card .desc{font-size:14.5px;color:var(--muted);position:relative}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;position:relative}
+  .chips span{font-size:12.5px;font-weight:600;padding:3px 10px;border-radius:999px;border:1px solid var(--line);background:#fff}
+  .card .foot{margin-top:auto;padding-top:6px;display:flex;justify-content:space-between;align-items:center;position:relative}
+  .cta{background:var(--c);color:#fff;font-weight:700;font-size:14px;padding:8px 16px;border-radius:999px}
+  .done{font-size:13px;font-weight:700;color:var(--c)}
+  .c1{--c:var(--c1)} .c2{--c:var(--c2)} .c3{--c:var(--c3)} .c4{--c:var(--c4)}
+
+  footer{text-align:center;color:var(--muted);font-size:13px;padding:0 20px 40px}
+  @media (max-width:680px){.grid{grid-template-columns:1fr}.quote{flex-direction:column;text-align:center;gap:12px}}
+  @media (prefers-reduced-motion:reduce){.card,.card .ghost{transition:none}.card:hover{transform:none}}
 </style>
 </head>
 <body>
 
 <header class="hero">
-  <div class="eyebrow">汉语复习 · HSK 3–4</div>
+  <div class="eyebrow"><span class="zh">汉语复习</span> · HSK 3–4</div>
   <h1>Góc ôn tập tiếng Trung</h1>
-  <p>Bốn trang ôn tập: từ vựng theo chủ đề, bộ thủ, liên từ và khẩu ngữ giới trẻ. Bấm vào thẻ để mở.</p>
+  <p>Mỗi ngày một chút. Chọn một trang bên dưới và ôn trong 10 phút.</p>
+  <div class="today" id="today" hidden>
+    <span>Chuỗi học <b id="streak">1</b> ngày</span>
+    <span class="dots" id="dots" aria-hidden="true"></span>
+    <span id="todayText"></span>
+  </div>
 </header>
 
 <main>
-  <div class="lesson-list">
+  <section class="quote">
+    <div class="stamp">每日<br>一句</div>
+    <div class="txt">
+      <div class="label">Câu hôm nay</div>
+      <div class="q" id="qZh">千里之行，始于足下</div>
+      <div class="py" id="qPy">Qiān lǐ zhī xíng, shǐ yú zú xià</div>
+      <div class="vi" id="qVi">Hành trình ngàn dặm bắt đầu từ một bước chân.</div>
+    </div>
+  </section>
 
-    <a href="hoc-tu-vung-tieng-trung.html" class="lesson-card active pocket">
-      <div class="lesson-num">词</div>
-      <div class="lesson-info">
-        <h3>Học từ vựng tiếng Trung · 主题词汇</h3>
-        <p>140 từ theo 7 chủ đề · Pinyin · Câu ví dụ · Lưu từ cần ôn</p>
-      </div>
-      <div class="arrow">→</div>
-    </a>
+  <section>
+    <div class="sec-head">
+      <h2>Lộ trình ôn tập</h2>
+      <span>Nhận diện chữ → tích lũy từ → nối câu → nói tự nhiên</span>
+    </div>
+    <div class="grid">
 
-    <a href="50-bo-thu.html" class="lesson-card active radicals">
-      <div class="lesson-num">部</div>
-      <div class="lesson-info">
-        <h3>50 bộ thủ cơ bản · 部首</h3>
-        <p>6 chủ đề · Mẹo liên tưởng · 250 từ ví dụ · Kiểm tra nhanh 10 câu</p>
-      </div>
-      <div class="arrow">→</div>
-    </a>
+      <a href="50-bo-thu.html" class="card c1" data-page="bothu">
+        <div class="ghost" aria-hidden="true">部</div>
+        <div class="top"><div class="seal">部</div><div><div class="step">Bước 1 · Nhận diện chữ</div><div class="cn">部首</div></div></div>
+        <h3>50 bộ thủ cơ bản</h3>
+        <p class="desc">Hiểu cấu tạo chữ Hán qua bộ thủ, kèm mẹo liên tưởng để nhớ lâu.</p>
+        <div class="chips"><span>50 bộ thủ</span><span>6 chủ đề</span><span>250 từ ví dụ</span><span>Kiểm tra 10 câu</span></div>
+        <div class="foot"><span class="cta">Vào học →</span><span class="done" hidden>✓ Đã ôn hôm nay</span></div>
+      </a>
 
-    <a href="lien-tu.html" class="lesson-card active linkers">
-      <div class="lesson-num">连</div>
-      <div class="lesson-info">
-        <h3>Sổ tay liên từ · 关联词</h3>
-        <p>23 từ nối theo 5 nhóm chức năng · Sơ đồ tư duy · Flashcard · Trắc nghiệm</p>
-      </div>
-      <div class="arrow">→</div>
-    </a>
+      <a href="hoc-tu-vung-tieng-trung.html" class="card c2" data-page="tuvung">
+        <div class="ghost" aria-hidden="true">词</div>
+        <div class="top"><div class="seal">词</div><div><div class="step">Bước 2 · Tích lũy từ</div><div class="cn">主题词汇</div></div></div>
+        <h3>Học từ vựng theo chủ đề</h3>
+        <p class="desc">Từ vựng thường dùng chia theo chủ đề, mỗi từ có pinyin và câu ví dụ.</p>
+        <div class="chips"><span>140 từ</span><span>7 chủ đề</span><span>Câu ví dụ</span><span>Lưu từ cần ôn</span></div>
+        <div class="foot"><span class="cta">Vào học →</span><span class="done" hidden>✓ Đã ôn hôm nay</span></div>
+      </a>
 
-    <a href="cua-mieng-genz.html" class="lesson-card active slang">
-      <div class="lesson-num">哈</div>
-      <div class="lesson-info">
-        <h3>Cửa miệng Gen Z · 流行语</h3>
-        <p>29 cụm khẩu ngữ giới trẻ theo 6 nhóm cảm xúc · Thẻ ôn · Kiểm tra tình huống</p>
-      </div>
-      <div class="arrow">→</div>
-    </a>
+      <a href="lien-tu.html" class="card c3" data-page="lientu">
+        <div class="ghost" aria-hidden="true">连</div>
+        <div class="top"><div class="seal">连</div><div><div class="step">Bước 3 · Nối câu</div><div class="cn">关联词</div></div></div>
+        <h3>Sổ tay liên từ</h3>
+        <p class="desc">Từ nối chia theo 5 nhóm chức năng, có sơ đồ tư duy và sơ đồ mẫu câu.</p>
+        <div class="chips"><span>23 liên từ</span><span>Sơ đồ tư duy</span><span>Flashcard</span><span>Trắc nghiệm</span></div>
+        <div class="foot"><span class="cta">Vào học →</span><span class="done" hidden>✓ Đã ôn hôm nay</span></div>
+      </a>
 
-  </div>
+      <a href="cua-mieng-genz.html" class="card c4" data-page="genz">
+        <div class="ghost" aria-hidden="true">哈</div>
+        <div class="top"><div class="seal">哈</div><div><div class="step">Bước 4 · Nói tự nhiên</div><div class="cn">流行语</div></div></div>
+        <h3>Cửa miệng Gen Z</h3>
+        <p class="desc">Khẩu ngữ giới trẻ Trung Quốc theo 6 nhóm cảm xúc, luyện phản ứng theo tình huống.</p>
+        <div class="chips"><span>29 cụm</span><span>6 nhóm cảm xúc</span><span>Thẻ ôn</span><span>Kiểm tra tình huống</span></div>
+        <div class="foot"><span class="cta">Vào học →</span><span class="done" hidden>✓ Đã ôn hôm nay</span></div>
+      </a>
 
-  <div class="note">
-    <b>Mẹo ôn tập:</b> học bộ thủ trước để nhận diện chữ, sau đó ôn từ vựng theo chủ đề, rồi dùng liên từ để nối các từ thành câu dài.
-  </div>
+    </div>
+  </section>
 </main>
 
-<footer>Tự tạo cho việc ôn tập cá nhân</footer>
+<footer>Tự tạo cho việc ôn tập cá nhân · <span class="zh">加油！</span></footer>
 
+<script>
+(function(){
+  var QUOTES=[
+    ['千里之行，始于足下','Qiān lǐ zhī xíng, shǐ yú zú xià','Hành trình ngàn dặm bắt đầu từ một bước chân.'],
+    ['学而时习之','Xué ér shí xí zhī','Học rồi thường xuyên ôn tập.'],
+    ['熟能生巧','Shú néng shēng qiǎo','Quen tay hay việc.'],
+    ['活到老，学到老','Huó dào lǎo, xué dào lǎo','Sống đến già, học đến già.'],
+    ['不怕慢，就怕站','Bú pà màn, jiù pà zhàn','Không sợ chậm, chỉ sợ dừng lại.'],
+    ['只要功夫深，铁杵磨成针','Zhǐyào gōngfu shēn, tiěchǔ mó chéng zhēn','Có công mài sắt, có ngày nên kim.'],
+    ['一步一个脚印','Yí bù yí gè jiǎoyìn','Mỗi bước một dấu chân, làm đâu chắc đó.']
+  ];
+  function key(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+  var now=new Date(), today=key(now);
+  var q=QUOTES[Math.floor(new Date(now.getFullYear(),now.getMonth(),now.getDate()).getTime()/86400000)%QUOTES.length];
+  document.getElementById('qZh').textContent=q[0];
+  document.getElementById('qPy').textContent=q[1];
+  document.getElementById('qVi').textContent=q[2];
+
+  var KEY='gocontap_v1', st;
+  try{st=JSON.parse(localStorage.getItem(KEY))||{};}catch(e){st=null;}
+  if(!st)return;                       // trình duyệt không cho lưu: trang vẫn dùng bình thường
+  st.days=st.days||[]; st.opened=st.opened||{};
+  if(st.days.indexOf(today)===-1)st.days.push(today);
+  st.days=st.days.slice(-400);
+  if(!st.opened[today])st.opened={}; st.opened[today]=st.opened[today]||[];
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(st));return true;}catch(e){return false;}}
+  if(!save())return;
+
+  var streak=0,d=new Date(now);
+  while(st.days.indexOf(key(d))!==-1){streak++;d.setDate(d.getDate()-1);}
+  var cards=document.querySelectorAll('.card');
+  function render(){
+    var done=st.opened[today], n=0, dots='';
+    cards.forEach(function(c){
+      var on=done.indexOf(c.dataset.page)!==-1; if(on)n++;
+      c.querySelector('.done').hidden=!on;
+      dots+='<i class="'+(on?'on':'')+'"></i>';
+    });
+    document.getElementById('streak').textContent=streak;
+    document.getElementById('dots').innerHTML=dots;
+    document.getElementById('todayText').textContent=n===cards.length?'Hôm nay đã ôn đủ '+n+' trang':'Hôm nay đã ôn '+n+'/'+cards.length+' trang';
+    document.getElementById('today').hidden=false;
+  }
+  cards.forEach(function(c){c.addEventListener('click',function(){
+    if(st.opened[today].indexOf(c.dataset.page)===-1){st.opened[today].push(c.dataset.page);save();render();}
+  });});
+  window.addEventListener('pageshow',render);
+  render();
+})();
+</script>
 </body>
 </html>
