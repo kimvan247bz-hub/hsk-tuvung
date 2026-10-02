@@ -26,6 +26,7 @@
   --good:#6fd39a; --bad:#f08a80; --good-bg:#17382a; --bad-bg:#40211f;
   --g1:#7fb0f5; --g2:#eca35c; --g3:#e58fc4; --g4:#6fd39a; --g5:#b09cf2; color-scheme:dark }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 body{margin:0}
 .back{color:var(--accent);text-decoration:none;font-size:.9rem;font-weight:600}
 body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.55}
@@ -99,6 +100,8 @@ textarea{font:inherit;color:var(--fg);background:var(--surface);border:1px solid
 @media (max-width:520px){.row{grid-template-columns:1fr auto}.row .w{grid-column:1/-1}.card .big{font-size:2.7rem}}
 @media (prefers-reduced-motion:reduce){.bar i{transition:none}}
 </style>
+</head>
+<body>
 
 <div class="wrap">
   <header>
@@ -340,5 +343,5 @@ document.querySelector('nav').addEventListener('click',e=>{
 });
 progress(); renderList(); renderChips(); buildDeck(); startQuiz();
 </script>
-
+</body>
 </html>
