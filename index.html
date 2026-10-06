@@ -11,7 +11,7 @@
   :root{
     --cream:#F4EDE0; --paper:#FFFBF3; --ink:#2A2420; --muted:#6B625A;
     --deep:#2F4438; --deep-2:#1F3328; --lemon:#E7B23B; --line:rgba(42,36,32,.13);
-    --c1:#C1452E; --c2:#2F7A5C; --c3:#1C6E7D; --c4:#A8376A;
+    --c1:#C1452E; --c2:#2F7A5C; --c3:#1C6E7D; --c4:#A8376A; --c5:#7A5A1E;
     --hanzi:'Noto Serif SC','Songti SC',serif;
     --body:'Be Vietnam Pro',system-ui,-apple-system,'Segoe UI',sans-serif;
   }
@@ -61,7 +61,8 @@
   .card .foot{margin-top:auto;padding-top:6px;display:flex;justify-content:space-between;align-items:center;position:relative}
   .cta{background:var(--c);color:#fff;font-weight:700;font-size:14px;padding:8px 16px;border-radius:999px}
   .done{font-size:13px;font-weight:700;color:var(--c)}
-  .c1{--c:var(--c1)} .c2{--c:var(--c2)} .c3{--c:var(--c3)} .c4{--c:var(--c4)}
+  .c1{--c:var(--c1)} .c2{--c:var(--c2)} .c3{--c:var(--c3)} .c4{--c:var(--c4)} .c5{--c:var(--c5)}
+  .grid .card:last-child:nth-child(odd){grid-column:1/-1}
 
   footer{text-align:center;color:var(--muted);font-size:13px;padding:0 20px 40px}
   @media (max-width:680px){.grid{grid-template-columns:1fr}.quote{flex-direction:column;text-align:center;gap:12px}}
@@ -95,7 +96,7 @@
   <section>
     <div class="sec-head">
       <h2>Lộ trình ôn tập</h2>
-      <span>Nhận diện chữ → tích lũy từ → nối câu → nói tự nhiên</span>
+      <span>Nhận diện chữ → tích lũy từ → nối câu → nói tự nhiên → giao tiếp</span>
     </div>
     <div class="grid">
 
@@ -132,6 +133,15 @@
         <h3>Cửa miệng Gen Z</h3>
         <p class="desc">Khẩu ngữ giới trẻ Trung Quốc theo 6 nhóm cảm xúc, luyện phản ứng theo tình huống.</p>
         <div class="chips"><span>29 cụm</span><span>6 nhóm cảm xúc</span><span>Thẻ ôn</span><span>Kiểm tra tình huống</span></div>
+        <div class="foot"><span class="cta">Vào học →</span><span class="done" hidden>✓ Đã ôn hôm nay</span></div>
+      </a>
+
+      <a href="100-cau-giao-tiep.html" class="card c5" data-page="giaotiep">
+        <div class="ghost" aria-hidden="true">话</div>
+        <div class="top"><div class="seal">话</div><div><div class="step">Bước 5 · Giao tiếp hằng ngày</div><div class="cn">日常会话</div></div></div>
+        <h3>100 câu giao tiếp thông dụng</h3>
+        <p class="desc">Mẫu câu dùng hằng ngày theo tình huống, kèm 32 câu dài hơn để nói trọn ý.</p>
+        <div class="chips"><span>132 câu</span><span>19 chủ đề</span><span>Thẻ ghi nhớ</span><span>Trắc nghiệm</span></div>
         <div class="foot"><span class="cta">Vào học →</span><span class="done" hidden>✓ Đã ôn hôm nay</span></div>
       </a>
 
