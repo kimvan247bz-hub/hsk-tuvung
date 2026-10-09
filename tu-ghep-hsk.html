@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>154 từ và cụm 2 chữ HSK – bản đã hiệu đính</title>
+<style>
+:root{
+  --paper:#E9EFEA; --sheet:#F8FAF7; --ink:#16211D; --pine:#2F5D50;
+  --cinnabar:#B8322A; --ochre:#B98A1E; --line:#C9D4CC; --soft:#5A6B64;
+  --han:"Songti SC","Noto Serif CJK SC","Noto Serif SC","Source Han Serif SC",SimSun,serif;
+  --body:"Be Vietnam Pro","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--ochre);outline-offset:2px}
+.wrap{max-width:820px;margin:0 auto;padding:0 16px}
+
+header.top{padding:28px 0 18px}
+.top h1{font-size:clamp(1.6rem,6vw,2.4rem);line-height:1.15;margin:0 0 8px;font-weight:800;letter-spacing:-.01em}
+.top h1 span{font-family:var(--han);color:var(--pine);font-weight:700}
+.top p{margin:0;color:var(--soft);max-width:60ch}
+.prog{margin-top:14px;display:flex;align-items:center;gap:10px;font-size:.9rem;color:var(--soft)}
+.bar{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--pine);transition:width .3s}
+
+nav.groups{position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:1px solid var(--line)}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:10px 16px;max-width:820px;margin:0 auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--sheet);border-radius:999px;padding:7px 13px;font-size:.9rem;white-space:nowrap}
+.chip[aria-selected=true]{background:var(--pine);border-color:var(--pine);color:#fff;font-weight:600}
+
+.tools{display:flex;flex-wrap:wrap;gap:8px;padding:14px 0 4px}
+.tools input{flex:1;min-width:160px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--sheet);font:inherit}
+.tog{border:1px solid var(--line);background:var(--sheet);border-radius:8px;padding:10px 12px;font-size:.9rem}
+.tog[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+.rule{background:var(--sheet);border-left:5px solid var(--cinnabar);padding:14px 16px;margin:14px 0;border-radius:0 8px 8px 0}
+.rule h2{margin:0 0 6px;font-size:1.05rem}
+.rule ul{margin:0;padding-left:18px}
+.rule b.h{font-family:var(--han);font-size:1.15em}
+.py{color:var(--cinnabar);font-weight:600}
+
+section.g h2{font-size:1.35rem;margin:22px 0 2px;line-height:1.25}
+section.g .intro{color:var(--soft);margin:0 0 10px;font-size:.95rem}
+ol.words{list-style:none;margin:0;padding:0;background:var(--sheet);border-radius:10px;border:1px solid var(--line)}
+ol.words li+li{border-top:1px solid var(--line)}
+.head{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;width:100%;padding:12px 14px;background:none;border:0;text-align:left}
+.han{font-family:var(--han);font-size:1.9rem;font-weight:700;line-height:1.1;min-width:2.3em}
+.mid .py{display:block;font-size:1rem}
+.mean{display:block;font-size:.98rem}
+body.quiz li:not(.open) .mean{filter:blur(6px);user-select:none}
+.chev{color:var(--soft);font-size:1.1rem;transition:transform .2s}
+li.open .chev{transform:rotate(90deg)}
+li.done .han{color:var(--pine)}
+.more{display:none;padding:0 14px 14px}
+li.open .more{display:block}
+.note{font-size:.9rem;color:var(--soft);margin:0 0 8px}
+.ex{background:var(--paper);border-radius:8px;padding:10px 12px}
+.ex .zh{font-family:var(--han);font-size:1.3rem;display:block}
+.ex .py{font-size:.95rem;display:block;font-weight:500}
+.ex .vi{font-size:.92rem;color:var(--soft);display:block}
+.acts{display:flex;gap:8px;margin-top:10px}
+.acts button{border:1px solid var(--line);background:var(--sheet);border-radius:8px;padding:8px 12px;font-size:.88rem}
+.acts .ok[aria-pressed=true]{background:var(--pine);border-color:var(--pine);color:#fff}
+
+.tips{margin:14px 0;padding:14px 16px;border:1px dashed var(--pine);border-radius:10px}
+.tips h3{margin:0 0 6px;font-size:1rem;color:var(--pine)}
+.tips ul{margin:0;padding-left:18px}
+.tips b{font-family:var(--han);font-size:1.1em}
+
+.quizbox h3{font-size:1.1rem;margin:20px 0 8px}
+.q{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:10px}
+.q .stem{font-family:var(--han);font-size:1.25rem;margin:0 0 10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts button{font-family:var(--han);font-size:1.15rem;border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:8px 16px}
+.opts button.right{background:var(--pine);color:#fff;border-color:var(--pine)}
+.opts button.wrong{background:var(--cinnabar);color:#fff;border-color:var(--cinnabar)}
+.ans{display:none;margin-top:10px;font-size:.92rem;border-top:1px solid var(--line);padding-top:10px}
+.q.shown .ans{display:block}
+.ans .py,.ans .vi{display:block}
+.ans .vi{color:var(--soft)}
+.score{font-weight:600;color:var(--pine);margin:6px 0 30px}
+.empty{padding:20px;text-align:center;color:var(--soft)}
+footer{color:var(--soft);font-size:.85rem;padding:10px 0 40px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+@media print{nav.groups,.tools,.acts{display:none}.more{display:block!important}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1><span>词语</span> 154 từ và cụm 2 chữ HSK</h1>
+    <p>Bản đã hiệu đính pinyin và chú thích. Mỗi từ có câu ví dụ dùng được ngay khi giao tiếp, cuối mỗi nhóm có 5 câu luyện tập kèm đáp án.</p>
+    <div class="prog"><span id="cnt">Đã thuộc 0/154</span><div class="bar"><i id="barfill"></i></div></div>
+  </header>
+</div>
+
+<nav class="groups" aria-label="Chọn nhóm từ"><div class="chips" id="chips" role="tablist"></div></nav>
+
+<div class="wrap">
+  <div class="tools">
+    <input id="search" type="search" placeholder="Tìm chữ Hán, pinyin hoặc nghĩa" aria-label="Tìm từ">
+    <button class="tog" id="quizTog" aria-pressed="false">Che nghĩa để tự kiểm tra</button>
+  </div>
+
+  <div class="rule" id="rule">
+    <h2>Quy tắc biến điệu của <b class="h">一</b> và <b class="h">不</b></h2>
+    <ul>
+      <li>Trước thanh 4: đọc thanh 2. <b class="h">一定</b> <span class="py">yídìng</span>, <b class="h">不要</b> <span class="py">búyào</span>, <b class="h">不错</b> <span class="py">búcuò</span></li>
+      <li><b class="h">一</b> trước thanh 1, 2, 3: đọc thanh 4. <b class="h">一些</b> <span class="py">yìxiē</span>, <b class="h">一直</b> <span class="py">yìzhí</span>, <b class="h">一起</b> <span class="py">yìqǐ</span></li>
+      <li><b class="h">不</b> trước thanh 1, 2, 3: giữ thanh 4. <b class="h">不同</b> <span class="py">bùtóng</span>, <b class="h">不好</b> <span class="py">bù hǎo</span></li>
+    </ul>
+  </div>
+
+  <main id="main"></main>
+  <footer>Pinyin ghi theo cách đọc thực tế của 一 và 不 (đã biến điệu). Thanh 3 liền nhau giữ nguyên cách ghi gốc, ví dụ 可以 kěyǐ đọc thành ké yǐ. Nút nghe dùng giọng đọc có sẵn trên thiết bị.</footer>
+</div>
+
+<script>
+// [chữ Hán, pinyin, nghĩa, ghi chú, ví dụ, pinyin ví dụ, dịch]
+const G=[
+{t:"Số lượng, mức độ, phạm vi",i:"Các từ có 一 chiếm nửa nhóm: học luôn quy tắc biến điệu ở trên thay vì thuộc từng từ.",
+w:[
+["一下","yíxià","một chút, thử (làm nhanh)","Đặt sau động từ.","请等一下。","Qǐng děng yíxià.","Xin đợi một chút."],
+["一些","yìxiē","một ít, một số","Số lượng không xác định, đếm được hoặc không.","我买了一些水果。","Wǒ mǎile yìxiē shuǐguǒ.","Tôi đã mua một ít hoa quả."],
+["一个","yí gè","một cái, một (người)","Là số từ + lượng từ, không phải từ ghép.","我有一个问题。","Wǒ yǒu yí gè wèntí.","Tôi có một câu hỏi."],
+["一切","yíqiè","tất cả, mọi thứ","Thường đi với 都.","一切都会好的。","Yíqiè dōu huì hǎo de.","Mọi thứ rồi sẽ ổn."],
+["一定","yídìng","nhất định, chắc chắn","","我明天一定来。","Wǒ míngtiān yídìng lái.","Ngày mai tôi nhất định đến."],
+["一样","yíyàng","giống nhau","Khung: A 跟 B 一样.","我的手机跟你的一样。","Wǒ de shǒujī gēn nǐ de yíyàng.","Điện thoại của tôi giống của bạn."],
+["一直","yìzhí","luôn, suốt; (đi) thẳng","Bản gốc ghi yízhí là sai: 直 thanh 2 nên 一 đọc thanh 4.","他一直在等你。","Tā yìzhí zài děng nǐ.","Anh ấy vẫn luôn đợi bạn."],
+["一起","yìqǐ","cùng nhau","","我们一起吃饭吧。","Wǒmen yìqǐ chīfàn ba.","Chúng ta cùng ăn cơm nhé."],
+["一点","yìdiǎn","một chút","Khẩu ngữ thường nói 一点儿. Đứng sau tính từ để so sánh nhẹ.","便宜一点儿吧。","Piányi yìdiǎnr ba.","Rẻ hơn một chút đi."],
+["任何","rènhé","bất kỳ","Dùng được trong câu khẳng định, hay đi với 都/也.","任何人都可以参加。","Rènhé rén dōu kěyǐ cānjiā.","Bất kỳ ai cũng có thể tham gia."],
+["全部","quánbù","toàn bộ","","作业我全部做完了。","Zuòyè wǒ quánbù zuòwán le.","Bài tập tôi đã làm xong toàn bộ."],
+["其中","qízhōng","trong đó","","我有三个朋友,其中一个是中国人。","Wǒ yǒu sān gè péngyou, qízhōng yí gè shì Zhōngguó rén.","Tôi có ba người bạn, trong đó một người là người Trung Quốc."],
+["其他","qítā","khác, còn lại","","其他人呢?","Qítā rén ne?","Những người khác đâu?"],
+["唯一","wéiyī","duy nhất","","这是唯一的办法。","Zhè shì wéiyī de bànfǎ.","Đây là cách duy nhất."],
+["大概","dàgài","khoảng, đại khái","","大概要二十分钟。","Dàgài yào èrshí fēnzhōng.","Mất khoảng hai mươi phút."],
+["多少","duōshao","bao nhiêu","","这个多少钱?","Zhège duōshao qián?","Cái này bao nhiêu tiền?"],
+["多久","duōjiǔ","bao lâu","","你学汉语多久了?","Nǐ xué Hànyǔ duōjiǔ le?","Bạn học tiếng Trung bao lâu rồi?"]],
+tips:["<b>一些</b> nói về số lượng không xác định; <b>一点</b> nhấn mức độ nhỏ.","<b>一定</b> là chắc chắn; <b>一样</b> là giống nhau.","<b>任何</b> gần như luôn có <b>都</b> hoặc <b>也</b> phía sau."],
+q:[
+["请等___,我马上来。",["一下","一些","一样"],0,"Qǐng děng yíxià, wǒ mǎshàng lái.","Xin đợi một chút, tôi đến ngay."],
+["我在超市买了___水果。",["一定","一些","一直"],1,"Wǒ zài chāoshì mǎile yìxiē shuǐguǒ.","Tôi mua một ít hoa quả ở siêu thị."],
+["他___住在胡志明市,没搬过家。",["一起","一样","一直"],2,"Tā yìzhí zhù zài Húzhìmíng Shì, méi bānguo jiā.","Anh ấy vẫn luôn sống ở TP. Hồ Chí Minh, chưa từng chuyển nhà."],
+["___人都可以参加这个活动。",["任何","其中","大概"],0,"Rènhé rén dōu kěyǐ cānjiā zhège huódòng.","Bất kỳ ai cũng có thể tham gia hoạt động này."],
+["从这儿到机场___要四十分钟。",["唯一","全部","大概"],2,"Cóng zhèr dào jīchǎng dàgài yào sìshí fēnzhōng.","Từ đây đến sân bay mất khoảng bốn mươi phút."]]},
+
+{t:"Phủ định, khả năng, đánh giá",i:"Cùng có 不 hoặc 可 nhưng chức năng khác nhau. Chú ý 不 đổi sang thanh 2 trước thanh 4.",
+w:[
+["不再","bú zài","không … nữa","Bản gốc ghi bù zài là sai.","他不再抽烟了。","Tā bú zài chōuyān le.","Anh ấy không hút thuốc nữa."],
+["不同","bùtóng","khác nhau","","每个人的想法不同。","Měi gè rén de xiǎngfǎ bùtóng.","Suy nghĩ của mỗi người khác nhau."],
+["不好","bù hǎo","không tốt","","今天天气不好。","Jīntiān tiānqì bù hǎo.","Hôm nay thời tiết không đẹp."],
+["不用","búyòng","không cần","Bản gốc ghi bù yòng là sai.","不用谢。","Búyòng xiè.","Không cần cảm ơn."],
+["不管","bùguǎn","bất kể, cho dù","Khung: 不管…都/也. Là điều kiện bất kể, khác 尽管 (mặc dù).","不管多忙,他都运动。","Bùguǎn duō máng, tā dōu yùndòng.","Dù bận thế nào anh ấy cũng tập thể dục."],
+["不能","bù néng","không thể, không được","Do năng lực hoặc quy định.","这里不能停车。","Zhèlǐ bù néng tíngchē.","Ở đây không được đỗ xe."],
+["不行","bùxíng","không được, không ổn","Thường đứng một mình làm câu trả lời.","明天不行,我有事。","Míngtiān bùxíng, wǒ yǒu shì.","Ngày mai không được, tôi có việc."],
+["不要","búyào","đừng; không muốn","Bản gốc ghi bù yào là sai.","上课不要玩手机。","Shàngkè búyào wán shǒujī.","Trong giờ học đừng nghịch điện thoại."],
+["不错","búcuò","không tệ, khá tốt","Bản gốc ghi bù cuò là sai.","这家饭馆不错。","Zhè jiā fànguǎn búcuò.","Quán ăn này khá ổn."],
+["可以","kěyǐ","có thể, được phép","","我可以进来吗?","Wǒ kěyǐ jìnlái ma?","Tôi vào được không?"],
+["可能","kěnéng","có thể, có lẽ","Phỏng đoán.","他可能不来了。","Tā kěnéng bù lái le.","Có lẽ anh ấy không đến nữa."],
+["可是","kěshì","nhưng","","我想去,可是没时间。","Wǒ xiǎng qù, kěshì méi shíjiān.","Tôi muốn đi nhưng không có thời gian."],
+["可爱","kě'ài","đáng yêu","","你的小狗真可爱。","Nǐ de xiǎogǒu zhēn kě'ài.","Chú chó nhỏ của bạn đáng yêu thật."],
+["可怜","kělián","đáng thương","","这只小猫很可怜。","Zhè zhī xiǎomāo hěn kělián.","Chú mèo con này thật đáng thương."],
+["危险","wēixiǎn","nguy hiểm","","这样开车太危险了。","Zhèyàng kāichē tài wēixiǎn le.","Lái xe như thế này nguy hiểm quá."],
+["奇怪","qíguài","kỳ lạ","","真奇怪,他怎么还没到?","Zhēn qíguài, tā zěnme hái méi dào?","Lạ thật, sao anh ấy vẫn chưa đến?"],
+["冷静","lěngjìng","bình tĩnh","","你先冷静一下。","Nǐ xiān lěngjìng yíxià.","Bạn bình tĩnh lại đã."]],
+tips:["<b>不用</b> là không cần; <b>不要</b> là đừng làm.","<b>不能</b> đứng trước động từ; <b>不行</b> hay đứng một mình để từ chối.","<b>可以</b> là được phép hoặc làm được; <b>可能</b> là phỏng đoán."],
+q:[
+["A:谢谢你! B:___谢。",["不用","不行","不同"],0,"Xièxie nǐ! — Búyòng xiè.","Cảm ơn bạn! — Không cần cảm ơn."],
+["图书馆里___大声说话。",["不错","不要","不同"],1,"Túshūguǎn lǐ búyào dàshēng shuōhuà.","Trong thư viện đừng nói to."],
+["天这么阴,下午___会下雨。",["可以","可爱","可能"],2,"Tiān zhème yīn, xiàwǔ kěnéng huì xià yǔ.","Trời âm u thế này, buổi chiều có lẽ sẽ mưa."],
+["老师,我___用一下您的笔吗?",["可以","可能","可是"],0,"Lǎoshī, wǒ kěyǐ yòng yíxià nín de bǐ ma?","Thưa thầy/cô, em dùng bút của thầy/cô một chút được không ạ?"],
+["这家咖啡店的咖啡___,你可以试试。",["不行","不管","不错"],2,"Zhè jiā kāfēidiàn de kāfēi búcuò, nǐ kěyǐ shìshi.","Cà phê quán này khá ngon, bạn có thể thử."]]},
+
+{t:"Liên kết, điều kiện, lập luận",i:"Học theo cặp cố định: thấy vế đầu là đoán được vế sau, làm bài đọc và sắp xếp câu nhanh hơn nhiều.",
+w:[
+["并且","bìngqiě","đồng thời, hơn nữa","","他会说汉语,并且说得很好。","Tā huì shuō Hànyǔ, bìngqiě shuō de hěn hǎo.","Anh ấy biết nói tiếng Trung, hơn nữa còn nói rất tốt."],
+["但是","dànshì","nhưng","Cặp: 虽然…但是.","虽然很累,但是很开心。","Suīrán hěn lèi, dànshì hěn kāixīn.","Tuy rất mệt nhưng rất vui."],
+["作为","zuòwéi","với tư cách là","","作为老师,我要对学生负责。","Zuòwéi lǎoshī, wǒ yào duì xuésheng fùzé.","Là giáo viên, tôi phải có trách nhiệm với học sinh."],
+["其实","qíshí","thực ra","","其实我不太喜欢喝咖啡。","Qíshí wǒ bú tài xǐhuan hē kāfēi.","Thực ra tôi không thích uống cà phê lắm."],
+["只是","zhǐshì","chỉ là","","我只是问问。","Wǒ zhǐshì wènwen.","Tôi chỉ hỏi thôi."],
+["只有","zhǐyǒu","chỉ có (… mới)","Cặp: 只有…才. Điều kiện duy nhất.","只有努力,才能成功。","Zhǐyǒu nǔlì, cái néng chénggōng.","Chỉ có nỗ lực mới có thể thành công."],
+["只要","zhǐyào","chỉ cần (… là)","Cặp: 只要…就. Điều kiện đủ.","只要你来,我就高兴。","Zhǐyào nǐ lái, wǒ jiù gāoxìng.","Chỉ cần bạn đến là tôi vui."],
+["即使","jíshǐ","cho dù (giả thiết)","Cặp: 即使…也.","即使下雨,我也去。","Jíshǐ xià yǔ, wǒ yě qù.","Cho dù trời mưa tôi cũng đi."],
+["否则","fǒuzé","nếu không thì","","快点儿,否则要迟到了。","Kuài diǎnr, fǒuzé yào chídào le.","Nhanh lên, nếu không sẽ muộn đấy."],
+["如果","rúguǒ","nếu","Cặp: 如果…就.","如果明天下雨,我们就不去了。","Rúguǒ míngtiān xià yǔ, wǒmen jiù bú qù le.","Nếu mai mưa thì chúng ta không đi nữa."],
+["因为","yīnwèi","bởi vì","Cặp: 因为…所以.","因为堵车,所以我迟到了。","Yīnwèi dǔchē, suǒyǐ wǒ chídào le.","Vì tắc đường nên tôi đến muộn."],
+["另外","lìngwài","ngoài ra; (cái) khác","","另外,我还想问一个问题。","Lìngwài, wǒ hái xiǎng wèn yí gè wèntí.","Ngoài ra, tôi còn muốn hỏi một câu."],
+["到底","dàodǐ","rốt cuộc","Dùng để truy hỏi; không dùng trong câu hỏi có 吗.","你到底去不去?","Nǐ dàodǐ qù bu qù?","Rốt cuộc bạn có đi không?"],
+["如何","rúhé","như thế nào","Văn viết, tương đương 怎么样.","你觉得这个计划如何?","Nǐ juéde zhège jìhuà rúhé?","Bạn thấy kế hoạch này thế nào?"],
+["如此","rúcǐ","như vậy","Văn viết.","原来如此!","Yuánlái rúcǐ!","Hóa ra là vậy!"],
+["也许","yěxǔ","có lẽ","","也许他忘了。","Yěxǔ tā wàng le.","Có lẽ anh ấy quên rồi."],
+["来说","láishuō","(đối với …) mà nói","Không đứng một mình. Khung: 对…来说, 一般来说.","对我来说,汉字最难。","Duì wǒ láishuō, Hànzì zuì nán.","Đối với tôi, chữ Hán là khó nhất."]],
+tips:["<b>只要…就</b> là chỉ cần; <b>只有…才</b> là chỉ có … mới. Nhìn <b>就</b> hay <b>才</b> ở vế sau để chọn.","<b>即使…也</b> là giả thiết chưa xảy ra; <b>虽然…但是</b> là việc đã có thật.","<b>到底</b> để truy hỏi cho rõ; <b>其实</b> để nói ra sự thật."],
+q:[
+["___你努力,就一定能学好汉语。",["只要","只有","即使"],0,"Zhǐyào nǐ nǔlì, jiù yídìng néng xuéhǎo Hànyǔ.","Chỉ cần bạn cố gắng là nhất định học tốt tiếng Trung. Vế sau có 就."],
+["___多练习,才能说得流利。",["如果","只有","只要"],1,"Zhǐyǒu duō liànxí, cái néng shuō de liúlì.","Chỉ có luyện tập nhiều mới nói trôi chảy được. Vế sau có 才."],
+["___明天下大雨,我也要去上课。",["因为","否则","即使"],2,"Jíshǐ míngtiān xià dàyǔ, wǒ yě yào qù shàngkè.","Cho dù mai mưa to tôi cũng phải đi học. Vế sau có 也."],
+["你___想吃什么?快点儿决定吧。",["到底","其实","也许"],0,"Nǐ dàodǐ xiǎng chī shénme? Kuài diǎnr juédìng ba.","Rốt cuộc bạn muốn ăn gì? Quyết định nhanh đi."],
+["快走吧,___我们赶不上车了。",["并且","另外","否则"],2,"Kuài zǒu ba, fǒuzé wǒmen gǎnbushàng chē le.","Đi nhanh lên, nếu không chúng ta không kịp xe đâu."]]},
+
+{t:"Thời gian, vị trí, phương hướng",i:"Mốc thời gian và hướng chuyển động là khung của câu. Bốn bổ ngữ xu hướng cuối nhóm còn có nghĩa mở rộng rất hay ra đề.",
+w:[
+["之前","zhīqián","trước, trước khi","","睡觉之前别喝咖啡。","Shuìjiào zhīqián bié hē kāfēi.","Trước khi ngủ đừng uống cà phê."],
+["之后","zhīhòu","sau, sau khi","","下班之后我去找你。","Xiàbān zhīhòu wǒ qù zhǎo nǐ.","Sau khi tan làm tôi đến tìm bạn."],
+["之间","zhījiān","giữa","","银行在学校和超市之间。","Yínháng zài xuéxiào hé chāoshì zhījiān.","Ngân hàng nằm giữa trường học và siêu thị."],
+["今天","jīntiān","hôm nay","","今天星期五。","Jīntiān xīngqīwǔ.","Hôm nay là thứ Sáu."],
+["今晚","jīnwǎn","tối nay","","今晚你有空吗?","Jīnwǎn nǐ yǒu kòng ma?","Tối nay bạn rảnh không?"],
+["以前","yǐqián","trước đây; trước","","我以前住在河内。","Wǒ yǐqián zhù zài Hénèi.","Trước đây tôi sống ở Hà Nội."],
+["以后","yǐhòu","sau này; sau","","以后有时间再聊。","Yǐhòu yǒu shíjiān zài liáo.","Sau này có thời gian nói chuyện tiếp nhé."],
+["刚刚","gānggāng","vừa mới","Phó từ, đứng trước động từ.","我刚刚到家。","Wǒ gānggāng dào jiā.","Tôi vừa mới về đến nhà."],
+["刚才","gāngcái","vừa nãy","Danh từ thời gian: đứng được trước chủ ngữ, thêm 的 được.","刚才谁给你打电话?","Gāngcái shéi gěi nǐ dǎ diànhuà?","Vừa nãy ai gọi điện cho bạn?"],
+["上面","shàngmiàn","phía trên","","手机在桌子上面。","Shǒujī zài zhuōzi shàngmiàn.","Điện thoại ở trên bàn."],
+["下面","xiàmiàn","phía dưới; tiếp theo","","猫在椅子下面。","Māo zài yǐzi xiàmiàn.","Con mèo ở dưới ghế."],
+["外面","wàimiàn","bên ngoài","","外面在下雨。","Wàimiàn zài xià yǔ.","Bên ngoài đang mưa."],
+["下来","xiàlái","xuống (về phía người nói); giữ lại, dừng lại","Nghĩa mở rộng: 记下来, 停下来, 安静下来.","请把他的电话号码记下来。","Qǐng bǎ tā de diànhuà hàomǎ jì xiàlái.","Hãy ghi lại số điện thoại của anh ấy."],
+["下去","xiàqù","xuống (ra xa người nói); tiếp tục","Nghĩa mở rộng: 说下去, 坚持下去.","请你说下去。","Qǐng nǐ shuō xiàqù.","Mời bạn nói tiếp."],
+["出来","chūlái","ra (về phía người nói); hiện ra, nhận ra","Nghĩa mở rộng: 看出来, 听出来.","我没看出来。","Wǒ méi kàn chūlái.","Tôi không nhận ra."],
+["出去","chūqù","đi ra ngoài","","我们出去走走吧。","Wǒmen chūqù zǒuzou ba.","Chúng ta ra ngoài đi dạo đi."],
+["到处","dàochù","khắp nơi","Thường đi với 都.","周末商场里到处都是人。","Zhōumò shāngchǎng lǐ dàochù dōu shì rén.","Cuối tuần trong trung tâm thương mại chỗ nào cũng đông người."]],
+tips:["<b>刚才</b> là danh từ thời gian (刚才的事); <b>刚刚</b> là phó từ, chỉ đứng trước động từ.","<b>来</b> là hướng về người nói; <b>去</b> là rời xa người nói.","<b>下来</b> là giữ lại, dừng lại; <b>下去</b> là tiếp tục; <b>出来</b> là nhận ra."],
+q:[
+["___的电话是谁打来的?",["刚才","以后","到处"],0,"Gāngcái de diànhuà shì shéi dǎlái de?","Cuộc gọi vừa nãy là ai gọi đến? Thêm 的 được nên là danh từ thời gian."],
+["吃饭___要洗手。",["之间","之前","外面"],1,"Chīfàn zhīqián yào xǐshǒu.","Trước khi ăn cơm phải rửa tay."],
+["这个故事很有意思,请你讲___。",["出去","下面","下去"],2,"Zhège gùshi hěn yǒu yìsi, qǐng nǐ jiǎng xiàqù.","Câu chuyện này rất thú vị, mời bạn kể tiếp."],
+["这是谁写的字?我看不___。",["出来","下去","出去"],0,"Zhè shì shéi xiě de zì? Wǒ kàn bu chūlái.","Chữ này ai viết? Tôi không nhận ra."],
+["春天来了,公园里___都是花。",["之间","以前","到处"],2,"Chūntiān lái le, gōngyuán lǐ dàochù dōu shì huā.","Mùa xuân đến rồi, trong công viên chỗ nào cũng là hoa."]]},
+
+{t:"Nhận thức, giao tiếp, thái độ",i:"Hội thoại HSK xoay quanh suy nghĩ và phản hồi giữa người với người. Chú ý các từ có thanh nhẹ ở âm tiết thứ hai.",
+w:[
+["了解","liǎojiě","hiểu rõ; tìm hiểu","","我不太了解他。","Wǒ bú tài liǎojiě tā.","Tôi không hiểu rõ anh ấy lắm."],
+["以为","yǐwéi","tưởng rằng (nhưng hóa ra sai)","","我以为你是中国人。","Wǒ yǐwéi nǐ shì Zhōngguó rén.","Tôi cứ tưởng bạn là người Trung Quốc."],
+["介意","jièyì","để bụng, phiền lòng","","你介意我开窗户吗?","Nǐ jièyì wǒ kāi chuānghu ma?","Bạn có phiền nếu tôi mở cửa sổ không?"],
+["同意","tóngyì","đồng ý","","我同意你的看法。","Wǒ tóngyì nǐ de kànfǎ.","Tôi đồng ý với quan điểm của bạn."],
+["喜欢","xǐhuan","thích","","我喜欢喝茶。","Wǒ xǐhuan hē chá.","Tôi thích uống trà."],
+["告诉","gàosu","nói cho biết","Khung: 告诉 + người + việc.","请告诉我你的地址。","Qǐng gàosu wǒ nǐ de dìzhǐ.","Hãy cho tôi biết địa chỉ của bạn."],
+["回答","huídá","trả lời","","请回答我的问题。","Qǐng huídá wǒ de wèntí.","Hãy trả lời câu hỏi của tôi."],
+["报告","bàogào","báo cáo","","我明天要交报告。","Wǒ míngtiān yào jiāo bàogào.","Ngày mai tôi phải nộp báo cáo."],
+["信任","xìnrèn","tin tưởng, tín nhiệm","","朋友之间要互相信任。","Péngyou zhījiān yào hùxiāng xìnrèn.","Giữa bạn bè cần tin tưởng lẫn nhau."],
+["信息","xìnxī","thông tin; tin nhắn","","我给你发信息。","Wǒ gěi nǐ fā xìnxī.","Tôi gửi tin nhắn cho bạn."],
+["主意","zhǔyi","ý tưởng, cách giải quyết","Khác 意见 (ý kiến).","这是个好主意!","Zhè shì ge hǎo zhǔyi!","Đây là một ý hay!"],
+["原因","yuányīn","nguyên nhân","","你知道原因吗?","Nǐ zhīdào yuányīn ma?","Bạn có biết nguyên nhân không?"],
+["原谅","yuánliàng","tha thứ","","请原谅我。","Qǐng yuánliàng wǒ.","Xin hãy tha thứ cho tôi."],
+["代表","dàibiǎo","đại diện; thay mặt","","我代表公司欢迎大家。","Wǒ dàibiǎo gōngsī huānyíng dàjiā.","Tôi thay mặt công ty chào mừng mọi người."],
+["问题","wèntí","câu hỏi; vấn đề","","没问题!","Méi wèntí!","Không vấn đề gì!"],
+["事实","shìshí","sự thật","","这是事实。","Zhè shì shìshí.","Đây là sự thật."],
+["事情","shìqing","sự việc, chuyện","Âm tiết sau đọc thanh nhẹ, bản gốc ghi shì qíng.","我有一件事情想跟你说。","Wǒ yǒu yí jiàn shìqing xiǎng gēn nǐ shuō.","Tôi có một chuyện muốn nói với bạn."]],
+tips:["<b>以为</b> là tưởng nhưng sai; nhận định bình thường dùng <b>认为</b> hoặc <b>觉得</b>.","<b>问题</b> là câu hỏi, vấn đề; <b>事情</b> là sự việc; <b>事实</b> là sự thật.","<b>告诉</b> là chủ động nói cho biết; <b>回答</b> là trả lời khi được hỏi."],
+q:[
+["我___今天是星期六,原来是星期五。",["以为","了解","同意"],0,"Wǒ yǐwéi jīntiān shì xīngqīliù, yuánlái shì xīngqīwǔ.","Tôi tưởng hôm nay là thứ Bảy, hóa ra là thứ Sáu."],
+["请___我你的电话号码。",["回答","告诉","报告"],1,"Qǐng gàosu wǒ nǐ de diànhuà hàomǎ.","Hãy cho tôi biết số điện thoại của bạn."],
+["老师问的问题,他都___对了。",["告诉","介意","回答"],2,"Lǎoshī wèn de wèntí, tā dōu huídá duì le.","Những câu thầy cô hỏi, cậu ấy đều trả lời đúng."],
+["周末去爬山?这个___不错!",["主意","原因","事实"],0,"Zhōumò qù páshān? Zhège zhǔyi búcuò!","Cuối tuần đi leo núi à? Ý này hay đấy!"],
+["我来晚了,请___。",["信任","代表","原谅"],2,"Wǒ lái wǎn le, qǐng yuánliàng.","Tôi đến muộn, xin thứ lỗi."]]},
+
+{t:"Hành động, kết quả, duy trì",i:"Học kèm tân ngữ hay đi cùng: 参加比赛, 保持联系, 安排时间, 失去机会. Nhớ cả cụm thì nói ra được ngay.",
+w:[
+["加入","jiārù","gia nhập","Vào một tổ chức, nhóm.","欢迎你加入我们的团队。","Huānyíng nǐ jiārù wǒmen de tuánduì.","Chào mừng bạn gia nhập đội của chúng tôi."],
+["参加","cānjiā","tham gia","Một hoạt động: 比赛, 会议, 考试, 婚礼.","你参加明天的会议吗?","Nǐ cānjiā míngtiān de huìyì ma?","Bạn có tham gia cuộc họp ngày mai không?"],
+["保持","bǎochí","duy trì, giữ","","我们保持联系。","Wǒmen bǎochí liánxì.","Chúng ta giữ liên lạc nhé."],
+["保证","bǎozhèng","bảo đảm, cam đoan","","我保证明天完成。","Wǒ bǎozhèng míngtiān wánchéng.","Tôi bảo đảm ngày mai hoàn thành."],
+["保护","bǎohù","bảo vệ","","我们要保护环境。","Wǒmen yào bǎohù huánjìng.","Chúng ta phải bảo vệ môi trường."],
+["做到","zuòdào","làm được","Động từ + bổ ngữ kết quả 到.","他说到做到。","Tā shuōdào zuòdào.","Anh ấy nói được làm được."],
+["失去","shīqù","mất đi","Dùng cho thứ trừu tượng: 机会, 信心, 亲人. Mất đồ vật dùng 丢.","不要失去信心。","Búyào shīqù xìnxīn.","Đừng đánh mất niềm tin."],
+["安排","ānpái","sắp xếp, bố trí","","我来安排时间。","Wǒ lái ānpái shíjiān.","Để tôi sắp xếp thời gian."],
+["坚持","jiānchí","kiên trì","","他每天坚持跑步。","Tā měi tiān jiānchí pǎobù.","Anh ấy kiên trì chạy bộ mỗi ngày."],
+["休息","xiūxi","nghỉ ngơi","","你好好休息吧。","Nǐ hǎohǎo xiūxi ba.","Bạn nghỉ ngơi cho khỏe nhé."],
+["努力","nǔlì","cố gắng, nỗ lực","","我会继续努力的。","Wǒ huì jìxù nǔlì de.","Tôi sẽ tiếp tục cố gắng."],
+["加油","jiāyóu","cố lên; đổ xăng","","明天考试,加油!","Míngtiān kǎoshì, jiāyóu!","Mai thi rồi, cố lên!"],
+["出现","chūxiàn","xuất hiện","","电脑出现了一个问题。","Diànnǎo chūxiànle yí gè wèntí.","Máy tính xuất hiện một vấn đề."],
+["回来","huílái","quay về (phía người nói)","","你什么时候回来?","Nǐ shénme shíhou huílái?","Khi nào bạn về?"],
+["回到","huídào","trở về đến","Khung: 回到 + nơi chốn.","我晚上十点才回到家。","Wǒ wǎnshang shí diǎn cái huídào jiā.","Mười giờ tối tôi mới về đến nhà."],
+["回去","huíqù","đi về (rời xa người nói)","","时间不早了,我该回去了。","Shíjiān bù zǎo le, wǒ gāi huíqù le.","Muộn rồi, tôi phải về đây."],
+["回家","huíjiā","về nhà","","我六点回家。","Wǒ liù diǎn huíjiā.","Sáu giờ tôi về nhà."]],
+tips:["<b>加入</b> đi với tổ chức; <b>参加</b> đi với hoạt động.","<b>回来</b> là quay lại đây; <b>回去</b> là đi về kia; <b>回到</b> phải có nơi chốn phía sau.","<b>保持</b> là duy trì; <b>保证</b> là bảo đảm; <b>保护</b> là bảo vệ."],
+q:[
+["明天的比赛你___吗?",["参加","加入","保持"],0,"Míngtiān de bǐsài nǐ cānjiā ma?","Trận đấu ngày mai bạn có tham gia không?"],
+["学外语要每天___练习。",["保护","坚持","失去"],1,"Xué wàiyǔ yào měi tiān jiānchí liànxí.","Học ngoại ngữ phải kiên trì luyện tập mỗi ngày."],
+["毕业以后我们要___联系。",["保证","保护","保持"],2,"Bìyè yǐhòu wǒmen yào bǎochí liánxì.","Sau khi tốt nghiệp chúng ta phải giữ liên lạc."],
+["他出国三年了,下个月___。",["回来","回到","失去"],0,"Tā chūguó sān nián le, xià gè yuè huílái.","Anh ấy ra nước ngoài ba năm rồi, tháng sau về. 回到 cần nơi chốn phía sau."],
+["别紧张,___!你一定行。",["休息","安排","加油"],2,"Bié jǐnzhāng, jiāyóu! Nǐ yídìng xíng.","Đừng căng thẳng, cố lên! Bạn nhất định làm được."]]},
+
+{t:"Đại từ, xưng hô, cách gọi",i:"Rất cơ bản nhưng quyết định việc hiểu quan hệ giữa các nhân vật trong bài nghe. Đã bổ sung 我们 mà bản gốc bỏ sót.",
+w:[
+["我们","wǒmen","chúng tôi, chúng ta","Có thể gồm hoặc không gồm người nghe.","我们是同事。","Wǒmen shì tóngshì.","Chúng tôi là đồng nghiệp."],
+["你们","nǐmen","các bạn, các anh chị","","你们好!","Nǐmen hǎo!","Chào các bạn!"],
+["他们","tāmen","họ","Nhóm nam hoặc nhóm có cả nam và nữ.","他们都是我的同学。","Tāmen dōu shì wǒ de tóngxué.","Họ đều là bạn học của tôi."],
+["她们","tāmen","họ","Nhóm toàn nữ.","她们在聊天。","Tāmen zài liáotiān.","Họ đang trò chuyện."],
+["它们","tāmen","chúng","Đồ vật, con vật.","这些小狗很可爱,它们才两个月大。","Zhèxiē xiǎogǒu hěn kě'ài, tāmen cái liǎng gè yuè dà.","Mấy chú chó con này rất đáng yêu, chúng mới hai tháng tuổi."],
+["咱们","zánmen","chúng ta","Luôn gồm cả người nghe; khẩu ngữ.","咱们走吧。","Zánmen zǒu ba.","Chúng ta đi thôi."],
+["人们","rénmen","người ta, mọi người (nói chung)","","人们常说时间就是金钱。","Rénmen cháng shuō shíjiān jiù shì jīnqián.","Người ta thường nói thời gian là tiền bạc."],
+["大家","dàjiā","mọi người","","大家好!","Dàjiā hǎo!","Chào mọi người!"],
+["各位","gèwèi","các vị, quý vị","Trang trọng, dùng khi phát biểu.","各位请坐。","Gèwèi qǐng zuò.","Mời quý vị ngồi."],
+["个人","gèrén","cá nhân","Khác 每个人 (mỗi người).","这是我个人的看法。","Zhè shì wǒ gèrén de kànfǎ.","Đây là quan điểm cá nhân của tôi."],
+["别人","biérén","người khác","Đại từ, đứng một mình.","不要跟别人比。","Búyào gēn biérén bǐ.","Đừng so sánh với người khác."],
+["别的","biéde","(cái, người) khác","Đi trước danh từ, kể cả người: 别的人, 别的同学.","你还要别的吗?","Nǐ hái yào biéde ma?","Bạn còn cần gì khác không?"],
+["先生","xiānsheng","ông, ngài; chồng","","王先生,您好!","Wáng xiānsheng, nín hǎo!","Chào ông Vương!"],
+["女士","nǚshì","bà, cô","Trang trọng.","这位女士,请问您找谁?","Zhè wèi nǚshì, qǐngwèn nín zhǎo shéi?","Thưa bà, xin hỏi bà tìm ai ạ?"],
+["夫人","fūrén","phu nhân","Rất trang trọng.","这位是李先生的夫人。","Zhè wèi shì Lǐ xiānsheng de fūrén.","Vị này là phu nhân của ông Lý."],
+["太太","tàitai","bà; vợ","Thông dụng trong đời sống.","这是我太太。","Zhè shì wǒ tàitai.","Đây là vợ tôi."],
+["哥哥","gēge","anh trai","","我哥哥在上海工作。","Wǒ gēge zài Shànghǎi gōngzuò.","Anh trai tôi làm việc ở Thượng Hải."],
+["兄弟","xiōngdì","anh em","","我们是好兄弟。","Wǒmen shì hǎo xiōngdì.","Chúng tôi là anh em tốt."]],
+tips:["<b>咱们</b> luôn gồm người nghe; <b>我们</b> thì tùy ngữ cảnh.","<b>别人</b> đứng một mình; <b>别的</b> đi kèm danh từ hoặc lược danh từ.","<b>大家</b> thân mật hơn; <b>各位</b> trang trọng hơn."],
+q:[
+["时间不早了,___一起走吧。",["咱们","他们","别人"],0,"Shíjiān bù zǎo le, zánmen yìqǐ zǒu ba.","Muộn rồi, chúng ta cùng đi thôi."],
+["这个我不太喜欢,有___吗?",["别人","别的","各位"],1,"Zhège wǒ bú tài xǐhuan, yǒu biéde ma?","Cái này tôi không thích lắm, có cái khác không?"],
+["这是我自己的事,不想麻烦___。",["别的","个人","别人"],2,"Zhè shì wǒ zìjǐ de shì, bù xiǎng máfan biérén.","Đây là việc của riêng tôi, không muốn làm phiền người khác."],
+["(会议开始)___,下午好!",["各位","个人","别的"],0,"Gèwèi, xiàwǔ hǎo!","Kính chào quý vị, chào buổi chiều!"],
+["这只是我___的看法。",["各位","人们","个人"],2,"Zhè zhǐshì wǒ gèrén de kànfǎ.","Đây chỉ là quan điểm cá nhân của tôi."]]},
+
+{t:"Gia đình, con người, thân phận",i:"Đã bỏ 3 từ trùng với nhóm trước và 3 từ ít gặp (家伙, 伙计, 凶手), thay bằng 6 từ tần suất cao: 爸爸, 父母, 朋友, 同学, 同事, 邻居.",
+w:[
+["丈夫","zhàngfu","chồng","","她丈夫是医生。","Tā zhàngfu shì yīshēng.","Chồng cô ấy là bác sĩ."],
+["妻子","qīzi","vợ","Trang trọng hơn 老婆.","我妻子是老师。","Wǒ qīzi shì lǎoshī.","Vợ tôi là giáo viên."],
+["儿子","érzi","con trai","","他儿子今年六岁。","Tā érzi jīnnián liù suì.","Con trai anh ấy năm nay sáu tuổi."],
+["女儿","nǚ'ér","con gái","","我女儿上小学了。","Wǒ nǚ'ér shàng xiǎoxué le.","Con gái tôi đã học tiểu học rồi."],
+["女人","nǚrén","phụ nữ, đàn bà","Khi giao tiếp lịch sự nên dùng 女士.","那个女人是谁?","Nàge nǚrén shì shéi?","Người phụ nữ kia là ai?"],
+["女孩","nǚhái","cô gái, bé gái","","那个女孩很聪明。","Nàge nǚhái hěn cōngming.","Cô bé kia rất thông minh."],
+["孩子","háizi","đứa trẻ; con cái","","你有几个孩子?","Nǐ yǒu jǐ gè háizi?","Bạn có mấy đứa con?"],
+["妈妈","māma","mẹ","","我妈妈做的菜很好吃。","Wǒ māma zuò de cài hěn hǎochī.","Món mẹ tôi nấu rất ngon."],
+["爸爸","bàba","bố","","我爸爸在银行工作。","Wǒ bàba zài yínháng gōngzuò.","Bố tôi làm việc ở ngân hàng."],
+["父母","fùmǔ","bố mẹ","Văn viết, trang trọng hơn 爸爸妈妈.","我父母身体都很好。","Wǒ fùmǔ shēntǐ dōu hěn hǎo.","Bố mẹ tôi sức khỏe đều rất tốt."],
+["姑娘","gūniang","cô gái","Khẩu ngữ, sắc thái thân mật.","这个姑娘真漂亮。","Zhège gūniang zhēn piàoliang.","Cô gái này xinh thật."],
+["朋友","péngyou","bạn bè","","他是我最好的朋友。","Tā shì wǒ zuì hǎo de péngyou.","Anh ấy là bạn thân nhất của tôi."],
+["同学","tóngxué","bạn học","","我们是大学同学。","Wǒmen shì dàxué tóngxué.","Chúng tôi là bạn học đại học."],
+["同事","tóngshì","đồng nghiệp","","我跟同事一起吃午饭。","Wǒ gēn tóngshì yìqǐ chī wǔfàn.","Tôi ăn trưa cùng đồng nghiệp."],
+["邻居","línjū","hàng xóm","","我的邻居很热情。","Wǒ de línjū hěn rèqíng.","Hàng xóm của tôi rất nhiệt tình."],
+["人类","rénlèi","loài người, nhân loại","","狗是人类的好朋友。","Gǒu shì rénlèi de hǎo péngyou.","Chó là người bạn tốt của loài người."],
+["博士","bóshì","tiến sĩ","","她正在读博士。","Tā zhèngzài dú bóshì.","Cô ấy đang học tiến sĩ."]],
+tips:["<b>女人</b> là người nữ trưởng thành; <b>女孩</b> là cô gái, bé gái.","<b>妻子</b>, <b>丈夫</b>, <b>父母</b> hay gặp trong bài đọc; <b>妈妈</b>, <b>爸爸</b> hay gặp trong bài nghe.","<b>同学</b> học cùng; <b>同事</b> làm cùng; <b>邻居</b> ở cạnh."],
+q:[
+["我和他在同一家公司工作,我们是___。",["同事","同学","邻居"],0,"Wǒ hé tā zài tóng yì jiā gōngsī gōngzuò, wǒmen shì tóngshì.","Tôi và anh ấy làm cùng một công ty, chúng tôi là đồng nghiệp."],
+["他住在我家对面,是我的___。",["同事","邻居","父母"],1,"Tā zhù zài wǒ jiā duìmiàn, shì wǒ de línjū.","Anh ấy sống đối diện nhà tôi, là hàng xóm của tôi."],
+["她有两个孩子,一个儿子,一个___。",["女人","姑娘","女儿"],2,"Tā yǒu liǎng gè háizi, yí gè érzi, yí gè nǚ'ér.","Cô ấy có hai con, một trai một gái."],
+["我们高中在一个班,是老___。",["同学","同事","丈夫"],0,"Wǒmen gāozhōng zài yí gè bān, shì lǎo tóngxué.","Hồi cấp ba chúng tôi học cùng lớp, là bạn học cũ."],
+["___的话要听,因为他们最关心你。",["人类","博士","父母"],2,"Fùmǔ de huà yào tīng, yīnwèi tāmen zuì guānxīn nǐ.","Phải nghe lời bố mẹ vì họ quan tâm bạn nhất."]]},
+
+{t:"Học tập, xã hội, đời sống",i:"Từ dùng trong mọi chủ đề quen thuộc. Chú ý 地方 có hai cách đọc và 事儿 chỉ là một âm tiết.",
+w:[
+["世界","shìjiè","thế giới","","我想去世界各地旅游。","Wǒ xiǎng qù shìjiè gèdì lǚyóu.","Tôi muốn đi du lịch khắp nơi trên thế giới."],
+["公司","gōngsī","công ty","","我在一家贸易公司工作。","Wǒ zài yì jiā màoyì gōngsī gōngzuò.","Tôi làm việc ở một công ty thương mại."],
+["国家","guójiā","quốc gia, đất nước","","你去过哪些国家?","Nǐ qùguo nǎxiē guójiā?","Bạn đã từng đến những nước nào?"],
+["地方","dìfang","nơi, chỗ","Đọc dìfāng thì nghĩa là địa phương (đối với trung ương).","这个地方很安静。","Zhège dìfang hěn ānjìng.","Nơi này rất yên tĩnh."],
+["学校","xuéxiào","trường học","","学校离我家很近。","Xuéxiào lí wǒ jiā hěn jìn.","Trường học rất gần nhà tôi."],
+["大学","dàxué","đại học","","我弟弟明年上大学。","Wǒ dìdi míngnián shàng dàxué.","Em trai tôi sang năm vào đại học."],
+["咖啡","kāfēi","cà phê","","我要一杯咖啡。","Wǒ yào yì bēi kāfēi.","Cho tôi một ly cà phê."],
+["婚礼","hūnlǐ","hôn lễ, đám cưới","","下个月我要参加朋友的婚礼。","Xià gè yuè wǒ yào cānjiā péngyou de hūnlǐ.","Tháng sau tôi sẽ dự đám cưới của bạn."],
+["安全","ānquán","an toàn","","路上注意安全。","Lùshang zhùyì ānquán.","Đi đường chú ý an toàn nhé."],
+["存在","cúnzài","tồn tại","","这个问题一直存在。","Zhège wèntí yìzhí cúnzài.","Vấn đề này vẫn luôn tồn tại."],
+["名字","míngzi","tên","","你叫什么名字?","Nǐ jiào shénme míngzi?","Bạn tên là gì?"],
+["什么","shénme","cái gì, gì","","你想吃什么?","Nǐ xiǎng chī shénme?","Bạn muốn ăn gì?"],
+["来自","láizì","đến từ","","我来自越南。","Wǒ láizì Yuènán.","Tôi đến từ Việt Nam."],
+["以及","yǐjí","và, cùng với","Văn viết; nối mục cuối trong danh sách.","请写上姓名、电话以及地址。","Qǐng xiěshàng xìngmíng, diànhuà yǐjí dìzhǐ.","Vui lòng ghi họ tên, số điện thoại và địa chỉ."],
+["哪儿","nǎr","ở đâu, chỗ nào","Khẩu ngữ, phổ biến ở miền Bắc Trung Quốc.","你去哪儿?","Nǐ qù nǎr?","Bạn đi đâu đấy?"],
+["哪里","nǎlǐ","ở đâu, nơi nào","Trung tính, dùng được cả nói và viết.","洗手间在哪里?","Xǐshǒujiān zài nǎlǐ?","Nhà vệ sinh ở đâu?"],
+["事儿","shìr","chuyện, việc","Âm cuốn lưỡi, một âm tiết; bản gốc ghi shì er là sai.","你找我有什么事儿?","Nǐ zhǎo wǒ yǒu shénme shìr?","Bạn tìm tôi có việc gì?"]],
+tips:["<b>哪儿</b> khẩu ngữ hơn <b>哪里</b>; nghĩa như nhau.","<b>以及</b> thường gặp trong văn viết và bài đọc; khi nói dùng <b>和</b>.","<b>地方</b> đọc dìfang là nơi chốn, đọc dìfāng là địa phương."],
+q:[
+["我___越南河内。",["来自","存在","以及"],0,"Wǒ láizì Yuènán Hénèi.","Tôi đến từ Hà Nội, Việt Nam."],
+["你叫什么___?",["地方","名字","事儿"],1,"Nǐ jiào shénme míngzi?","Bạn tên là gì?"],
+["晚上一个人回家,要注意___。",["存在","世界","安全"],2,"Wǎnshang yí gè rén huíjiā, yào zhùyì ānquán.","Buổi tối về nhà một mình phải chú ý an toàn."],
+["你住在什么___?",["地方","名字","婚礼"],0,"Nǐ zhù zài shénme dìfang?","Bạn sống ở chỗ nào?"],
+["下周六是我姐姐的___,你能来吗?",["公司","大学","婚礼"],2,"Xià zhōuliù shì wǒ jiějie de hūnlǐ, nǐ néng lái ma?","Thứ Bảy tuần sau là đám cưới chị gái tôi, bạn đến được không?"]]}
+];
+
+const TOTAL=G.reduce((s,g)=>s+g.w.length,0);
+let cur=0, done=new Set(), kw="";
+const $=s=>document.querySelector(s);
+const KEY="hsk-tu-ghep-da-thuoc";
+
+async function load(){try{const r=await window.storage.get(KEY,false);if(r&&r.value)done=new Set(JSON.parse(r.value))}catch(e){}render()}
+async function save(){try{await window.storage.set(KEY,JSON.stringify([...done]),false)}catch(e){}}
+
+function speak(t){if(!("speechSynthesis" in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="zh-CN";u.rate=.85;speechSynthesis.speak(u)}
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+function chips(){
+  $("#chips").innerHTML=G.map((g,i)=>`<button class="chip" role="tab" aria-selected="${i===cur&&!kw}" data-i="${i}">Nhóm ${i+1}: ${g.t.split(",")[0]}</button>`).join("");
+}
+function row(w){
+  const d=done.has(w[0]);
+  return `<li class="${d?"done":""}" data-h="${w[0]}">
+  <button class="head" aria-expanded="false"><span class="han" lang="zh">${w[0]}</span>
+  <span class="mid"><span class="py">${w[1]}</span><span class="mean">${esc(w[2])}</span></span><span class="chev" aria-hidden="true">›</span></button>
+  <div class="more">${w[3]?`<p class="note">${esc(w[3])}</p>`:""}
+  <div class="ex"><span class="zh" lang="zh">${w[4]}</span><span class="py">${w[5]}</span><span class="vi">${esc(w[6])}</span></div>
+  <div class="acts"><button class="say" data-t="${w[0]}">Nghe từ</button><button class="say" data-t="${w[4]}">Nghe câu</button><button class="ok" aria-pressed="${d}">${d?"Đã thuộc":"Đánh dấu đã thuộc"}</button></div></div></li>`;
+}
+function render(){
+  chips();
+  const m=$("#main");
+  $("#rule").style.display=kw?"none":"";
+  if(kw){
+    const k=kw.toLowerCase();
+    const hits=G.flatMap(g=>g.w).filter(w=>(w[0]+w[1]+w[2]).toLowerCase().includes(k)||w[1].normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s/g,"").includes(k.replace(/\s/g,"")));
+    m.innerHTML=`<section class="g"><h2>Kết quả cho "${esc(kw)}"</h2>${hits.length?`<ol class="words">${hits.map(row).join("")}</ol>`:`<p class="empty">Không có từ nào khớp. Thử gõ chữ Hán, pinyin không dấu hoặc nghĩa tiếng Việt.</p>`}</section>`;
+  }else{
+    const g=G[cur];
+    m.innerHTML=`<section class="g"><h2>Nhóm ${cur+1}: ${g.t}</h2><p class="intro">${g.i}</p>
+    <ol class="words">${g.w.map(row).join("")}</ol>
+    <div class="tips"><h3>Mẹo tránh nhầm</h3><ul>${g.tips.map(t=>`<li>${t}</li>`).join("")}</ul></div>
+    <div class="quizbox"><h3>Luyện tập: chọn từ điền vào chỗ trống</h3>
+    ${g.q.map((q,i)=>`<div class="q" data-a="${q[2]}"><p class="stem" lang="zh">${i+1}. ${q[0]}</p><div class="opts">${q[1].map((o,j)=>`<button data-j="${j}" lang="zh">${o}</button>`).join("")}</div>
+    <div class="ans"><b>Đáp án: <span lang="zh">${q[1][q[2]]}</span></b><span class="py">${q[3]}</span><span class="vi">${esc(q[4])}</span></div></div>`).join("")}
+    <p class="score" id="score" aria-live="polite"></p></div></section>`;
+  }
+  $("#cnt").textContent=`Đã thuộc ${done.size}/${TOTAL}`;
+  $("#barfill").style.width=(done.size/TOTAL*100)+"%";
+}
+
+$("#chips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;cur=+b.dataset.i;kw="";$("#search").value="";render();window.scrollTo({top:$("#main").offsetTop-60})});
+$("#search").addEventListener("input",e=>{kw=e.target.value.trim();render()});
+$("#quizTog").addEventListener("click",e=>{const on=document.body.classList.toggle("quiz");e.currentTarget.setAttribute("aria-pressed",on);e.currentTarget.textContent=on?"Hiện lại nghĩa":"Che nghĩa để tự kiểm tra"});
+$("#main").addEventListener("click",e=>{
+  const say=e.target.closest(".say"); if(say){speak(say.dataset.t);return}
+  const ok=e.target.closest(".ok");
+  if(ok){const li=ok.closest("li"),h=li.dataset.h;done.has(h)?done.delete(h):done.add(h);const d=done.has(h);li.classList.toggle("done",d);ok.setAttribute("aria-pressed",d);ok.textContent=d?"Đã thuộc":"Đánh dấu đã thuộc";$("#cnt").textContent=`Đã thuộc ${done.size}/${TOTAL}`;$("#barfill").style.width=(done.size/TOTAL*100)+"%";save();return}
+  const head=e.target.closest(".head");
+  if(head){const li=head.parentElement;const o=li.classList.toggle("open");head.setAttribute("aria-expanded",o);return}
+  const opt=e.target.closest(".opts button");
+  if(opt){const q=opt.closest(".q");if(q.classList.contains("shown"))return;const a=+q.dataset.a,j=+opt.dataset.j;
+    q.classList.add("shown");q.dataset.r=j===a?1:0;
+    q.querySelectorAll(".opts button").forEach(b=>{if(+b.dataset.j===a)b.classList.add("right");else if(b===opt)b.classList.add("wrong")});
+    const all=[...document.querySelectorAll(".q")],sh=all.filter(x=>x.classList.contains("shown"));
+    if(sh.length===all.length)$("#score").textContent=`Bạn đúng ${sh.filter(x=>x.dataset.r==="1").length}/${all.length} câu.`;
+  }
+});
+load();
+</script>
+</body>
+</html>
