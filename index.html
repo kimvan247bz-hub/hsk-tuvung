@@ -11,7 +11,7 @@
   :root{
     --cream:#F4EDE0; --paper:#FFFBF3; --ink:#2A2420; --muted:#6B625A;
     --deep:#2F4438; --deep-2:#1F3328; --lemon:#E7B23B; --line:rgba(42,36,32,.13);
-    --c1:#C1452E; --c2:#2F7A5C; --c3:#1C6E7D; --c4:#A8376A; --c5:#7A5A1E;
+    --c1:#C1452E; --c2:#2F7A5C; --c3:#1C6E7D; --c4:#A8376A; --c5:#7A5A1E; --c6:#4A4E8C;
     --hanzi:'Noto Serif SC','Songti SC',serif;
     --body:'Be Vietnam Pro',system-ui,-apple-system,'Segoe UI',sans-serif;
   }
@@ -61,7 +61,7 @@
   .card .foot{margin-top:auto;padding-top:6px;display:flex;justify-content:space-between;align-items:center;position:relative}
   .cta{background:var(--c);color:#fff;font-weight:700;font-size:14px;padding:8px 16px;border-radius:999px}
   .done{font-size:13px;font-weight:700;color:var(--c)}
-  .c1{--c:var(--c1)} .c2{--c:var(--c2)} .c3{--c:var(--c3)} .c4{--c:var(--c4)} .c5{--c:var(--c5)}
+  .c1{--c:var(--c1)} .c2{--c:var(--c2)} .c3{--c:var(--c3)} .c4{--c:var(--c4)} .c5{--c:var(--c5)} .c6{--c:var(--c6)}
   .grid .card:last-child:nth-child(odd){grid-column:1/-1}
 
   footer{text-align:center;color:var(--muted);font-size:13px;padding:0 20px 40px}
@@ -95,14 +95,14 @@
 
   <section>
     <div class="sec-head">
-      <h2>Lộ trình ôn tập</h2>
-      <span>Nhận diện chữ → tích lũy từ → nối câu → nói tự nhiên → giao tiếp</span>
+      <h2>Nội dung ôn tập</h2>
+      <span>6 trang độc lập, học trang nào trước cũng được</span>
     </div>
     <div class="grid">
 
       <a href="50-bo-thu.html" class="card c1" data-page="bothu">
         <div class="ghost" aria-hidden="true">部</div>
-        <div class="top"><div class="seal">部</div><div><div class="step">Bước 1 · Nhận diện chữ</div><div class="cn">部首</div></div></div>
+        <div class="top"><div class="seal">部</div><div><div class="step">Nhận diện chữ</div><div class="cn">部首</div></div></div>
         <h3>50 bộ thủ cơ bản</h3>
         <p class="desc">Hiểu cấu tạo chữ Hán qua bộ thủ, kèm mẹo liên tưởng để nhớ lâu.</p>
         <div class="chips"><span>50 bộ thủ</span><span>6 chủ đề</span><span>250 từ ví dụ</span><span>Kiểm tra 10 câu</span></div>
@@ -111,7 +111,7 @@
 
       <a href="hoc-tu-vung-tieng-trung.html" class="card c2" data-page="tuvung">
         <div class="ghost" aria-hidden="true">词</div>
-        <div class="top"><div class="seal">词</div><div><div class="step">Bước 2 · Tích lũy từ</div><div class="cn">主题词汇</div></div></div>
+        <div class="top"><div class="seal">词</div><div><div class="step">Tích lũy từ</div><div class="cn">主题词汇</div></div></div>
         <h3>Học từ vựng theo chủ đề</h3>
         <p class="desc">Từ vựng thường dùng chia theo chủ đề, mỗi từ có pinyin và câu ví dụ.</p>
         <div class="chips"><span>140 từ</span><span>7 chủ đề</span><span>Câu ví dụ</span><span>Lưu từ cần ôn</span></div>
@@ -120,7 +120,7 @@
 
       <a href="lien-tu.html" class="card c3" data-page="lientu">
         <div class="ghost" aria-hidden="true">连</div>
-        <div class="top"><div class="seal">连</div><div><div class="step">Bước 3 · Nối câu</div><div class="cn">关联词</div></div></div>
+        <div class="top"><div class="seal">连</div><div><div class="step">Nối câu</div><div class="cn">关联词</div></div></div>
         <h3>Sổ tay liên từ</h3>
         <p class="desc">Từ nối chia theo 5 nhóm chức năng, có sơ đồ tư duy và sơ đồ mẫu câu.</p>
         <div class="chips"><span>23 liên từ</span><span>Sơ đồ tư duy</span><span>Flashcard</span><span>Trắc nghiệm</span></div>
@@ -129,7 +129,7 @@
 
       <a href="cua-mieng-genz.html" class="card c4" data-page="genz">
         <div class="ghost" aria-hidden="true">哈</div>
-        <div class="top"><div class="seal">哈</div><div><div class="step">Bước 4 · Nói tự nhiên</div><div class="cn">流行语</div></div></div>
+        <div class="top"><div class="seal">哈</div><div><div class="step">Nói tự nhiên</div><div class="cn">流行语</div></div></div>
         <h3>Cửa miệng Gen Z</h3>
         <p class="desc">Khẩu ngữ giới trẻ Trung Quốc theo 6 nhóm cảm xúc, luyện phản ứng theo tình huống.</p>
         <div class="chips"><span>29 cụm</span><span>6 nhóm cảm xúc</span><span>Thẻ ôn</span><span>Kiểm tra tình huống</span></div>
@@ -138,10 +138,19 @@
 
       <a href="100-cau-giao-tiep.html" class="card c5" data-page="giaotiep">
         <div class="ghost" aria-hidden="true">话</div>
-        <div class="top"><div class="seal">话</div><div><div class="step">Bước 5 · Giao tiếp hằng ngày</div><div class="cn">日常会话</div></div></div>
+        <div class="top"><div class="seal">话</div><div><div class="step">Giao tiếp hằng ngày</div><div class="cn">日常会话</div></div></div>
         <h3>100 câu giao tiếp thông dụng</h3>
         <p class="desc">Mẫu câu dùng hằng ngày theo tình huống, kèm 32 câu dài hơn để nói trọn ý.</p>
         <div class="chips"><span>132 câu</span><span>19 chủ đề</span><span>Thẻ ghi nhớ</span><span>Trắc nghiệm</span></div>
+        <div class="foot"><span class="cta">Vào học →</span><span class="done" hidden>✓ Đã ôn hôm nay</span></div>
+      </a>
+
+      <a href="tu-ghep-hsk-da-sua.html" class="card c6" data-page="tughep">
+        <div class="ghost" aria-hidden="true">语</div>
+        <div class="top"><div class="seal">语</div><div><div class="step">Tổng ôn HSK</div><div class="cn">高频词语</div></div></div>
+        <h3>154 từ và cụm 2 chữ HSK</h3>
+        <p class="desc">Từ tần suất cao chia theo 9 nhóm nghĩa, có quy tắc biến điệu 一/不 và mẹo tránh nhầm.</p>
+        <div class="chips"><span>154 từ</span><span>9 nhóm nghĩa</span><span>Nghe phát âm</span><span>45 câu luyện tập</span></div>
         <div class="foot"><span class="cta">Vào học →</span><span class="done" hidden>✓ Đã ôn hôm nay</span></div>
       </a>
 
