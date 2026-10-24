@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Câu cửa miệng tiếng Trung</title>
+<style>
+:root{
+  --bg:#faf7f2; --card:#ffffff; --ink:#1f1b16; --muted:#6b6259; --line:#e8e0d4;
+  --accent:#c0392b; --accent-soft:#fbeae7; --py:#2d6a8a; --ok:#2e7d4f; --ok-soft:#e5f3ea;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#171412; --card:#221e1b; --ink:#f1ebe3; --muted:#a59a8e; --line:#3a332d;
+    --accent:#ef6f5e; --accent-soft:#3a2420; --py:#7cbfe0; --ok:#6fcf97; --ok-soft:#1f3328;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#171412; --card:#221e1b; --ink:#f1ebe3; --muted:#a59a8e; --line:#3a332d;
+  --accent:#ef6f5e; --accent-soft:#3a2420; --py:#7cbfe0; --ok:#6fcf97; --ok-soft:#1f3328;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Noto Sans SC",sans-serif;line-height:1.5}
+.wrap{max-width:960px;margin:0 auto;padding:24px 16px 80px}
+header h1{margin:0 0 4px;font-size:clamp(22px,4vw,30px)}
+header p{margin:0;color:var(--muted)}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);padding:12px 0;border-bottom:1px solid var(--line);
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:16px}
+.bar input[type=search],.bar select{flex:1 1 200px;min-width:0;padding:9px 12px;border:1px solid var(--line);
+  border-radius:10px;background:var(--card);color:var(--ink);font-size:15px}
+.btn{padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);
+  cursor:pointer;font-size:14px;white-space:nowrap}
+.btn.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.stats{width:100%;font-size:13px;color:var(--muted)}
+.progress{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:4px}
+.progress>div{height:100%;background:var(--ok);width:0;transition:width .3s}
+section{margin-top:28px}
+section h2{font-size:18px;margin:0 0 10px;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+section h2 small{font-weight:400;color:var(--muted);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;position:relative}
+.card.learned{background:var(--ok-soft);border-color:var(--ok)}
+.num{font-size:12px;color:var(--muted)}
+.zh{font-size:24px;font-weight:600;margin:2px 0;cursor:pointer}
+.zh:hover{color:var(--accent)}
+.py{color:var(--py);font-size:15px}
+.vi{margin-top:4px}
+.note{margin-top:6px;font-size:13px;color:var(--muted);background:var(--accent-soft);border-radius:8px;padding:6px 8px}
+.actions{position:absolute;top:8px;right:8px;display:flex;gap:4px}
+.icon{border:none;background:transparent;cursor:pointer;font-size:17px;padding:4px;border-radius:6px;color:var(--muted)}
+.icon:hover{background:var(--line)}
+.hide-py .py,.hide-vi .vi,.hide-vi .note{filter:blur(6px);cursor:pointer;transition:filter .2s}
+.card.reveal .py,.card.reveal .vi,.card.reveal .note{filter:none}
+/* flashcard */
+#fc{display:none;position:fixed;inset:0;background:var(--bg);z-index:20;padding:16px;
+  flex-direction:column;align-items:center;justify-content:center;text-align:center}
+#fc.show{display:flex}
+#fc .big{font-size:clamp(36px,10vw,64px);font-weight:700;cursor:pointer}
+#fc .back{min-height:120px;margin-top:16px}
+#fc .back .py{font-size:22px}
+#fc .back .vi{font-size:20px}
+#fc .ctr{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:24px}
+#fc .top{position:absolute;top:16px;left:16px;right:16px;display:flex;justify-content:space-between;color:var(--muted)}
+.empty{color:var(--muted);text-align:center;padding:40px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>💬 Câu cửa miệng tiếng Trung (口头禅)</h1>
+    <p id="sub">Nói tiếng Trung tự nhiên như người bản xứ · bấm chữ Hán để nghe phát âm</p>
+  </header>
+
+  <div class="bar">
+    <input type="search" id="q" placeholder="Tìm chữ Hán, pinyin hoặc nghĩa…">
+    <select id="sec"><option value="">Tất cả các phần</option></select>
+    <button class="btn" id="tPy">Ẩn pinyin</button>
+    <button class="btn" id="tVi">Ẩn nghĩa</button>
+    <button class="btn" id="tTodo">Chưa thuộc</button>
+    <button class="btn" id="tFc">🃏 Flashcard</button>
+    <button class="btn" id="tTheme" title="Đổi giao diện">🌓</button>
+    <div class="stats"><span id="stat"></span><div class="progress"><div id="prog"></div></div></div>
+  </div>
+
+  <main id="list"></main>
+</div>
+
+<div id="fc">
+  <div class="top"><span id="fcPos"></span><button class="btn" id="fcClose">✕ Đóng</button></div>
+  <div class="num" id="fcSec"></div>
+  <div class="big" id="fcZh"></div>
+  <div class="back" id="fcBack"></div>
+  <div class="ctr">
+    <button class="btn" id="fcPrev">← Trước</button>
+    <button class="btn" id="fcFlip">Lật (Space)</button>
+    <button class="btn" id="fcSpeak">🔊 Nghe</button>
+    <button class="btn" id="fcLearn">✓ Đã thuộc</button>
+    <button class="btn" id="fcShuffle">🔀 Trộn</button>
+    <button class="btn" id="fcNext">Sau →</button>
+  </div>
+</div>
+
+<script>
+const RAW = `
+🗨️ PHẦN 1: CÂU MỞ ĐẦU – CÂU ĐỆM (开场・口头填充 - kāichǎng・kǒutóu tiánchōng)
+1. 那个… / nèige / À thì… (câu đệm khi đang nghĩ)
+📝 Viết là 那个 (nàge) nhưng khi làm câu đệm, người Trung hay đọc là nèige
+2. 就是说… / jiùshì shuō / Tức là…
+3. 怎么说呢… / zěnme shuō ne / Nói sao nhỉ…
+4. 其实吧… / qíshí ba / Thật ra thì…
+5. 你知道吗？/ nǐ zhīdào ma / Bạn biết không?
+6. 我跟你说… / wǒ gēn nǐ shuō / Để tôi kể bạn nghe…
+7. 对了… / duì le / À mà… (chợt nhớ ra)
+8. 话说回来… / huà shuō huílai / Nói đi cũng phải nói lại…
+9. 不瞒你说… / bù mán nǐ shuō / Không giấu gì bạn…
+10. 你猜怎么着？/ nǐ cāi zěnmezhe / Bạn đoán xem thế nào?
+11. 对吧？/ duì ba / Đúng không?
+12. 你懂的 / nǐ dǒng de / Bạn hiểu mà (ý tứ không cần nói ra)
+👍 PHẦN 2: ĐỒNG Ý – HƯỞNG ỨNG (附和 - fùhè)
+13. 对对对 / duì duì duì / Đúng đúng đúng
+14. 可不是嘛 / kě bú shì ma / Chứ còn gì nữa
+15. 就是就是 / jiùshì jiùshì / Đúng thế, đúng thế
+16. 没错 / méi cuò / Không sai
+17. 确实 / quèshí / Đúng thật
+18. 那当然 / nà dāngrán / Đương nhiên rồi
+19. 也是 / yě shì / Cũng phải
+20. 那倒也是 / nà dào yě shì / Nói vậy cũng phải
+21. 你说得太对了 / nǐ shuō de tài duì le / Bạn nói chuẩn quá
+22. 我觉得行 / wǒ juéde xíng / Tôi thấy được đấy
+😲 PHẦN 3: NGẠC NHIÊN (惊讶 - jīngyà)
+23. 我的天！/ wǒ de tiān / Trời đất ơi!
+24. 不是吧？/ bú shì ba / Không phải chứ?
+25. 怎么可能！/ zěnme kěnéng / Làm sao có thể!
+26. 真没想到 / zhēn méi xiǎngdào / Thật không ngờ
+27. 离谱！/ lípǔ / Vô lý hết sức! (quá đáng, khó tin)
+28. 这么巧？/ zhème qiǎo / Trùng hợp vậy sao?
+29. 什么情况？/ shénme qíngkuàng / Chuyện gì đang xảy ra vậy?
+30. 吓我一跳！/ xià wǒ yí tiào / Làm tôi giật cả mình!
+31. 开什么玩笑？/ kāi shénme wánxiào / Đùa cái gì vậy?
+32. 还有这种操作？/ hái yǒu zhè zhǒng cāozuò / Còn có kiểu này nữa à?
+🤩 PHẦN 4: KHEN – THÍCH THÚ (称赞 - chēngzàn)
+33. 厉害了！/ lìhai le / Ghê thật!
+34. 可以啊你！/ kěyǐ a nǐ / Được đấy chứ!
+35. 漂亮！/ piàoliang / Đẹp! (làm tốt lắm)
+36. 有两下子 / yǒu liǎng xiàzi / Có nghề đấy
+37. 不愧是你！/ búkuì shì nǐ / Đúng là bạn có khác!
+38. 服气 / fúqì / Phục thật
+39. 爱了爱了 / ài le ài le / Mê quá, mê quá
+40. 稳了！/ wěn le / Chắc kèo rồi!
+41. 值了！/ zhí le / Đáng lắm!
+42. 赚到了！/ zhuàn dào le / Hời rồi!
+🥳 PHẦN 5: VUI MỪNG (开心 - kāixīn)
+43. 耶！/ yē / Yeah!
+44. 好耶！/ hǎo yē / Tuyệt vời!
+45. 太爽了！/ tài shuǎng le / Đã quá!
+46. 开心死了！/ kāixīn sǐ le / Vui chết đi được!
+47. 终于搞定了！/ zhōngyú gǎodìng le / Cuối cùng cũng xong!
+48. 运气真好 / yùnqi zhēn hǎo / May mắn thật
+49. 美滋滋 / měizīzī / Sướng rơn
+☺️ PHẦN 6: NGẠI NGÙNG – KHIÊM TỐN (害羞 - hàixiū)
+50. 哪有！/ nǎ yǒu / Làm gì có! (khi được khen)
+51. 过奖了 / guòjiǎng le / Quá khen rồi
+52. 别夸了，我会骄傲的 / bié kuā le, wǒ huì jiāo'ào de / Đừng khen nữa, tôi tự kiêu mất
+53. 好害羞 / hǎo hàixiū / Ngại quá
+54. 讨厌啦～ / tǎoyàn la / Ghét ghê~ (nũng nịu, không phải ghét thật)
+🤝 PHẦN 7: KHÁCH SÁO – XÃ GIAO (客套 - kètào)
+55. 客气了 / kèqi le / Khách sáo quá rồi
+56. 哪里的话 / nǎlǐ de huà / Đâu có (đáp lời khen)
+57. 不敢当 / bù gǎndāng / Không dám nhận
+58. 应该的 / yīnggāi de / Việc nên làm mà
+59. 小意思 / xiǎo yìsi / Chuyện nhỏ / Chút quà mọn
+60. 费心了 / fèixīn le / Phiền bạn để tâm rồi
+61. 让您破费了 / ràng nín pòfèi le / Để anh/chị tốn kém rồi (khi được tặng quà, được mời)
+62. 托您的福 / tuō nín de fú / Nhờ phúc của anh/chị
+63. 受宠若惊 / shòu chǒng ruò jīng / Được quý mà lo (vừa mừng vừa ngại)
+🙏 PHẦN 8: CẢM ƠN (感谢 - gǎnxiè)
+64. 谢啦！/ xiè la / Cảm ơn nha!
+65. 多谢多谢 / duōxiè duōxiè / Đa tạ, đa tạ
+66. 谢谢你啊 / xièxie nǐ a / Cảm ơn bạn nhiều nha
+67. 太感谢了！/ tài gǎnxiè le / Cảm ơn nhiều lắm!
+68. 辛苦你了 / xīnkǔ nǐ le / Vất vả cho bạn rồi
+69. 欠你一个人情 / qiàn nǐ yí ge rénqíng / Nợ bạn một ân tình
+70. 你真是我的救星！/ nǐ zhēn shì wǒ de jiùxīng / Bạn đúng là cứu tinh của tôi!
+71. 谢了，兄弟！/ xiè le, xiōngdi / Cảm ơn nhé người anh em!
+72. 改天请你喝一杯 / gǎitiān qǐng nǐ hē yì bēi / Hôm nào mời bạn một ly
+73. 大恩不言谢 / dà ēn bù yán xiè / Ơn lớn quá, cảm ơn sao cho đủ
+😔 PHẦN 9: XIN LỖI (道歉 - dàoqiàn)
+74. 抱歉抱歉 / bàoqiàn bàoqiàn / Xin lỗi, xin lỗi
+75. 不好意思啊 / bù hǎoyìsi a / Ngại quá, xin lỗi nha
+76. 我的错 / wǒ de cuò / Lỗi của tôi
+77. 都怪我 / dōu guài wǒ / Tại tôi cả
+78. 是我考虑不周 / shì wǒ kǎolǜ bù zhōu / Là tôi suy nghĩ chưa chu đáo
+79. 我不是那个意思 / wǒ bú shì nàge yìsi / Tôi không có ý đó
+80. 别往心里去 / bié wǎng xīnli qù / Đừng để bụng nhé
+81. 下次不会了 / xià cì bú huì le / Lần sau không thế nữa
+💯 PHẦN 10: KHẲNG ĐỊNH – NHẤN MẠNH (强调 - qiángdiào)
+82. 我就说嘛！/ wǒ jiù shuō ma / Tôi nói rồi mà!
+83. 果然！/ guǒrán / Quả nhiên!
+84. 我早就知道 / wǒ zǎo jiù zhīdào / Tôi biết từ lâu rồi
+85. 那还用说 / nà hái yòng shuō / Còn phải nói
+86. 肯定的 / kěndìng de / Chắc chắn rồi
+87. 绝对的 / juéduì de / Tuyệt đối luôn
+88. 百分之百 / bǎi fēn zhī bǎi / Một trăm phần trăm
+89. 说到做到 / shuō dào zuò dào / Nói được làm được
+90. 骗你是小狗 / piàn nǐ shì xiǎo gǒu / Lừa bạn là cún con (thề vui)
+🤨 PHẦN 11: KHÔNG TIN – NGHI NGỜ (怀疑 - huáiyí)
+91. 我才不信！/ wǒ cái bú xìn / Còn lâu tôi mới tin!
+92. 骗人！/ piàn rén / Xạo!
+93. 少骗我 / shǎo piàn wǒ / Đừng có lừa tôi
+94. 鬼才信 / guǐ cái xìn / Ma mới tin
+95. 有这回事？/ yǒu zhè huí shì / Có chuyện đó sao?
+96. 听谁说的？/ tīng shéi shuō de / Nghe ai nói vậy?
+🙅 PHẦN 12: TỪ CHỐI – NÉ TRÁNH (推脱 - tuītuō)
+97. 再说吧 / zài shuō ba / Để sau hẵng tính
+98. 到时候再看 / dào shíhou zài kàn / Đến lúc đó rồi xem
+99. 我考虑考虑 / wǒ kǎolǜ kǎolǜ / Để tôi cân nhắc đã
+100. 我尽量吧 / wǒ jǐnliàng ba / Tôi cố gắng xem sao
+101. 不一定 / bù yídìng / Chưa chắc đâu
+102. 都行 / dōu xíng / Sao cũng được
+103. 无所谓 / wúsuǒwèi / Không quan trọng
+104. 别问我 / bié wèn wǒ / Đừng hỏi tôi
+105. 下次一定！/ xià cì yídìng / Lần sau nhất định!
+📝 Câu "kinh điển" trên mạng Trung Quốc: nói "lần sau nhất định" nhưng thường là… không bao giờ 😂
+😮‍💨 PHẦN 13: BẤT LỰC – THAN THỞ (无奈 - wúnài)
+106. 没办法 / méi bànfǎ / Đành chịu
+107. 能怎么办呢？/ néng zěnme bàn ne / Biết làm sao được?
+108. 唉 / ài / Haizz
+109. 认了 / rèn le / Đành chấp nhận thôi
+110. 早知道就不来了 / zǎo zhīdào jiù bù lái le / Biết thế đã không đến
+111. 完了完了 / wán le wán le / Toi rồi, toi rồi
+112. 糟了！/ zāo le / Hỏng rồi!
+113. 心好累 / xīn hǎo lèi / Mệt mỏi trong lòng quá
+114. 随它去吧 / suí tā qù ba / Mặc kệ nó đi
+😩 PHẦN 14: PHÀN NÀN – CẰN NHẰN (抱怨 - bàoyuàn)
+115. 好烦啊！/ hǎo fán a / Phiền quá đi!
+116. 受不了了！/ shòu bu liǎo le / Chịu hết nổi rồi!
+117. 倒霉！/ dǎoméi / Xui xẻo!
+118. 凭什么又是我？/ píng shénme yòu shì wǒ / Sao lại là tôi nữa?
+119. 什么破天气！/ shénme pò tiānqì / Thời tiết gì thế không biết!
+120. 又要加班… / yòu yào jiābān / Lại phải tăng ca…
+121. 钱又不够花了 / qián yòu bú gòu huā le / Lại hết tiền tiêu rồi
+122. 累成狗了 / lèi chéng gǒu le / Mệt như chó
+123. 这日子没法过了 / zhè rìzi méi fǎ guò le / Sống thế này sao nổi (than thở cường điệu)
+124. 啥都不顺 / shá dōu bú shùn / Chẳng việc gì suôn sẻ
+😤 PHẦN 15: BỰC BỘI – CHÊ BAI (不满 - bùmǎn)
+125. 什么鬼？/ shénme guǐ / Cái quái gì vậy?
+126. 搞什么？/ gǎo shénme / Làm cái trò gì vậy?
+127. 真是的！/ zhēn shì de / Thật là!
+128. 至于吗？/ zhìyú ma / Có cần phải thế không?
+129. 你认真的？/ nǐ rènzhēn de / Bạn nghiêm túc đấy à?
+130. 过分了啊 / guòfèn le a / Quá đáng rồi đấy
+131. 气死人了 / qì sǐ rén le / Tức chết người
+132. 就这？/ jiù zhè / Chỉ thế thôi á? (chê, thất vọng)
+133. 拉倒吧 / lādǎo ba / Thôi dẹp đi
+⏩ PHẦN 16: GIỤC GIÃ (催促 - cuīcù)
+134. 赶紧的！/ gǎnjǐn de / Nhanh lên!
+135. 走走走！/ zǒu zǒu zǒu / Đi đi đi!
+136. 别磨蹭了 / bié móceng le / Đừng lề mề nữa
+137. 来不及了！/ lái bu jí le / Không kịp mất!
+138. 等不及了 / děng bu jí le / Không đợi nổi nữa
+139. 你倒是快点儿啊！/ nǐ dàoshì kuài diǎnr a / Thì nhanh lên chứ!
+🍜 PHẦN 17: CÂU CỬA MIỆNG CỦA "HỘI MÊ ĂN" (吃货 - chīhuò)
+140. 饿死了！/ è sǐ le / Đói chết mất!
+141. 好香啊！/ hǎo xiāng a / Thơm quá!
+142. 馋死我了 / chán sǐ wǒ le / Thèm chết đi được
+143. 吃饱了，撑了 / chī bǎo le, chēng le / No căng bụng rồi
+144. 减肥明天再说 / jiǎnféi míngtiān zài shuō / Giảm cân để mai tính 😂
+145. 干饭人，干饭魂！/ gànfànrén, gànfànhún / Dân "cày cơm", hồn "cày cơm"!
+📝 Meme nổi tiếng trên mạng Trung Quốc, dùng khi háo hức đi ăn
+👋 PHẦN 18: KẾT THÚC CÂU CHUYỆN (结束话题 - jiéshù huàtí)
+146. 就这样吧 / jiù zhèyàng ba / Vậy đi
+147. 先这样 / xiān zhèyàng / Tạm vậy đã
+148. 那就这么定了 / nà jiù zhème dìng le / Vậy chốt thế nhé
+149. 好了，不说了 / hǎo le, bù shuō le / Thôi, không nói nữa
+150. 行了行了 / xíng le xíng le / Được rồi, được rồi (đủ rồi)
+151. 回头再说 / huítóu zài shuō / Để sau nói tiếp
+152. 有空再聊 / yǒu kòng zài liáo / Rảnh nói chuyện tiếp
+153. 改天聊 / gǎitiān liáo / Hôm khác nói chuyện nhé
+154. 拜拜啦 / bàibài la / Bye bye nha
+`;
+
+// ---- parse ----
+const sections = [], items = [];
+RAW.trim().split("\n").forEach(line => {
+  line = line.trim(); if (!line) return;
+  let m;
+  if ((m = line.match(/^(.*?)\s*PHẦN\s+(\d+):\s*(.*?)\s*\((.*)\)\s*$/))) {
+    sections.push({ id: +m[2], icon: m[1], title: m[3], zh: m[4] });
+  } else if ((m = line.match(/^(\d+)\.\s*(.+?)\s*\/\s*(.+?)\s*\/\s*(.+)$/))) {
+    items.push({ n: +m[1], zh: m[2], py: m[3], vi: m[4], sec: sections.length - 1, note: "" });
+  } else if (line.startsWith("📝") && items.length) {
+    items[items.length - 1].note = line.replace(/^📝\s*/, "");
+  }
+});
+
+// ---- state ----
+const store = {
+  get(k, d) { try { const v = localStorage.getItem("ktc_" + k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem("ktc_" + k, JSON.stringify(v)); } catch {} }
+};
+let learned = new Set(store.get("learned", []));
+let hidePy = store.get("hidePy", false), hideVi = store.get("hideVi", false), onlyTodo = false;
+
+const $ = id => document.getElementById(id);
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const norm = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/đ/g, "d");
+
+$("sub").textContent = `${items.length} câu thông dụng · ${sections.length} chủ đề · bấm chữ Hán để nghe phát âm`;
+sections.forEach((s, i) => $("sec").insertAdjacentHTML("beforeend", `<option value="${i}">${s.icon} Phần ${s.id}: ${esc(s.title)}</option>`));
+
+// ---- speech ----
+let zhVoice = null;
+function pickVoice() {
+  const vs = speechSynthesis.getVoices();
+  zhVoice = vs.find(v => /zh[-_]CN/i.test(v.lang)) || vs.find(v => /^zh/i.test(v.lang)) || null;
+}
+if ("speechSynthesis" in window) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function speak(text) {
+  if (!("speechSynthesis" in window)) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text.replace(/[…～~]/g, ""));
+  u.lang = "zh-CN"; u.rate = 0.85; if (zhVoice) u.voice = zhVoice;
+  speechSynthesis.speak(u);
+}
+
+// ---- render ----
+function filtered() {
+  const q = norm($("q").value.trim()), sec = $("sec").value;
+  return items.filter(it =>
+    (sec === "" || it.sec === +sec) &&
+    (!onlyTodo || !learned.has(it.n)) &&
+    (!q || norm(it.zh + " " + it.py + " " + it.vi + " " + it.note).includes(q) || String(it.n) === q));
+}
+function render() {
+  document.body.classList.toggle("hide-py", hidePy);
+  document.body.classList.toggle("hide-vi", hideVi);
+  $("tPy").classList.toggle("on", hidePy); $("tPy").textContent = hidePy ? "Hiện pinyin" : "Ẩn pinyin";
+  $("tVi").classList.toggle("on", hideVi); $("tVi").textContent = hideVi ? "Hiện nghĩa" : "Ẩn nghĩa";
+  $("tTodo").classList.toggle("on", onlyTodo);
+
+  const list = filtered(); let html = "";
+  sections.forEach((s, i) => {
+    const its = list.filter(it => it.sec === i); if (!its.length) return;
+    html += `<section><h2>${s.icon} Phần ${s.id}: ${esc(s.title)} <small>${esc(s.zh)}</small></h2><div class="grid">`;
+    its.forEach(it => {
+      const L = learned.has(it.n);
+      html += `<div class="card${L ? " learned" : ""}" data-n="${it.n}">
+        <div class="actions">
+          <button class="icon" data-act="speak" title="Nghe">🔊</button>
+          <button class="icon" data-act="learn" title="${L ? "Bỏ đánh dấu" : "Đánh dấu đã thuộc"}">${L ? "✅" : "☐"}</button>
+        </div>
+        <div class="num">#${it.n}</div>
+        <div class="zh" data-act="speak">${esc(it.zh)}</div>
+        <div class="py">${esc(it.py)}</div>
+        <div class="vi">${esc(it.vi)}</div>
+        ${it.note ? `<div class="note">📝 ${esc(it.note)}</div>` : ""}
+      </div>`;
+    });
+    html += `</div></section>`;
+  });
+  $("list").innerHTML = html || `<div class="empty">Không tìm thấy câu nào 🤔</div>`;
+  $("stat").textContent = `Đã thuộc ${learned.size}/${items.length} câu · đang hiển thị ${list.length}`;
+  $("prog").style.width = (learned.size / items.length * 100) + "%";
+}
+function toggleLearn(n) {
+  learned.has(n) ? learned.delete(n) : learned.add(n);
+  store.set("learned", [...learned]);
+}
+
+$("list").addEventListener("click", e => {
+  const card = e.target.closest(".card"); if (!card) return;
+  const it = items.find(x => x.n === +card.dataset.n);
+  const act = e.target.closest("[data-act]")?.dataset.act;
+  if (act === "speak") speak(it.zh);
+  else if (act === "learn") { toggleLearn(it.n); render(); }
+  else card.classList.toggle("reveal");
+});
+$("q").addEventListener("input", render);
+$("sec").addEventListener("change", render);
+$("tPy").onclick = () => { hidePy = !hidePy; store.set("hidePy", hidePy); render(); };
+$("tVi").onclick = () => { hideVi = !hideVi; store.set("hideVi", hideVi); render(); };
+$("tTodo").onclick = () => { onlyTodo = !onlyTodo; render(); };
+
+// theme
+const themeOrder = ["auto", "light", "dark"];
+function applyTheme(t) { t === "auto" ? document.documentElement.removeAttribute("data-theme") : document.documentElement.setAttribute("data-theme", t); }
+let theme = store.get("theme", "auto"); applyTheme(theme);
+$("tTheme").onclick = () => { theme = themeOrder[(themeOrder.indexOf(theme) + 1) % 3]; store.set("theme", theme); applyTheme(theme); };
+
+// ---- flashcard ----
+let deck = [], pos = 0, flipped = false;
+function fcShow() {
+  const it = deck[pos]; flipped = false;
+  $("fcPos").textContent = `${pos + 1} / ${deck.length}`;
+  $("fcSec").textContent = `${sections[it.sec].icon} ${sections[it.sec].title} · #${it.n}`;
+  $("fcZh").textContent = it.zh;
+  $("fcBack").innerHTML = "";
+  $("fcLearn").classList.toggle("on", learned.has(it.n));
+}
+function fcFlip() {
+  const it = deck[pos]; flipped = !flipped;
+  $("fcBack").innerHTML = flipped ? `<div class="py">${esc(it.py)}</div><div class="vi">${esc(it.vi)}</div>${it.note ? `<div class="note">📝 ${esc(it.note)}</div>` : ""}` : "";
+}
+function fcMove(d) { pos = (pos + d + deck.length) % deck.length; fcShow(); }
+$("tFc").onclick = () => {
+  deck = filtered(); if (!deck.length) return alert("Không có câu nào để ôn!");
+  pos = 0; $("fc").classList.add("show"); fcShow();
+};
+$("fcClose").onclick = () => { $("fc").classList.remove("show"); render(); };
+$("fcFlip").onclick = fcFlip; $("fcZh").onclick = fcFlip;
+$("fcPrev").onclick = () => fcMove(-1); $("fcNext").onclick = () => fcMove(1);
+$("fcSpeak").onclick = () => speak(deck[pos].zh);
+$("fcLearn").onclick = () => { toggleLearn(deck[pos].n); $("fcLearn").classList.toggle("on", learned.has(deck[pos].n)); };
+$("fcShuffle").onclick = () => { for (let i = deck.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [deck[i], deck[j]] = [deck[j], deck[i]]; } pos = 0; fcShow(); };
+document.addEventListener("keydown", e => {
+  if (!$("fc").classList.contains("show")) return;
+  if (e.key === " ") { e.preventDefault(); fcFlip(); }
+  else if (e.key === "ArrowRight") fcMove(1);
+  else if (e.key === "ArrowLeft") fcMove(-1);
+  else if (e.key === "Escape") $("fcClose").onclick();
+  else if (e.key.toLowerCase() === "s") speak(deck[pos].zh);
+});
+
+render();
+</script>
+</body>
+</html>
