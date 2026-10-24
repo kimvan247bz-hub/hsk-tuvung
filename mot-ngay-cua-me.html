@@ -1,0 +1,314 @@
+<title>我的一天 · Một ngày của mẹ</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;700&display=swap">
+<style>
+/* Layout: một dải thời gian dọc từ bình minh tới đêm; mỗi mốc giờ = tranh + câu Trung/pinyin/Việt */
+:root{
+  --bg:#f6f7fb; --surface:#ffffff; --fg:#1d2233; --muted:#5d6479; --line:#dde1ec;
+  --accent:#2f4fa8; --mark:#e8a317; --soft:#eef1fa;
+  --f-zh:"Noto Serif SC","Songti SC","SimSun",serif;
+  --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
+  /* bảng màu tranh (giữ nguyên ở cả 2 theme) */
+  --c-s-dawn1:#ffd9c7; --c-s-dawn2:#c9d4f5; --c-s-morn1:#cfe8ff; --c-s-morn2:#fff4cf;
+  --c-s-day1:#bfe3ff; --c-s-day2:#e9f6ff; --c-s-aft1:#ffe6b3; --c-s-aft2:#ffd0a6;
+  --c-s-dusk1:#ffb38a; --c-s-dusk2:#c79bd6; --c-s-night1:#23305e; --c-s-night2:#3c4a86;
+  --c-ink:#2a2f45; --c-soft:#eef1fa; --c-skin:#f3c9a5; --c-hair:#2b2420; --c-mom:#4b6fd6; --c-kid:#f2b632;
+  --c-dad:#3f9b7a; --c-wood:#b9835a; --c-white:#ffffff; --c-ground:#9fcf8f; --c-road:#8a8f9e;
+  --c-sun:#ffcf3f; --c-moon:#fff3b8; --c-red:#e05a4f; --c-metal:#b8bcc8;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12151f; --surface:#1b2030; --fg:#e8eaf2; --muted:#a2a9bd; --line:#2d3346;
+  --accent:#8ea8ff; --mark:#f2bb45; --soft:#232a3d; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12151f; --surface:#1b2030; --fg:#e8eaf2; --muted:#a2a9bd; --line:#2d3346;
+  --accent:#8ea8ff; --mark:#f2bb45; --soft:#232a3d; color-scheme:dark}
+
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
+header h1{font-family:var(--f-zh);font-size:2.2rem;margin:8px 0 0;letter-spacing:.04em;text-wrap:balance}
+header .sub{color:var(--muted);margin:2px 0 0}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tag{font-size:.78rem;padding:2px 10px;border-radius:99px;background:var(--soft);color:var(--muted)}
+
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;margin-top:14px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tg{font:inherit;font-size:.85rem;border:1px solid var(--line);background:var(--surface);color:var(--fg);padding:5px 12px;border-radius:99px;cursor:pointer}
+.tg[aria-pressed="true"]{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.tg:focus-visible,.say:focus-visible,summary:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+.bar .hint{font-size:.78rem;color:var(--muted);flex-basis:100%}
+
+.intro{margin-top:22px;padding:16px;border-radius:14px;background:var(--surface);border:1px solid var(--line)}
+h2{font-size:1.15rem;margin:36px 0 12px;display:flex;gap:8px;align-items:baseline}
+h2 .zh{font-family:var(--f-zh);font-size:1.3rem}
+
+.timeline{display:flex;flex-direction:column;gap:18px;position:relative}
+.slot{display:grid;grid-template-columns:200px 1fr;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+.slot>*{min-width:0}
+.pic{border-radius:10px;overflow:hidden;align-self:start}
+.pic svg{display:block;width:100%;height:auto}
+.time{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.clock{font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent);font-size:1.05rem}
+.ttl{font-family:var(--f-zh);font-size:1.05rem}
+.ttl small{font-family:var(--f-body);color:var(--muted);font-size:.8rem;margin-left:4px}
+.say{margin-left:auto;font:inherit;font-size:.8rem;border:1px solid var(--line);background:var(--soft);color:var(--fg);border-radius:99px;padding:3px 10px;cursor:pointer}
+.sent{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);cursor:pointer}
+.sent:first-of-type{border-top:none;padding-top:4px}
+.zh{font-family:var(--f-zh);font-size:1.22rem;line-height:1.7}
+.py{color:var(--accent);font-size:.92rem;line-height:1.5}
+.vi{color:var(--muted);font-size:.9rem;line-height:1.5}
+.sent.playing .zh{background:linear-gradient(transparent 60%,color-mix(in srgb,var(--mark) 45%,transparent) 60%)}
+.key{color:var(--fg);font-weight:700;box-shadow:inset 0 -2px 0 var(--mark)}
+
+body.hide-zh .sent .zh, body.hide-py .sent .py, body.hide-vi .sent .vi{filter:blur(6px);transition:filter .2s;user-select:none}
+body.hide-zh .sent.peek .zh, body.hide-py .sent.peek .py, body.hide-vi .sent.peek .vi{filter:none;user-select:auto}
+
+.gram{display:grid;gap:12px}
+.g{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.g .p{font-family:var(--f-zh);font-size:1.15rem;font-weight:700}
+.g .p span{font-family:var(--f-body);font-size:.85rem;color:var(--muted);font-weight:500;margin-left:6px}
+.g .ex{margin-top:6px}
+
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--soft)}
+td.h{font-family:var(--f-zh);font-size:1.1rem;white-space:nowrap}
+td.p{color:var(--accent);white-space:nowrap}
+tr:last-child td{border-bottom:none}
+
+.ex-block{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px}
+.ex-block h3{margin:0 0 8px;font-size:1rem}
+.ex-block ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px}
+.ex-block li .zh{font-size:1.1rem}
+details{margin-top:10px;border-top:1px dashed var(--line);padding-top:8px}
+summary{cursor:pointer;color:var(--accent);font-weight:600;font-size:.9rem}
+.ans{margin-top:6px;display:flex;flex-direction:column;gap:6px}
+.ans .zh{font-size:1.05rem}
+.foot{margin-top:28px;color:var(--muted);font-size:.85rem}
+
+@media (max-width:560px){
+  .slot{grid-template-columns:1fr}
+  .pic{max-width:340px}
+  header h1{font-size:1.8rem}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <h1>我的一天</h1>
+  <p class="sub">Wǒ de yì tiān · Một ngày của tôi — mẹ có con trai 2 tuổi, hai vợ chồng cùng làm việc ở nhà, học tiếng Trung ở Hà Nội</p>
+  <div class="tags"><span class="tag">HSK 3–4</span><span class="tag">15 mốc giờ</span><span class="tag">Kể chuyện ngôi thứ nhất</span></div>
+</header>
+
+<div class="bar" role="toolbar" aria-label="Chế độ học">
+  <button class="tg" id="t-py" aria-pressed="false">Che pinyin</button>
+  <button class="tg" id="t-vi" aria-pressed="false">Che tiếng Việt</button>
+  <button class="tg" id="t-zh" aria-pressed="false">Che chữ Hán</button>
+  <button class="tg" id="t-all" aria-pressed="false">▶ Đọc cả bài</button>
+  <span class="hint">Chạm vào một câu để nghe đọc. Bật “Che chữ Hán”, “Che pinyin” hoặc “Che tiếng Việt” rồi tự nói, tự đọc, tự dịch; chạm vào câu để mở phần bị che.</span>
+</div>
+
+<section class="intro" id="intro"></section>
+
+<h2><span class="zh">一天的安排</span> Lịch trình trong ngày</h2>
+<div class="timeline" id="tl"></div>
+
+<h2><span class="zh">重点句型</span> Mẫu câu trọng điểm</h2>
+<div class="gram" id="gram"></div>
+
+<h2><span class="zh">生词</span> Từ vựng</h2>
+<div class="tbl"><table><thead><tr><th>Chữ Hán</th><th>Pinyin</th><th>Nghĩa</th></tr></thead><tbody id="voc"></tbody></table></div>
+
+
+<p class="foot">Gợi ý học thuộc: mỗi ngày học 3–4 mốc giờ. Nhìn tranh → nói câu Trung → bật pinyin kiểm tra. Cuối tuần che hết pinyin và tiếng Việt, kể lại cả ngày theo tranh.</p>
+</div>
+
+<script>
+/* ---------- Hình minh hoạ (SVG đơn giản) ---------- */
+const V = n => `var(--c-${n})`;
+const P = (x,y,s,c,arms) => `<g transform="translate(${x} ${y}) scale(${s})">
+ <path d="M-11 -22 Q0 -27 11 -22 L14 6 L-14 6 Z" fill="${c}"/>
+ ${arms==='up'?`<path d="M-10 -18 L-20 -36 M10 -18 L20 -36" stroke="${V('skin')}" stroke-width="4" stroke-linecap="round"/>`:''}
+ ${arms==='open'?`<path d="M-10 -18 L-24 -24 M10 -18 L24 -24" stroke="${V('skin')}" stroke-width="4" stroke-linecap="round"/>`:''}
+ <circle cx="0" cy="-33" r="9" fill="${V('skin')}"/>
+ <path d="M-9.5 -34 Q-9 -45 0 -45 Q9 -45 9.5 -34 Q5 -40 0 -39 Q-5 -40 -9.5 -34Z" fill="${V('hair')}"/>
+ <circle cx="-3" cy="-33" r="1.1" fill="${V('ink')}"/><circle cx="3" cy="-33" r="1.1" fill="${V('ink')}"/>
+ <path d="M-2.5 -29 Q0 -27 2.5 -29" stroke="${V('ink')}" stroke-width="1" fill="none"/></g>`;
+const sky = (a,b,id) => `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${V(a)}"/><stop offset="1" stop-color="${V(b)}"/></linearGradient></defs><rect width="160" height="110" fill="url(#${id})"/>`;
+const SK = {dawn:['s-dawn2','s-dawn1'],morn:['s-morn1','s-morn2'],day:['s-day1','s-day2'],aft:['s-aft1','s-aft2'],dusk:['s-dusk2','s-dusk1'],night:['s-night1','s-night2']};
+const sun = (x,y)=>`<circle cx="${x}" cy="${y}" r="10" fill="${V('sun')}"/>`;
+const moon = (x,y)=>`<circle cx="${x}" cy="${y}" r="9" fill="${V('moon')}"/><circle cx="${x+5}" cy="${y-3}" r="8" fill="${V('s-night1')}"/>`;
+const T = (x,y,t,sz,c,f) => `<text x="${x}" y="${y}" font-size="${sz}" fill="${c||V('ink')}" font-family="${f||'Be Vietnam Pro,sans-serif'}" font-weight="700" text-anchor="middle">${t}</text>`;
+const laptop = (x,y,inner)=>`<rect x="${x}" y="${y}" width="64" height="40" rx="3" fill="${V('ink')}"/><rect x="${x+4}" y="${y+4}" width="56" height="32" fill="${V('white')}"/>${inner||''}<path d="M${x-8} ${y+40} h80 l-6 6 h-68z" fill="${V('metal')}"/>`;
+const table = (y)=>`<rect x="10" y="${y}" width="140" height="8" rx="2" fill="${V('wood')}"/><rect x="22" y="${y+8}" width="6" height="${100-y}" fill="${V('wood')}"/><rect x="132" y="${y+8}" width="6" height="${100-y}" fill="${V('wood')}"/>`;
+const bowl = (x,y,c)=>`<path d="M${x-12} ${y} h24 q0 12 -12 12 q-12 0 -12 -12z" fill="${c||V('white')}" stroke="${V('ink')}" stroke-width="1"/>`;
+
+const SCN = {
+ wake: sky(...SK.dawn,'g1')+moon(30,22)+`<rect x="12" y="74" width="104" height="16" rx="3" fill="${V('wood')}"/><rect x="12" y="62" width="10" height="28" fill="${V('wood')}"/><ellipse cx="32" cy="70" rx="10" ry="5" fill="${V('white')}"/>`+P(56,74,0.95,V('mom'),'up')+`<path d="M44 74 h70 v-8 q-30 -6 -58 0z" fill="${V('white')}" opacity=".9"/><circle cx="134" cy="52" r="13" fill="${V('white')}" stroke="${V('ink')}" stroke-width="2"/><path d="M134 52 v-8 M134 52 l-5 4" stroke="${V('ink')}" stroke-width="2" stroke-linecap="round"/>`+T(134,82,'5:30',12),
+ study: sky(...SK.dawn,'g2')+`<rect x="0" y="80" width="160" height="30" fill="${V('wood')}"/><path d="M40 78 l38 -6 v-34 l-38 6z" fill="${V('white')}" stroke="${V('ink')}"/><path d="M78 72 l38 6 v-34 l-38 -6z" fill="${V('white')}" stroke="${V('ink')}"/>`+T(59,66,'汉',20,V('red'),'Noto Serif SC,serif')+`<path d="M86 48 h22 M86 54 h22 M86 60 h16" stroke="${V('metal')}" stroke-width="2"/><path d="M132 78 v-40 l-10 -10" stroke="${V('ink')}" stroke-width="3" fill="none"/><path d="M112 22 l16 -2 l-4 14z" fill="${V('sun')}"/><rect x="18" y="62" width="14" height="16" rx="2" fill="${V('white')}" stroke="${V('ink')}"/>`,
+ cook: sky(...SK.morn,'g3')+`<rect x="20" y="70" width="120" height="30" rx="3" fill="${V('metal')}"/><rect x="42" y="64" width="40" height="6" fill="${V('ink')}"/><path d="M40 48 h44 v16 h-44z" fill="${V('red')}"/><rect x="36" y="44" width="52" height="5" rx="2" fill="${V('red')}"/><path d="M52 38 q-6 -8 0 -16 M62 38 q-6 -8 0 -16 M72 38 q-6 -8 0 -16" stroke="${V('white')}" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="112" cy="62" rx="9" ry="12" fill="${V('white')}" stroke="${V('ink')}"/><ellipse cx="126" cy="64" rx="8" ry="10" fill="${V('white')}" stroke="${V('ink')}"/>`,
+ eat: sky(...SK.morn,'g4')+P(52,72,0.75,V('kid'))+table(72)+bowl(84,60)+`<path d="M98 56 l12 -14" stroke="${V('metal')}" stroke-width="3" stroke-linecap="round"/><ellipse cx="111" cy="41" rx="4" ry="3" fill="${V('metal')}"/><circle cx="70" cy="68" r="2" fill="${V('sun')}"/><circle cx="104" cy="69" r="2" fill="${V('sun')}"/><circle cx="120" cy="66" r="2" fill="${V('sun')}"/><rect x="120" y="44" width="12" height="20" rx="2" fill="${V('kid')}"/><rect x="126" y="34" width="12" height="10" rx="2" fill="${V('red')}"/><rect x="134" y="54" width="12" height="10" rx="2" fill="${V('mom')}"/>`,
+ bike: sky(...SK.morn,'g5')+sun(136,20)+`<rect x="0" y="84" width="160" height="26" fill="${V('road')}"/><path d="M0 97 h20 M36 97 h20 M72 97 h20 M108 97 h20 M144 97 h16" stroke="${V('white')}" stroke-width="2"/><rect x="118" y="62" width="34" height="20" rx="5" fill="${V('red')}"/><circle cx="126" cy="84" r="4" fill="${V('ink')}"/><circle cx="144" cy="84" r="4" fill="${V('ink')}"/>`+P(66,70,0.8,V('mom'))+P(50,72,0.55,V('kid'))+`<path d="M34 76 h60 l6 -14" stroke="${V('ink')}" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M40 70 h42 v8 h-42z" fill="${V('mom')}"/><circle cx="40" cy="82" r="9" fill="none" stroke="${V('ink')}" stroke-width="4"/><circle cx="96" cy="82" r="9" fill="none" stroke="${V('ink')}" stroke-width="4"/>`,
+ work: sky(...SK.morn,'g6')+`<rect x="0" y="86" width="160" height="24" fill="${V('wood')}"/>`+laptop(48,40,`<rect x="56" y="48" width="26" height="8" rx="3" fill="${V('soft')}" stroke="${V('mom')}"/><rect x="70" y="60" width="30" height="8" rx="3" fill="${V('mom')}"/><path d="M57 72 h20" stroke="${V('metal')}" stroke-width="2"/>`)+`<path d="M18 30 h28 v14 h-18 l-6 5 v-5 h-4z" fill="${V('white')}" stroke="${V('ink')}"/>`+T(32,41,'¥',10,V('red'))+`<path d="M118 22 h30 v14 h-6 v5 l-6 -5 h-18z" fill="${V('white')}" stroke="${V('ink')}"/>`+T(133,33,'OK',9,V('dad')),
+ coffee: sky(...SK.day,'g7')+`<rect x="0" y="86" width="160" height="24" fill="${V('wood')}"/><path d="M58 60 h44 l-4 26 h-36z" fill="${V('white')}" stroke="${V('ink')}" stroke-width="1.5"/><path d="M62 66 h36 l-3 18 h-30z" fill="${V('wood')}"/><path d="M60 46 h40 l-3 14 h-34z" fill="${V('metal')}" stroke="${V('ink')}"/><rect x="54" y="58" width="52" height="3" fill="${V('metal')}" stroke="${V('ink')}" stroke-width=".8"/><rect x="66" y="40" width="28" height="6" rx="2" fill="${V('metal')}" stroke="${V('ink')}"/><circle cx="80" cy="64" r="1.6" fill="${V('hair')}"/>`+T(80,104,'cà phê phin',9,V('white')),
+ lunch: sky(...SK.day,'g8')+sun(24,20)+table(66)+bowl(54,54)+`<path d="M44 54 q10 -10 20 0" fill="${V('white')}" stroke="${V('ink')}" stroke-width=".8"/><ellipse cx="104" cy="60" rx="24" ry="6" fill="${V('white')}" stroke="${V('ink')}"/><path d="M90 58 q12 -9 24 0 l8 -5 v10 l-8 -5 q-12 9 -24 0z" fill="${V('wood')}"/><circle cx="95" cy="57" r="1.2" fill="${V('ink')}"/><path d="M30 52 q6 -8 14 -2 q-4 6 -14 2z" fill="${V('ground')}"/>`,
+ meet: sky(...SK.aft,'g9')+`<rect x="0" y="88" width="160" height="22" fill="${V('wood')}"/>`+laptop(48,34,[[56,42,'mom'],[84,42,'dad'],[56,58,'kid'],[84,58,'red']].map(([x,y,c])=>`<rect x="${x}" y="${y}" width="24" height="14" fill="${V('soft')}" stroke="${V('metal')}"/><circle cx="${x+12}" cy="${y+6}" r="3.5" fill="${V('skin')}"/><path d="M${x+6} ${y+14} q6 -6 12 0" fill="${V(c)}"/>`).join(''))+T(132,40,'你好!',11,V('red'),'Noto Serif SC,serif'),
+ pick: sky(...SK.aft,'g10')+`<rect x="0" y="88" width="160" height="22" fill="${V('ground')}"/><rect x="96" y="34" width="56" height="54" fill="${V('white')}" stroke="${V('ink')}"/><path d="M92 36 l32 -18 l32 18z" fill="${V('red')}"/><rect x="116" y="62" width="16" height="26" fill="${V('kid')}"/><rect x="104" y="44" width="10" height="10" fill="${V('s-day1')}"/><rect x="134" y="44" width="10" height="10" fill="${V('s-day1')}"/>`+P(34,90,1,V('dad'),'open')+P(74,90,0.6,V('kid'),'up')+`<path d="M86 82 h6 M84 76 h8" stroke="${V('ink')}" stroke-width="1.5"/>`,
+ park: sky(...SK.dusk,'g11')+`<rect x="0" y="84" width="160" height="26" fill="${V('ground')}"/><rect x="22" y="44" width="8" height="42" fill="${V('wood')}"/><circle cx="26" cy="36" r="20" fill="${V('dad')}"/><ellipse cx="96" cy="94" rx="40" ry="8" fill="${V('sun')}" opacity=".85"/>`+P(92,92,0.6,V('kid'),'up')+`<path d="M132 82 q2 -10 12 -10 l4 -6 l2 6 q4 2 2 8 v6 h-4 v-4 h-10 v4 h-4z" fill="${V('wood')}"/><circle cx="146" cy="70" r="1" fill="${V('ink')}"/><path d="M110 92 l6 -6 l4 6z" fill="${V('red')}"/>`,
+ dinner: sky(...SK.dusk,'g12')+P(40,70,0.95,V('mom'))+P(80,72,0.65,V('kid'))+P(120,70,1,V('dad'))+table(70)+bowl(58,60)+bowl(100,60)+`<ellipse cx="80" cy="66" rx="14" ry="4" fill="${V('white')}" stroke="${V('ink')}"/><path d="M72 64 q8 -6 16 0" fill="${V('ground')}"/>`,
+ story: sky(...SK.night,'g13')+moon(140,20)+`<circle cx="22" cy="14" r="1.5" fill="${V('moon')}"/><circle cx="60" cy="10" r="1.2" fill="${V('moon')}"/><circle cx="100" cy="18" r="1.4" fill="${V('moon')}"/>`+P(46,92,1,V('mom'))+P(86,94,0.6,V('kid'))+`<path d="M66 82 l22 -4 v-24 l-22 4z" fill="${V('white')}" stroke="${V('ink')}"/><path d="M88 78 l22 4 v-24 l-22 -4z" fill="${V('white')}" stroke="${V('ink')}"/><path d="M98 62 l2 4 l4 .5 l-3 2.5 l1 4 l-4 -2 l-4 2 l1 -4 l-3 -2.5 l4 -.5z" fill="${V('sun')}"/><circle cx="76" cy="68" r="5" fill="${V('kid')}"/>`,
+ night: sky(...SK.night,'g14')+moon(24,22)+`<rect x="0" y="86" width="160" height="24" fill="${V('wood')}"/>`+laptop(70,40,`<path d="M78 50 h40 M78 56 h30 M78 62 h36" stroke="${V('metal')}" stroke-width="2"/><rect x="104" y="64" width="14" height="6" rx="2" fill="${V('dad')}"/>`)+`<rect x="18" y="60" width="38" height="26" rx="2" fill="${V('white')}" stroke="${V('ink')}"/>`+T(37,78,'日记',11,V('red'),'Noto Serif SC,serif')+`<path d="M58 86 l8 -22" stroke="${V('sun')}" stroke-width="3" stroke-linecap="round"/>`,
+ sleep: sky(...SK.night,'g15')+moon(130,24)+`<rect x="14" y="74" width="132" height="16" rx="3" fill="${V('wood')}"/><rect x="14" y="58" width="10" height="32" fill="${V('wood')}"/><ellipse cx="36" cy="70" rx="11" ry="5" fill="${V('white')}"/><circle cx="38" cy="64" r="8" fill="${V('skin')}"/><path d="M30 63 q8 -12 16 0" fill="${V('hair')}"/><path d="M34 65 q2 1.5 4 0" stroke="${V('ink')}" stroke-width="1" fill="none"/><path d="M48 74 h96 v-10 q-48 -6 -96 0z" fill="${V('mom')}"/>`+T(64,44,'z',10,V('moon'))+T(74,34,'z',13,V('moon'))+T(86,22,'Z',16,V('moon')),
+};
+const svg = k => `<svg viewBox="0 0 160 110" role="img" aria-hidden="true">${SCN[k]}</svg>`;
+
+/* ---------- Nội dung bài ---------- */
+const INTRO = [
+ ['我今年三十岁，住在河内。我有一个两岁的儿子，他叫辉忠。','Wǒ jīnnián sānshí suì, zhù zài Hénèi. Wǒ yǒu yí ge liǎng suì de érzi, tā jiào Huīzhōng.','Năm nay tôi 30 tuổi, sống ở Hà Nội. Tôi có một con trai 2 tuổi, tên là Huy Trung.'],
+ ['我和老公都在家工作，不过我们做的工作不一样。','Wǒ hé lǎogōng dōu zài jiā gōngzuò, búguò wǒmen zuò de gōngzuò bù yíyàng.','Tôi và chồng đều làm việc ở nhà, nhưng công việc của hai vợ chồng khác nhau.'],
+ ['我在网上做销售，同时也在学习汉语。我的每一天都很忙，但是很充实。','Wǒ zài wǎngshàng zuò xiāoshòu, tóngshí yě zài xuéxí Hànyǔ. Wǒ de měi yì tiān dōu hěn máng, dànshì hěn chōngshí.','Tôi bán hàng online, đồng thời cũng đang học tiếng Trung. Ngày nào của tôi cũng rất bận, nhưng rất trọn vẹn.']
+];
+
+const DAY = [
+ {t:'5:30',k:'wake',zh:'起床',vi:'Thức dậy',s:[
+  ['早上五点半，我就起床了。','Zǎoshang wǔ diǎn bàn, wǒ jiù qǐchuáng le.','Sáng 5 giờ rưỡi, tôi đã dậy rồi.'],
+  ['这个时候孩子还在睡觉，家里很安静。','Zhège shíhou háizi hái zài shuìjiào, jiā li hěn ānjìng.','Lúc này con vẫn đang ngủ, trong nhà rất yên tĩnh.'],
+  ['我先喝一杯温水，然后洗脸、刷牙。','Wǒ xiān hē yì bēi wēnshuǐ, ránhòu xǐ liǎn, shuā yá.','Tôi uống một cốc nước ấm trước, sau đó rửa mặt, đánh răng.']]},
+ {t:'5:45',k:'study',zh:'学汉语',vi:'Học tiếng Trung',s:[
+  ['我利用这段时间学习汉语。','Wǒ lìyòng zhè duàn shíjiān xuéxí Hànyǔ.','Tôi tranh thủ khoảng thời gian này để học tiếng Trung.'],
+  ['我每天背二十个生词，听一段课文，还练习写汉字。','Wǒ měitiān bèi èrshí ge shēngcí, tīng yí duàn kèwén, hái liànxí xiě Hànzì.','Mỗi ngày tôi học thuộc 20 từ mới, nghe một đoạn bài khoá, còn luyện viết chữ Hán.'],
+  ['早上头脑最清楚，所以我学得很快。','Zǎoshang tóunǎo zuì qīngchu, suǒyǐ wǒ xué de hěn kuài.','Buổi sáng đầu óc minh mẫn nhất, nên tôi học rất nhanh.']]},
+ {t:'6:30',k:'cook',zh:'做早饭',vi:'Nấu bữa sáng',s:[
+  ['六点半，儿子醒了。','Liù diǎn bàn, érzi xǐng le.','6 giờ rưỡi, con trai thức dậy.'],
+  ['我给他换衣服，然后去厨房做早饭。','Wǒ gěi tā huàn yīfu, ránhòu qù chúfáng zuò zǎofàn.','Tôi thay quần áo cho con, sau đó vào bếp nấu bữa sáng.'],
+  ['他喜欢吃鸡蛋和米粥，我自己一般吃一碗河粉。','Tā xǐhuan chī jīdàn hé mǐzhōu, wǒ zìjǐ yìbān chī yì wǎn héfěn.','Con thích ăn trứng và cháo, còn tôi thường ăn một bát phở.']]},
+ {t:'7:00',k:'eat',zh:'吃早饭',vi:'Ăn sáng',s:[
+  ['七点我们一起吃早饭。','Qī diǎn wǒmen yìqǐ chī zǎofàn.','7 giờ, cả nhà cùng ăn sáng.'],
+  ['儿子已经会自己用勺子吃饭了，可是常常把饭弄得到处都是。','Érzi yǐjīng huì zìjǐ yòng sháozi chī fàn le, kěshì chángcháng bǎ fàn nòng de dàochù dōu shì.','Con trai đã biết tự xúc thìa ăn rồi, nhưng thường làm cơm vương vãi khắp nơi.'],
+  ['吃完饭，我陪他玩儿一会儿积木。','Chī wán fàn, wǒ péi tā wánr yíhuìr jīmù.','Ăn xong, tôi chơi xếp hình với con một lúc.']]},
+ {t:'7:45',k:'bike',zh:'送儿子去幼儿园',vi:'Đưa con đi nhà trẻ',s:[
+  ['七点四十五分，我骑摩托车送儿子去幼儿园。','Qī diǎn sìshíwǔ fēn, wǒ qí mótuōchē sòng érzi qù yòu\'éryuán.','7 giờ 45, tôi đi xe máy đưa con đến nhà trẻ.'],
+  ['河内早上路上车很多，有时候会堵车。','Hénèi zǎoshang lù shang chē hěn duō, yǒu shíhou huì dǔchē.','Buổi sáng đường phố Hà Nội rất đông xe, có lúc bị tắc đường.'],
+  ['到了幼儿园，他跟我说“妈妈再见”，我才放心地离开。','Dào le yòu\'éryuán, tā gēn wǒ shuō "Māma zàijiàn", wǒ cái fàngxīn de líkāi.','Đến nhà trẻ, con nói với tôi “Mẹ ơi tạm biệt”, tôi mới yên tâm ra về.']]},
+ {t:'8:30',k:'work',zh:'开始工作',vi:'Bắt đầu làm việc',s:[
+  ['八点半我回到家，打开电脑开始工作。','Bā diǎn bàn wǒ huí dào jiā, dǎkāi diànnǎo kāishǐ gōngzuò.','8 giờ rưỡi tôi về đến nhà, mở máy tính bắt đầu làm việc.'],
+  ['老公也在家工作，他在另一个房间，我们各忙各的。','Lǎogōng yě zài jiā gōngzuò, tā zài lìng yí ge fángjiān, wǒmen gè máng gè de.','Chồng tôi cũng làm việc ở nhà, anh ấy ở phòng khác, mỗi người bận việc của mình.'],
+  ['我做网上销售，每天要回复客户的消息，还要写广告。','Wǒ zuò wǎngshàng xiāoshòu, měitiān yào huífù kèhù de xiāoxi, hái yào xiě guǎnggào.','Tôi bán hàng online, mỗi ngày phải trả lời tin nhắn khách hàng, còn phải viết quảng cáo.'],
+  ['虽然在家工作很自由，但是我给自己定了一个时间表。','Suīrán zài jiā gōngzuò hěn zìyóu, dànshì wǒ gěi zìjǐ dìng le yí ge shíjiānbiǎo.','Tuy làm việc ở nhà rất tự do, nhưng tôi tự đặt cho mình một thời gian biểu.']]},
+ {t:'10:30',k:'coffee',zh:'休息一下',vi:'Nghỉ giải lao',s:[
+  ['十点半，我休息十分钟。','Shí diǎn bàn, wǒ xiūxi shí fēnzhōng.','10 giờ rưỡi, tôi nghỉ 10 phút.'],
+  ['我站起来走一走，喝一杯咖啡。','Wǒ zhàn qǐlai zǒu yi zǒu, hē yì bēi kāfēi.','Tôi đứng dậy đi lại một chút, uống một cốc cà phê.'],
+  ['越南咖啡又香又浓，喝了以后很有精神。','Yuènán kāfēi yòu xiāng yòu nóng, hē le yǐhòu hěn yǒu jīngshen.','Cà phê Việt Nam vừa thơm vừa đậm, uống xong thấy rất tỉnh táo.']]},
+ {t:'12:00',k:'lunch',zh:'吃午饭、睡午觉',vi:'Ăn trưa, ngủ trưa',s:[
+  ['中午十二点，我简单做一点儿午饭，一般是米饭、青菜和鱼。','Zhōngwǔ shí\'èr diǎn, wǒ jiǎndān zuò yìdiǎnr wǔfàn, yìbān shì mǐfàn, qīngcài hé yú.','12 giờ trưa, tôi nấu bữa trưa đơn giản, thường là cơm, rau xanh và cá.'],
+  ['我和老公一起吃午饭，聊聊上午的工作。','Wǒ hé lǎogōng yìqǐ chī wǔfàn, liáoliao shàngwǔ de gōngzuò.','Tôi và chồng cùng ăn trưa, nói chuyện về công việc buổi sáng.'],
+  ['吃完以后，我会睡二十分钟午觉。','Chī wán yǐhòu, wǒ huì shuì èrshí fēnzhōng wǔjiào.','Ăn xong, tôi ngủ trưa 20 phút.']]},
+ {t:'13:30',k:'meet',zh:'开会',vi:'Họp online',s:[
+  ['下午一点半，我继续工作。','Xiàwǔ yī diǎn bàn, wǒ jìxù gōngzuò.','1 giờ rưỡi chiều, tôi tiếp tục làm việc.'],
+  ['我常常和同事在网上开会，讨论这个星期的计划。','Wǒ chángcháng hé tóngshì zài wǎngshàng kāihuì, tǎolùn zhège xīngqī de jìhuà.','Tôi thường họp online với đồng nghiệp, thảo luận kế hoạch tuần này.'],
+  ['有时候我也用汉语跟中国客户聊天，这让我更有学习的动力。','Yǒu shíhou wǒ yě yòng Hànyǔ gēn Zhōngguó kèhù liáotiān, zhè ràng wǒ gèng yǒu xuéxí de dònglì.','Có khi tôi còn dùng tiếng Trung để nói chuyện với khách hàng Trung Quốc, điều đó khiến tôi càng có động lực học.']]},
+ {t:'16:30',k:'pick',zh:'老公接儿子',vi:'Chồng đi đón con',s:[
+  ['下午四点半，老公去幼儿园接儿子，我继续在家工作。','Xiàwǔ sì diǎn bàn, lǎogōng qù yòu\'éryuán jiē érzi, wǒ jìxù zài jiā gōngzuò.','4 giờ rưỡi chiều, chồng đến nhà trẻ đón con, tôi tiếp tục làm việc ở nhà.'],
+  ['儿子一进门就跑过来，大声叫“妈妈”！','Érzi yí jìn mén jiù pǎo guòlai, dàshēng jiào "Māma"!','Con vừa vào cửa là chạy ngay lại, gọi to “Mẹ ơi”!'],
+  ['他告诉我今天在幼儿园做了什么，可是我只听得懂一半。','Tā gàosu wǒ jīntiān zài yòu\'éryuán zuò le shénme, kěshì wǒ zhǐ tīng de dǒng yíbàn.','Con kể hôm nay ở nhà trẻ đã làm gì, nhưng tôi chỉ nghe hiểu được một nửa.']]},
+ {t:'17:00',k:'park',zh:'去公园玩儿',vi:'Đi công viên',s:[
+  ['五点，我结束工作，带他去小区附近的公园玩儿。','Wǔ diǎn, wǒ jiéshù gōngzuò, dài tā qù xiǎoqū fùjìn de gōngyuán wánr.','5 giờ, tôi xong việc, dẫn con ra công viên gần khu nhà chơi.'],
+  ['他喜欢跑来跑去，还喜欢跟别的小朋友一起玩儿沙子。','Tā xǐhuan pǎo lái pǎo qù, hái xǐhuan gēn bié de xiǎopéngyǒu yìqǐ wánr shāzi.','Con thích chạy tới chạy lui, còn thích chơi cát cùng các bạn nhỏ khác.']]},
+ {t:'18:00',k:'dinner',zh:'吃晚饭',vi:'Ăn tối',s:[
+  ['六点，我开始做晚饭。','Liù diǎn, wǒ kāishǐ zuò wǎnfàn.','6 giờ, tôi bắt đầu nấu bữa tối.'],
+  ['老公也停下手里的工作，我们一家三口一起吃晚饭。','Lǎogōng yě tíngxià shǒu li de gōngzuò, wǒmen yì jiā sān kǒu yìqǐ chī wǎnfàn.','Chồng cũng tạm gác công việc, cả nhà ba người cùng ăn tối.'],
+  ['这是一天中我最喜欢的时间。','Zhè shì yì tiān zhōng wǒ zuì xǐhuan de shíjiān.','Đây là khoảng thời gian tôi thích nhất trong ngày.']]},
+ {t:'19:30',k:'story',zh:'洗澡、讲故事',vi:'Tắm cho con, kể chuyện',s:[
+  ['七点半，我给儿子洗澡。','Qī diǎn bàn, wǒ gěi érzi xǐzǎo.','7 giờ rưỡi, tôi tắm cho con.'],
+  ['洗完澡，我们一起看图画书，我给他讲故事。','Xǐ wán zǎo, wǒmen yìqǐ kàn túhuàshū, wǒ gěi tā jiǎng gùshi.','Tắm xong, hai mẹ con cùng xem sách tranh, tôi kể chuyện cho con nghe.'],
+  ['八点半，他就睡着了。','Bā diǎn bàn, tā jiù shuìzháo le.','8 giờ rưỡi, con đã ngủ say rồi.']]},
+ {t:'21:00',k:'night',zh:'复习、写日记',vi:'Ôn bài, viết nhật ký',s:[
+  ['儿子睡了以后，我再工作一个小时，看看有没有新订单。','Érzi shuì le yǐhòu, wǒ zài gōngzuò yí ge xiǎoshí, kànkan yǒu méiyǒu xīn dìngdān.','Con ngủ rồi, tôi làm thêm một tiếng, xem có đơn hàng mới không.'],
+  ['然后我复习早上学的生词，用汉语写一篇短短的日记。','Ránhòu wǒ fùxí zǎoshang xué de shēngcí, yòng Hànyǔ xiě yì piān duǎnduǎn de rìjì.','Sau đó tôi ôn lại từ mới học buổi sáng, viết một bài nhật ký ngắn bằng tiếng Trung.']]},
+ {t:'22:30',k:'sleep',zh:'睡觉',vi:'Đi ngủ',s:[
+  ['十点半，我洗澡，准备睡觉。','Shí diǎn bàn, wǒ xǐzǎo, zhǔnbèi shuìjiào.','10 giờ rưỡi, tôi đi tắm, chuẩn bị đi ngủ.'],
+  ['虽然每天都很累，但是看到儿子健康快乐，我觉得很幸福。','Suīrán měitiān dōu hěn lèi, dànshì kàndào érzi jiànkāng kuàilè, wǒ juéde hěn xìngfú.','Tuy ngày nào cũng mệt, nhưng thấy con khoẻ mạnh vui vẻ, tôi cảm thấy rất hạnh phúc.'],
+  ['明天又是新的一天，加油！','Míngtiān yòu shì xīn de yì tiān, jiāyóu!','Ngày mai lại là một ngày mới, cố lên!']]},
+];
+
+const GRAM = [
+ ['先……，然后……','trước…, sau đó…','我先喝一杯温水，然后洗脸、刷牙。','Wǒ xiān hē yì bēi wēnshuǐ, ránhòu xǐ liǎn, shuā yá.'],
+ ['虽然……，但是……','tuy…, nhưng…','虽然在家工作很自由，但是我给自己定了一个时间表。','Suīrán zài jiā gōngzuò hěn zìyóu, dànshì wǒ gěi zìjǐ dìng le yí ge shíjiānbiǎo.'],
+ ['一……就……','vừa… là…','儿子一进门就跑过来。','Érzi yí jìn mén jiù pǎo guòlai.'],
+ ['把 + O + V + 得…','câu chữ 把: làm cho tân ngữ ra sao','他常常把饭弄得到处都是。','Tā chángcháng bǎ fàn nòng de dàochù dōu shì.'],
+ ['又……又……','vừa… vừa…','越南咖啡又香又浓。','Yuènán kāfēi yòu xiāng yòu nóng.'],
+ ['给 + 人 + V','làm gì cho ai','我给他讲故事。','Wǒ gěi tā jiǎng gùshi.'],
+ ['V + 来 + V + 去','làm đi làm lại, tới lui','他喜欢跑来跑去。','Tā xǐhuan pǎo lái pǎo qù.'],
+ ['……，才……','mới (muộn/khó hơn mong đợi)','他说“妈妈再见”，我才放心地离开。','Tā shuō "Māma zàijiàn", wǒ cái fàngxīn de líkāi.'],
+ ['A 和 B 都……','A và B đều…','我和老公都在家工作。','Wǒ hé lǎogōng dōu zài jiā gōngzuò.'],
+];
+
+const VOC = [
+ ['幸福','xìngfú','hạnh phúc'],
+ ['利用','lìyòng','tận dụng, tranh thủ'],
+ ['背','bèi','học thuộc'],
+ ['勺子','sháozi','cái thìa'],
+ ['到处','dàochù','khắp nơi'],
+ ['积木','jīmù','đồ chơi xếp hình'],
+ ['幼儿园','yòu\'éryuán','nhà trẻ, mẫu giáo'],
+ ['各忙各的','gè máng gè de','ai bận việc nấy'],
+ ['销售','xiāoshòu','bán hàng'],
+ ['回复','huífù','trả lời (tin nhắn)'],
+ ['客户','kèhù','khách hàng'],
+ ['精神','jīngshen','tỉnh táo, có sức sống'],
+ ['午觉','wǔjiào','giấc ngủ trưa'],
+ ['结束','jiéshù','kết thúc'],
+ ['小区','xiǎoqū','khu dân cư'],
+ ['一家三口','yì jiā sān kǒu','gia đình ba người'],
+ ['讲故事','jiǎng gùshi','kể chuyện'],
+ ['睡着','shuìzháo','ngủ thiếp đi'],
+ ['订单','dìngdān','đơn hàng']
+];
+
+/* ---------- Render ---------- */
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const sentHTML = (s,i) => `<div class="sent" data-zh="${esc(s[0])}"><div class="zh">${s[0]}</div><div class="py">${s[1]}</div><div class="vi">${s[2]}</div></div>`;
+document.getElementById('intro').innerHTML = INTRO.map(sentHTML).join('');
+document.getElementById('tl').innerHTML = DAY.map(d=>`<article class="slot" id="t${d.t.replace(':','')}">
+ <div class="pic">${svg(d.k)}</div>
+ <div><div class="time"><span class="clock">${d.t}</span><span class="ttl">${d.zh}<small>${d.vi}</small></span><button class="say" type="button">▶ Nghe</button></div>
+ ${d.s.map(sentHTML).join('')}</div></article>`).join('');
+document.getElementById('gram').innerHTML = GRAM.map(g=>`<div class="g"><div class="p">${g[0]}<span>${g[1]}</span></div><div class="ex sent" data-zh="${esc(g[2])}"><div class="zh">${g[2]}</div><div class="py">${g[3]}</div></div></div>`).join('');
+document.getElementById('voc').innerHTML = VOC.map(v=>`<tr><td class="h">${v[0]}</td><td class="p">${v[1]}</td><td>${v[2]}</td></tr>`).join('');
+
+/* ---------- Toggles ---------- */
+function bindToggle(id, cls, invert){
+  const b=document.getElementById(id);
+  b.addEventListener('click',()=>{const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);document.body.classList.toggle(cls, invert?!on:on)});
+}
+bindToggle('t-py','hide-py',false); bindToggle('t-vi','hide-vi',false); bindToggle('t-zh','hide-zh',false);
+
+/* ---------- Đọc (Web Speech API, nếu trình duyệt hỗ trợ) ---------- */
+const synth = window.speechSynthesis;
+let zhVoice=null;
+function pickVoice(){ if(!synth) return; const vs=synth.getVoices(); zhVoice=vs.find(v=>/zh[-_]CN/i.test(v.lang))||vs.find(v=>/^zh/i.test(v.lang))||null; }
+if(synth){ pickVoice(); synth.onvoiceschanged=pickVoice; }
+function speakQueue(els){
+  if(!synth){ return; }
+  synth.cancel(); document.querySelectorAll('.sent.playing').forEach(e=>e.classList.remove('playing'));
+  els.forEach(el=>{
+    const u=new SpeechSynthesisUtterance(el.dataset.zh); u.lang='zh-CN'; u.rate=0.8; if(zhVoice) u.voice=zhVoice;
+    u.onstart=()=>{el.classList.add('playing'); el.scrollIntoView({block:'nearest',behavior:'smooth'})};
+    u.onend=u.onerror=()=>el.classList.remove('playing');
+    synth.speak(u);
+  });
+}
+document.addEventListener('click',e=>{
+  const say=e.target.closest('.say');
+  if(say){ speakQueue([...say.closest('.slot').querySelectorAll('.sent')]); return; }
+  const s=e.target.closest('.sent');
+  if(s){ if(/hide-(py|vi|zh)/.test(document.body.className)) s.classList.toggle('peek'); speakQueue([s]); }
+});
+document.getElementById('t-all').addEventListener('click',e=>{
+  const b=e.currentTarget, on=b.getAttribute('aria-pressed')!=='true';
+  b.setAttribute('aria-pressed',on); b.textContent=on?'■ Dừng':'▶ Đọc cả bài';
+  if(on) speakQueue([...document.querySelectorAll('#intro .sent, .timeline .sent')]); else if(synth) synth.cancel();
+});
+if(!synth){ document.querySelectorAll('.say,#t-all').forEach(b=>b.hidden=true); }
+</script>
